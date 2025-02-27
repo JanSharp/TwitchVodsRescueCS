@@ -1,7 +1,7 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Binding;
+using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
@@ -14,10 +14,7 @@ namespace TwitchVodsRescueCS
     {
         public UserException() { }
         public UserException(string message) : base(message) { }
-        public UserException(string message, System.Exception inner) : base(message, inner) { }
-        protected UserException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+        public UserException(string message, Exception inner) : base(message, inner) { }
     }
 
     public class VeryStupidParser
@@ -78,48 +75,32 @@ namespace TwitchVodsRescueCS
         public bool dryRun = dryRun;
     }
 
-    public class OptionsBinder : BinderBase<Options>
+    public class OptionsBinder(
+        Option<bool> downloadVideoOpt,
+        Option<bool> downloadChatOpt,
+        Option<int> timeLimitOpt,
+        Option<string[]> collectionsOpt,
+        Option<bool> nonCollectionsOpt,
+        Option<bool> listCollectionsOpt,
+        Option<bool> listDuplicateTitlesOpt,
+        Option<bool> listVideosOpt,
+        Option<DirectoryInfo> outputDirOpt,
+        Option<DirectoryInfo> configDirOpt,
+        Option<DirectoryInfo?> tempDirOpt,
+        Option<bool> dryRunOpt) : BinderBase<Options>
     {
-        private readonly Option<bool> downloadVideoOpt;
-        private readonly Option<bool> downloadChatOpt;
-        private readonly Option<int> timeLimitOpt;
-        private readonly Option<string[]> collectionsOpt;
-        private readonly Option<bool> nonCollectionsOpt;
-        private readonly Option<bool> listCollectionsOpt;
-        private readonly Option<bool> listDuplicateTitlesOpt;
-        private readonly Option<bool> listVideosOpt;
-        private readonly Option<DirectoryInfo> outputDirOpt;
-        private readonly Option<DirectoryInfo> configDirOpt;
-        private readonly Option<DirectoryInfo?> tempDirOpt;
-        private readonly Option<bool> dryRunOpt;
-
-        public OptionsBinder(
-            Option<bool> downloadVideoOpt,
-            Option<bool> downloadChatOpt,
-            Option<int> timeLimitOpt,
-            Option<string[]> collectionsOpt,
-            Option<bool> nonCollectionsOpt,
-            Option<bool> listCollectionsOpt,
-            Option<bool> listDuplicateTitlesOpt,
-            Option<bool> listVideosOpt,
-            Option<DirectoryInfo> outputDirOpt,
-            Option<DirectoryInfo> configDirOpt,
-            Option<DirectoryInfo?> tempDirOpt,
-            Option<bool> dryRunOpt)
-        {
-            this.downloadVideoOpt = downloadVideoOpt;
-            this.downloadChatOpt = downloadChatOpt;
-            this.timeLimitOpt = timeLimitOpt;
-            this.collectionsOpt = collectionsOpt;
-            this.nonCollectionsOpt = nonCollectionsOpt;
-            this.listCollectionsOpt = listCollectionsOpt;
-            this.listDuplicateTitlesOpt = listDuplicateTitlesOpt;
-            this.listVideosOpt = listVideosOpt;
-            this.outputDirOpt = outputDirOpt;
-            this.configDirOpt = configDirOpt;
-            this.tempDirOpt = tempDirOpt;
-            this.dryRunOpt = dryRunOpt;
-        }
+        private readonly Option<bool> downloadVideoOpt = downloadVideoOpt;
+        private readonly Option<bool> downloadChatOpt = downloadChatOpt;
+        private readonly Option<int> timeLimitOpt = timeLimitOpt;
+        private readonly Option<string[]> collectionsOpt = collectionsOpt;
+        private readonly Option<bool> nonCollectionsOpt = nonCollectionsOpt;
+        private readonly Option<bool> listCollectionsOpt = listCollectionsOpt;
+        private readonly Option<bool> listDuplicateTitlesOpt = listDuplicateTitlesOpt;
+        private readonly Option<bool> listVideosOpt = listVideosOpt;
+        private readonly Option<DirectoryInfo> outputDirOpt = outputDirOpt;
+        private readonly Option<DirectoryInfo> configDirOpt = configDirOpt;
+        private readonly Option<DirectoryInfo?> tempDirOpt = tempDirOpt;
+        private readonly Option<bool> dryRunOpt = dryRunOpt;
 
         protected override Options GetBoundValue(BindingContext bindingContext)
         {
@@ -216,21 +197,22 @@ namespace TwitchVodsRescueCS
 
         public class Detail
         {
-            public string URL { get; set; }
+            [Name("URL")]
+            public string URL { get; set; } = null!;
             [Name("title")]
-            public string Title { get; set; }
+            public string Title { get; set; } = null!;
             [Name("type")]
-            public string Type { get; set; }
+            public string Type { get; set; } = null!;
             [Name("viewCount")]
-            public int ViewCount { get; set; }
+            public int ViewCount { get; set; } = 0;
             [Name("duration")]
-            public string Duration { get; set; }
+            public string Duration { get; set; } = null!;
             [Name("createdAt")]
-            public string CreatedAt { get; set; }
+            public string CreatedAt { get; set; } = null!;
 
             public int seconds;
             public DateTime createdAtDate;
-            public List<CollectionEntry> collectionEntries = new();
+            public List<CollectionEntry> collectionEntries = [];
 
             public void Initialize()
             {
@@ -251,7 +233,7 @@ namespace TwitchVodsRescueCS
         public class Collection(string collectionTitle)
         {
             public string collectionTitle = collectionTitle;
-            public List<CollectionEntry> entries = new();
+            public List<CollectionEntry> entries = [];
         }
 
         public class CollectionEntry
@@ -279,6 +261,7 @@ namespace TwitchVodsRescueCS
                 this.title = title;
                 this.date = date;
                 this.length = length;
+                detail = null!;
                 ParseSeconds();
             }
 
@@ -388,9 +371,10 @@ namespace TwitchVodsRescueCS
             return success;
         }
 
-        private static Options options;
-        private static List<Detail> details;
-        private static List<Collection> collections = new();
+        private static Options options = null!;
+        private static List<Detail> details = null!;
+        private static List<Collection> collections = [];
+        private static readonly Stopwatch mainTimer = new();
 
         private static void RunMain(Options options)
         {
@@ -408,6 +392,7 @@ namespace TwitchVodsRescueCS
 
         private static void Run()
         {
+            mainTimer.Start();
             if (!options.configDir.Exists)
                 throw new UserException($"No such configuration folder: {options.configDir}");
             ReadConfigurationCSV();
@@ -552,12 +537,17 @@ namespace TwitchVodsRescueCS
             return metadata.ToString();
         }
 
+        private static bool ReachedTimeLimit()
+        {
+            return options.timeLimit <= 0 || mainTimer.Elapsed.TotalMinutes > options.timeLimit;
+        }
+
         private static void ProcessAllDownloads()
         {
             if (options.collections != null)
             {
                 Dictionary<string, Collection> collectionsByTitle = collections.ToDictionary(c => c.collectionTitle, c => c);
-                HashSet<Detail> visited = new();
+                HashSet<Detail> visited = [];
                 foreach (Detail detail in options.collections
                     .SelectMany(ct => collectionsByTitle[ct].entries.Select(e => e.detail)))
                 {
@@ -565,6 +555,8 @@ namespace TwitchVodsRescueCS
                         continue;
                     visited.Add(detail);
                     ProcessDownloads(detail);
+                    if (ReachedTimeLimit())
+                        break;
                 }
                 return;
             }
@@ -572,7 +564,11 @@ namespace TwitchVodsRescueCS
             foreach (Detail detail in details.AsEnumerable().Reverse())
             {
                 if (!options.nonCollections || detail.collectionEntries.Count == 0)
+                {
                     ProcessDownloads(detail);
+                    if (ReachedTimeLimit())
+                        break;
+                }
             }
         }
 
@@ -617,7 +613,27 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
             if (options.dryRun)
                 return;
-            // TODO: start child process
+            ProcessStartInfo startInfo = new("TwitchDownloaderCLI")
+            {
+                UseShellExecute = true,
+                CreateNoWindow = true,
+            };
+            startInfo.ArgumentList.Add("chatdownload");
+            startInfo.ArgumentList.Add("--embed-images");
+            startInfo.ArgumentList.Add("--id");
+            startInfo.ArgumentList.Add(detail.GetId().ToString());
+            startInfo.ArgumentList.Add("-o");
+            startInfo.ArgumentList.Add(Path.Combine(GetOutputPath(detail, null), filename));
+            if (options.tempDir != null)
+            {
+                startInfo.ArgumentList.Add("--temp-path");
+                startInfo.ArgumentList.Add(options.tempDir.FullName);
+            }
+            Process process = Process.Start(startInfo)
+                ?? throw new UserException("Failed to start TwitchDownloaderCLI process");
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+                throw new UserException("TwitchDownloaderCLI failed to download chat history.");
         }
 
         private static void DownloadVideo(Detail detail)
@@ -626,7 +642,27 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
             if (options.dryRun)
                 return;
-            // TODO: start child process
+            ProcessStartInfo startInfo = new("TwitchDownloaderCLI")
+            {
+                UseShellExecute = true,
+                CreateNoWindow = true,
+            };
+            startInfo.ArgumentList.Add("videodownload");
+            startInfo.ArgumentList.Add("--id");
+            startInfo.ArgumentList.Add(detail.GetId().ToString());
+            startInfo.ArgumentList.Add("-o");
+            startInfo.ArgumentList.Add(Path.Combine(GetOutputPath(detail, null), filename));
+            if (options.tempDir != null)
+            {
+                startInfo.ArgumentList.Add("--temp-path");
+                startInfo.ArgumentList.Add(options.tempDir.FullName);
+            }
+            Process process = Process.Start(startInfo)
+                ?? throw new UserException("Failed to start TwitchDownloaderCLI process");
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+                throw new UserException("TwitchDownloaderCLI failed to download a video.");
+            Console.WriteLine(); // TwitchDownloaderCLI does not write a trailing newline to stdout before existing.
         }
     }
 }
