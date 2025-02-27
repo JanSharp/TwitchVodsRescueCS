@@ -66,7 +66,7 @@ namespace TwitchVodsRescueCS
         public bool downloadVideo = downloadVideo;
         public bool downloadChat = downloadChat;
         public int timeLimit = timeLimit;
-        public string[]? collections = collections;
+        public string[]? collections = collections!.Length == 0 ? null : collections;
         public bool nonCollections = nonCollections;
         public bool listCollections = listCollections;
         public bool listDuplicateTitles = listDuplicateTitles;
@@ -82,7 +82,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> downloadVideoOpt;
         private readonly Option<bool> downloadChatOpt;
         private readonly Option<int> timeLimitOpt;
-        private readonly Option<string[]?> collectionsOpt;
+        private readonly Option<string[]> collectionsOpt;
         private readonly Option<bool> nonCollectionsOpt;
         private readonly Option<bool> listCollectionsOpt;
         private readonly Option<bool> listDuplicateTitlesOpt;
@@ -96,7 +96,7 @@ namespace TwitchVodsRescueCS
             Option<bool> downloadVideoOpt,
             Option<bool> downloadChatOpt,
             Option<int> timeLimitOpt,
-            Option<string[]?> collectionsOpt,
+            Option<string[]> collectionsOpt,
             Option<bool> nonCollectionsOpt,
             Option<bool> listCollectionsOpt,
             Option<bool> listDuplicateTitlesOpt,
@@ -158,7 +158,7 @@ namespace TwitchVodsRescueCS
                 + "or killing the process while it is running will most likely result in "
                 + "unfinished downloads in the output directory. Make sure to delete "
                 + "those files.");
-            var collectionsOpt = new Option<string[]?>("--collections",
+            var collectionsOpt = new Option<string[]>("--collections",
                 "Only process videos in the given collections.");
             var nonCollectionsOpt = new Option<bool>("--non-collections",
                 "Only process videos which are not part of a collection.");
@@ -229,6 +229,7 @@ namespace TwitchVodsRescueCS
 
             public int seconds;
             public DateTime createdAtDate;
+            public List<CollectionEntry> collectionEntries = new();
 
             public void Initialize()
             {
@@ -241,24 +242,31 @@ namespace TwitchVodsRescueCS
             }
         }
 
-        public class Collection
+        public class Collection(string collectionTitle)
         {
+            public string collectionTitle = collectionTitle;
             public List<CollectionEntry> entries = new();
         }
 
         public class CollectionEntry
         {
+            public Collection collection;
+            public int index;
             public string title;
             public string date;
             public string length;
             public int seconds;
-            public Detail? detail;
+            public Detail detail;
 
             public CollectionEntry(
+                Collection collection,
+                int index,
                 string title,
                 string date,
                 string length)
             {
+                this.collection = collection;
+                this.index = index;
                 this.title = title;
                 this.date = date;
                 this.length = length;
@@ -268,10 +276,19 @@ namespace TwitchVodsRescueCS
             public void ParseSeconds()
             {
                 Match match = Regex.Match(length, @"(\d+):(\d+)(?::(\d+))?");
-                int h = int.Parse(match.Groups[1].Value);
-                int m = int.Parse(match.Groups[2].Value);
-                int s = match.Groups[3].Value == "" ? 0 : int.Parse(match.Groups[3].Value);
-                seconds = h * 60 * 60 + m * 60 + s;
+                if (match.Groups[3].Value != "")
+                {
+                    int h = int.Parse(match.Groups[1].Value);
+                    int m = int.Parse(match.Groups[2].Value);
+                    int s = int.Parse(match.Groups[3].Value);
+                    seconds = h * 60 * 60 + m * 60 + s;
+                }
+                else
+                {
+                    int m = int.Parse(match.Groups[1].Value);
+                    int s = int.Parse(match.Groups[2].Value);
+                    seconds = m * 60 + s;
+                }
             }
         }
 
@@ -293,9 +310,10 @@ namespace TwitchVodsRescueCS
 
         private static Collection ReadCollectionFile(FileInfo collectionFile)
         {
-            Collection result = new();
+            Collection collection = new(Path.GetFileNameWithoutExtension(collectionFile.Name));
             string content = File.ReadAllText(collectionFile.FullName);
             var parser = new VeryStupidParser(content);
+            int index = 0;
             while (!parser.EndOfFile)
             {
                 parser.ReadLine(discard: true);
@@ -303,11 +321,11 @@ namespace TwitchVodsRescueCS
                 string title = parser.ReadLine();
                 string date = parser.ReadLine();
                 string length = parser.ReadLine();
-                result.entries.Add(new(title, date, length));
+                collection.entries.Add(new(collection, index++, title, date, length));
                 parser.ReadLine(discard: true);
                 parser.ReadLine(discard: true);
             }
-            return result;
+            return collection;
         }
 
         private static void ReadConfigUrationCollections(Options options)
@@ -316,6 +334,49 @@ namespace TwitchVodsRescueCS
             if (!collectionsDir.Exists)
                 return;
             collections = collectionsDir.EnumerateFiles().Select(f => ReadCollectionFile(f)).ToList();
+        }
+
+        private static void WriteLineToStdErr(string msg)
+        {
+            Console.Error.WriteLine(msg);
+            Console.Error.Flush();
+        }
+
+        private static bool ResolveCollectionEntryDetailReferencesForCollection(Collection collection)
+        {
+            bool success = true;
+            foreach (var pair in collection.entries.GroupJoin(
+                details,
+                e => $"{e.seconds} {e.title}",
+                d => $"{d.seconds} {d.Title}",
+                (entry, details) => (entry, details: details.ToList())))
+            {
+                if (pair.details.Count == 0)
+                {
+                    WriteLineToStdErr($"The collection entry '{pair.entry.title}' in the collection "
+                        + $"'{collection.collectionTitle}' has no matching video in the videos csv file.");
+                    success = false;
+                    continue;
+                }
+                if (pair.details.Count > 1)
+                {
+                    WriteLineToStdErr($"The collection entry '{pair.entry.title}' in the collection "
+                        + $"'{collection.collectionTitle}' has multiple matching videos in the videos csv file?!?!?!?!?");
+                    success = false;
+                    continue;
+                }
+                pair.entry.detail = pair.details.Single();
+                pair.details.Single().collectionEntries.Add(pair.entry);
+            }
+            return success;
+        }
+
+        private static bool ResolveCollectionEntryDetailReferences()
+        {
+            bool success = true;
+            foreach (Collection collection in collections)
+                success &= ResolveCollectionEntryDetailReferencesForCollection(collection);
+            return success;
         }
 
         private static List<Detail> details;
@@ -329,8 +390,7 @@ namespace TwitchVodsRescueCS
             }
             catch (UserException e)
             {
-                Console.Error.WriteLine(e.Message);
-                Console.Error.Flush();
+                WriteLineToStdErr(e.Message);
                 exitCode = 1;
             }
         }
@@ -341,9 +401,67 @@ namespace TwitchVodsRescueCS
                 throw new UserException($"No such configuration folder: {options.configDir}");
             ReadConfigurationCSV(options);
             ReadConfigUrationCollections(options);
+            if (!ResolveCollectionEntryDetailReferences())
+            {
+                exitCode = 1;
+                return;
+            }
+
+            if (options.listCollections)
+            {
+                ListCollections();
+                return;
+            }
+            if (options.listDuplicateTitles)
+            {
+                ListDuplicateTitles();
+                return;
+            }
+            if (options.listVideos)
+            {
+                ListVideos(options);
+                return;
+            }
+
             var foo = details;
             var bar = collections;
             Console.WriteLine("done!");
+        }
+
+        private static void ListCollections()
+        {
+            foreach (Collection collection in collections)
+                Console.WriteLine(collection.collectionTitle);
+        }
+
+        private static void ListDuplicateTitles()
+        {
+            var groups = details.GroupBy(d => d.Title).Where(g => g.Count() > 1);
+            foreach (var group in groups)
+                foreach (Detail detail in group)
+                    Console.WriteLine($"{group.Count()}  {detail.CreatedAt}  {detail.URL}  {detail.Title}");
+            Console.WriteLine($"unique duplicate title count: {groups.Count()}");
+        }
+
+        private static void ListVideos(Options options)
+        {
+            if (options.nonCollections || options.collections == null)
+            {
+                Console.WriteLine("Videos not in any collections:");
+                foreach (Detail detail in details.Where(d => d.collectionEntries.Count == 0))
+                    Console.WriteLine($"  {detail.CreatedAt}  {detail.Title}");
+            }
+            if (options.nonCollections)
+                return;
+            HashSet<string>? collectionsLut = options.collections?.ToHashSet();
+            foreach (Collection collection in collections)
+            {
+                if ((!collectionsLut?.Contains(collection.collectionTitle)) ?? false)
+                    continue;
+                Console.WriteLine($"{collection.collectionTitle}:");
+                foreach (CollectionEntry entry in collection.entries)
+                    Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.title}");
+            }
         }
     }
 }
