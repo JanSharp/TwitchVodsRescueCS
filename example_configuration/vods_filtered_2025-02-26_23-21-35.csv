@@ -1,0 +1,400 @@
+URL,title,type,viewCount,duration,createdAt
+https://www.twitch.tv/videos/2377241572,"[H] Short little mute stream. Lockstep looking good, entity system struggling | Learning about remote player tracking data",highlight,3,2h55m40s,2025-02-10 04:14:27
+https://www.twitch.tv/videos/2339498314,"[H] Entity Extension System on top of a GameObject Component system, smile",highlight,25,3h20m50s,2024-12-30 04:00:23
+https://www.twitch.tv/videos/2324892601,"[H] Arduino + SD + RTC + Light sensor = ~~pain~~ power usage logging!",highlight,9,1h59m18s,2024-12-12 16:35:13
+https://www.twitch.tv/videos/2324182252,"[H] ...",highlight,5,14m50s,2024-12-11 19:28:43
+https://www.twitch.tv/videos/2323709382,"[H] About to snap? Idk, maybe | Just chatting, first about life and then - you guessed it - programming/technical stuff",highlight,2,1h52m20s,2024-12-11 03:21:13
+https://www.twitch.tv/videos/2296000890,"[H] Attaching Transforms to player bones and tracking data generically - creating a library for it",highlight,13,2h36m50s,2024-11-07 19:24:04
+https://www.twitch.tv/videos/2256544379,"[H] Life update...",highlight,39,18m55s,2024-09-21 09:49:09
+https://www.twitch.tv/videos/2225729759,"[H] Some programming, talking and UI creation - mainly for Lockstep | No noise suppression initially, but better stream quality later",highlight,28,2h45m30s,2024-08-16 15:10:56
+https://www.twitch.tv/videos/2218115766,"[H] How To Make Admin/GM/DM Only Toggles",highlight,5,1h24m0s,2024-08-07 15:03:59
+https://www.twitch.tv/videos/2207162451,"[H] Creating a happy little TP to Player UI, with a list and pins and such",highlight,17,3h41m20s,2024-07-25 20:58:18
+https://www.twitch.tv/videos/2205067817,"[H] Custom Interacts and Pickups, we continue PauseChamp",highlight,6,3h49m50s,2024-07-23 12:00:46
+https://www.twitch.tv/videos/2204494355,"[H] Custom Interacts and Pickups, it is time PogChamp",highlight,0,2h32m14s,2024-07-22 20:38:48
+https://www.twitch.tv/videos/2200852554,"[H] AA Map Work | Time to replace 318 teleport scripts... alright I'll write a script to automate it",highlight,7,4h35m0s,2024-07-18 15:33:00
+https://www.twitch.tv/videos/2200121031,"[H] AA Map Work | Getting the main Academy map back in working order",highlight,1,1h55m10s,2024-07-17 19:20:44
+https://www.twitch.tv/videos/2199927362,"[H] AA Map Work | Item System changes, slowly working towards updating the main academy map | Music in the VOD PauseChamp",highlight,6,2h44m54s,2024-07-17 13:55:07
+https://www.twitch.tv/videos/2195070204,"[H] AA Map Work | The little things, like wrist menu auto scaling, some colliders, static flags and gpu instnacing",highlight,12,3h31m40s,2024-07-11 20:49:17
+https://www.twitch.tv/videos/2190644448,"[H] When Unity tells you no, you say no back... and reimplement object, component and asset reference resolution yourself",highlight,4,2h41m20s,2024-07-06 14:51:34
+https://www.twitch.tv/videos/2186123792,"[H] AA Map Work | No Mic for the first few mins | Just removing some ProBuilder for a bit. Numbers go down!",highlight,3,1h38m10s,2024-07-01 03:16:45
+https://www.twitch.tv/videos/2183387691,"[H] AA Map Work | ProBuilder begone part... idk I lost count | Not quite so tiny stream",highlight,2,2h22m26s,2024-06-28 00:28:35
+https://www.twitch.tv/videos/2183202516,"[H] AA Map Work | ProBuilder begone part... idk I lost count | Tiny stream",highlight,2,50m50s,2024-06-27 20:24:51
+https://www.twitch.tv/videos/2171144354,"[H] FMTK LuaLS Plugin | Adding options to plugin args to modify require paths through lua patterns",highlight,3,1h35m20s,2024-06-13 19:56:00
+https://www.twitch.tv/videos/2168772346,"[H] FMTK LuaLS Plugin | Adding a proper plugin args parser",highlight,0,1h59m46s,2024-06-10 22:58:41
+https://www.twitch.tv/videos/2164350950,"[H] Ascension Academy Map Work | Part 3 | Sleepy, no plans, and it does not go well",highlight,4,1h20m0s,2024-06-05 19:12:00
+https://www.twitch.tv/videos/2164349655,"[H] Ascension Academy Map Work | Part 2 | Sleepy, no plans, and it does not go well",highlight,3,1h20m1s,2024-06-05 19:10:12
+https://www.twitch.tv/videos/2164346510,"[H] Ascension Academy Map Work | Part 1 | Sleepy, no plans, and it does not go well",highlight,2,11m10s,2024-06-05 19:06:04
+https://www.twitch.tv/videos/2161159681,"[H] Stategy game time",highlight,1,2h16m16s,2024-06-01 22:45:52
+https://www.twitch.tv/videos/2156190640,"[H] Ascension Academy Map Work | Highly recommend to skip to 50 minutes in | Adding some utility scripts for UI toggles",highlight,4,2h49m25s,2024-05-27 01:14:30
+https://www.twitch.tv/videos/2153639560,"[H] Ascension Academy Map Work | Doing random things",highlight,2,5h44m31s,2024-05-24 03:34:56
+https://www.twitch.tv/videos/2150890769,"[H] Unity Editor Scripting | Unity's hierarchy selection handling is mediocre, I need something more powerful",highlight,2,4h54m58s,2024-05-20 22:56:11
+https://www.twitch.tv/videos/2149219105,"[H] Ascension Academy Map Work | We've got the tools, time to clean up and remove some ProBuilder meshes",highlight,7,5h13m59s,2024-05-18 23:18:27
+https://www.twitch.tv/videos/2146683783,"[H] Ascension Academy Map Work | Today's plan will work flawlessly, surely",highlight,4,3h54m55s,2024-05-16 00:04:42
+https://www.twitch.tv/videos/2145848521,"[H] Ascension Academy Map Work | Learnging how to export meshes as obj files",highlight,11,5h4m55s,2024-05-14 23:59:34
+https://www.twitch.tv/videos/2144930982,"[H] VRC and Udon hate version control, Unity dislikes version control, git lfs tricks you, git loves you and I'm looking for a way out",highlight,7,3h2m52s,2024-05-13 21:43:15
+https://www.twitch.tv/videos/2143417666,"[H] AA PauseChamp | Writing git filters to reduce merge conflicts caused by Udon and UdonSharp",highlight,11,5h2m48s,2024-05-12 00:17:04
+https://www.twitch.tv/videos/2135703724,"[H] Lockstep Networking | Turns out master changing in general was (and is) broken",highlight,6,2h34m4s,2024-05-03 00:33:08
+https://www.twitch.tv/videos/2133913599,"[H] Lockstep Networking | Starting work on master change requests, what an absolute beast",highlight,0,4h52m5s,2024-04-30 23:28:07
+https://www.twitch.tv/videos/2132466652,"[H] Lockstep Networking | Idk what to do, but I pressed the stream button",highlight,2,3h12m35s,2024-04-29 04:15:19
+https://www.twitch.tv/videos/2127961034,"[H] VFXTarget Gun | Adding import/export support | Late stream",highlight,1,2h31m27s,2024-04-24 03:16:07
+https://www.twitch.tv/videos/2124158224,"[H] VFXTarget Gun | Fixing 1 out of 2 bugs in 1 hour, then implementing latency hiding, once again successfully!",highlight,1,3h10m33s,2024-04-19 21:45:11
+https://www.twitch.tv/videos/2123858132,"[H] VFXTarget Gun | Rewriting networking to use Lockstep - successfully!",highlight,0,3h40m15s,2024-04-19 15:00:46
+https://www.twitch.tv/videos/2123397645,"[H] LockStep networking and then VFXTargetGun | More TODOs, then actually using the system!",highlight,1,4h17m49s,2024-04-19 00:25:12
+https://www.twitch.tv/videos/2120738707,"[H] LockStep networking | Working through TODOs",highlight,1,4h37m34s,2024-04-15 21:48:07
+https://www.twitch.tv/videos/2115341145,"[H] Working on some projects purely for the fun of it",highlight,0,2h9m52s,2024-04-09 20:06:45
+https://www.twitch.tv/videos/2102351658,"[H] Modded FortressCraft Evolved | Just chilling, playing a game, nothing too crazy",highlight,7,4h42m30s,2024-03-26 22:47:39
+https://www.twitch.tv/videos/2099371402,"[H] Catch up time (and a little bit of programming later)",highlight,0,2h19m3s,2024-03-23 20:48:02
+https://www.twitch.tv/videos/2041682273,"[H] inserter-throughput-lib dev | Improving the api | no mic, or rather just relaxed typing (except for 1 short bit of talking early on)",highlight,4,2h55m10s,2024-01-24 00:18:15
+https://www.twitch.tv/videos/2032726937,"[H] FMTK LuaLS Plugin Dev | Have fun deciphering that title",highlight,2,2h33m20s,2024-01-14 22:48:50
+https://www.twitch.tv/videos/2016509766,"[H] Quick Adjustable Inserters Dev | Ghost support | I just felt like streaming. Maybe I'll talk, maybe not. Who knows!",highlight,2,2h25m19s,2023-12-29 00:57:43
+https://www.twitch.tv/videos/2005063215,"[H] Quick Adjustable Inserters Dev | A bit of muted progress. Can't distract myself by talking if the mic is off! Just for the first half :P",highlight,4,4h0m13s,2023-12-15 22:42:15
+https://www.twitch.tv/videos/2003030611,"[H] Inserters... Inserters everywhere. All I see is vectors, circles and numbers. There is no escape",highlight,3,1h46m45s,2023-12-13 16:03:25
+https://www.twitch.tv/videos/1985466981,"[H] Quick Adjustable Inserters Dev | Progress has been made. Maybe some more today",highlight,2,3h8m15s,2023-11-23 22:50:54
+https://www.twitch.tv/videos/1975966891,"[H] Quick Adjustable Inserters Dev | Working through the TODO list, mostly force related",highlight,1,1h51m30s,2023-11-13 00:35:04
+https://www.twitch.tv/videos/1975745792,"[H] Quick Adjustable Inserters Dev | Recap off stream work and more polish",highlight,1,2h29m37s,2023-11-12 19:59:57
+https://www.twitch.tv/videos/1974968406,"[H] Quick Adjustable Inserters Dev | Lots of little steps leading to good progress. Starting to see it working",highlight,5,5h22m21s,2023-11-11 23:20:11
+https://www.twitch.tv/videos/1974966429,"[H] Quick Adjustable Inserters Dev | Refactoring and improving reachable tile evaluation, and related stuff",highlight,3,2h15m59s,2023-11-11 23:17:38
+https://www.twitch.tv/videos/1970614268,"[H] Frontier Extended scenario (Excuse the 2.5k bitrate)",highlight,5,1h27m2s,2023-11-07 00:19:06
+https://www.twitch.tv/videos/1970610125,"[H] Recapping a bit and talking about random stuff and things",highlight,0,2h21m46s,2023-11-07 00:13:24
+https://www.twitch.tv/videos/1940394536,"[H] A splits program for speed running implemented using Factorio. In other words: Fun!",highlight,8,2h19m58s,2023-10-02 01:41:59
+https://www.twitch.tv/videos/1940382452,"[H] simhelper function capture troubleshooting",highlight,0,29m32s,2023-10-02 01:24:14
+https://www.twitch.tv/videos/1940377758,"[H] Phobos | At this point you can guess what I'm working on. Bingo! It's IL compilation. I had a great idea though",highlight,3,1h57m58s,2023-10-02 01:17:07
+https://www.twitch.tv/videos/1931584609,"[H] Doing what I want to do, which ended up being Wave Defense speedruns",highlight,1,4h1m20s,2023-09-21 22:55:04
+https://www.twitch.tv/videos/1925151235,"[H] Unity is dead",highlight,7,21m20s,2023-09-14 13:32:22
+https://www.twitch.tv/videos/1917984089,"[H] WindowManager | A bit of refactoring for anchors",highlight,2,2h26m8s,2023-09-05 21:28:29
+https://www.twitch.tv/videos/1915351127,"[H] Phobos | Intermediate language register liveliness interference graph vertex coloring. And I'm not just throwing fancy words together",highlight,2,2h39m57s,2023-09-02 20:21:37
+https://www.twitch.tv/videos/1898087466,"[H] Udon Dev | Music Control polish, working through the TODO list",highlight,8,3h8m59s,2023-08-14 00:38:26
+https://www.twitch.tv/videos/1893637034,"[H] Mod Dev | Quick Adjustable Inserters | let's see how far I get",highlight,4,2h45m9s,2023-08-08 22:41:43
+https://www.twitch.tv/videos/1890309523,"[H] Udon Dev | Music Control | Adding a lot of new features and improving quality of life",highlight,3,6h15m45s,2023-08-05 01:09:18
+https://www.twitch.tv/videos/1884175589,"[H] Udon Dev | Open source everything! | Recap VPMPublsih and my own VCC listing webpage and the package migration process",highlight,2,3h38m59s,2023-07-28 22:39:19
+https://www.twitch.tv/videos/1869938678,"[H] Udon Dev | Recapping the VCC listing json generation that I did off stream and then genreating the human readable page",highlight,10,1h14m35s,2023-07-12 15:19:04
+https://www.twitch.tv/videos/1869061307,"[H] Udon Dev | Refactoring a bit and starting on the VCC listing website generator",highlight,0,3h19m28s,2023-07-11 14:53:41
+https://www.twitch.tv/videos/1868463785,"[H] Udon Dev | VPMPublish, finishing changelog generation, writing documentation and discussing website generation",highlight,0,2h14m39s,2023-07-10 21:21:51
+https://www.twitch.tv/videos/1867273272,"[H] Udon Dev | Generating changelog drafts for a custom VPM publish script",highlight,1,1h49m10s,2023-07-09 10:50:36
+https://www.twitch.tv/videos/1866524254,"[H] Udon Dev | Still writing a custom VPM (VRChat Package Manager) publish script/program | Publish command done!",highlight,0,1h58m56s,2023-07-08 15:18:51
+https://www.twitch.tv/videos/1866407752,"[H] Udon Dev | Still writing a custom VPM (VRChat Package Manager) publish script/program, again good progress",highlight,0,2h6m35s,2023-07-08 10:37:24
+https://www.twitch.tv/videos/1865065319,"[H] Udon Dev | Writing a custom VPM (VRChat Package Manager) publish script/program. Unusual start, but then good Pogress",highlight,0,3h26m58s,2023-07-06 22:02:32
+https://www.twitch.tv/videos/1859837299,"[H] Udon Dev | Manually publishing a VPM package and creating a VCC listing, then writing down the steps",highlight,0,1h30m42s,2023-06-30 19:42:54
+https://www.twitch.tv/videos/1859835050,"[H] Udon Dev | What if ""enums + extension methods = custom data structures in UdonSharp""?",highlight,2,35m32s,2023-06-30 19:39:31
+https://www.twitch.tv/videos/1858169787,"[H] Udon Dev | Figuring out how to make VCC/VPM packages and VCC listings... my own way | Short break with Satisfactory in between",highlight,0,3h8m20s,2023-06-28 20:27:54
+https://www.twitch.tv/videos/1850535451,"[H] Udon Dev | Updating my scripts... again. This time because I learned how to do editor scripting more correctly",highlight,2,4h2m8s,2023-06-19 22:34:55
+https://www.twitch.tv/videos/1847179021,"[H] Udon Dev | Updating the last of my scripts, all of the syncing fixed!",highlight,4,4h8m26s,2023-06-15 22:19:50
+https://www.twitch.tv/videos/1842103412,"[H] Udon Dev | Player TP menu & utilities | No Networking! I'll actually get stuff done! (first some catching up)",highlight,4,3h36m44s,2023-06-09 22:46:37
+https://www.twitch.tv/videos/1838691323,"[H] Udon Dev Stuff... But in Lua? | Still working on this, good progress though and I can finally talk about it (context not provided)",highlight,1,1h36m31s,2023-06-05 23:25:51
+https://www.twitch.tv/videos/1820066503,"[H] Udon Dev Stuff... But in Lua? | Simulation of Udon Networking | Lot's of theory, lot's of talking",highlight,1,1h16m30s,2023-05-14 22:48:40
+https://www.twitch.tv/videos/1819671902,"[H] Udon Dev Stuff... But in Lua? | Simulating all kinds of ways Udon _might_ be implemented, so that I can more easily test syncing",highlight,0,1h24m1s,2023-05-14 12:44:57
+https://www.twitch.tv/videos/1817303212,"[H] Udon Dev Stuff... But in Lua? | While Unity is having a crash party, I'll just prototype in the sacrad lands of Lua",highlight,3,2h21m17s,2023-05-11 20:34:19
+https://www.twitch.tv/videos/1816564167,"[H] Udon Dev Stuff... But in Lua? | While Unity is having a crash party, I'll just prototype in the sacrad lands of Lua",highlight,2,2h29m48s,2023-05-10 22:16:12
+https://www.twitch.tv/videos/1815730632,"[H] Udon Dev Stuff | Trying to get Unity to stop crashing, further cleaning up the project and fixing things",highlight,1,4h7m59s,2023-05-09 22:23:08
+https://www.twitch.tv/videos/1814138140,"[H] Udon Dev Stuff | We continue cleaning the project and testing things. Probably won't get to use Lists or Dictionaries today either, tbh",highlight,0,2h23m38s,2023-05-07 23:13:01
+https://www.twitch.tv/videos/1813234564,"[H] Udon Dev Stuff | I said I wouldn't... but then Lists and Dictionaries got added. I mean, how could I resist! | (Not actually using them)",highlight,2,3h16m46s,2023-05-06 23:18:38
+https://www.twitch.tv/videos/1789414431,"[H] Lua Table serializer directly to bytecode",highlight,5,2h36m19s,2023-04-09 23:46:52
+https://www.twitch.tv/videos/1785625860,"[H] Anno 1800 | Rough start to the stream, and bad bitrate (I forgot). PepeHands. Aside from that, starting a new world, going pretty well",highlight,0,1h54m37s,2023-04-05 22:18:01
+https://www.twitch.tv/videos/1784774327,"[H] [Part 45] Phobos | Adding some validation to linq | No Music",highlight,0,1h22m30s,2023-04-04 23:12:48
+https://www.twitch.tv/videos/1784771816,"[H] Random chit chat about myself and programming stuff | No Music",highlight,1,1h24m15s,2023-04-04 23:09:27
+https://www.twitch.tv/videos/1777150951,"[H] [Part 44] Phobos | Finishing move instructions for register groups at special instruction groups",highlight,0,1h6m50s,2023-03-27 15:31:34
+https://www.twitch.tv/videos/1767870918,"[H] [Part 43] Phobos | Some infrastructure for IL transformations, specifically to replace registers in IL instructions needed for compiling",highlight,2,3h8m5s,2023-03-17 19:23:56
+https://www.twitch.tv/videos/1763055922,"[H] [Part 42] Phobos | I thought I was done with Linq, I thought wrong | No Mic | No Music",highlight,1,2h0m25s,2023-03-12 14:32:02
+https://www.twitch.tv/videos/1758579062,"[H] [Part 41] Phobos | Adding a diff output option to the test runner and implementing table pretty printing for better diffs | No Music",highlight,1,3h22m37s,2023-03-07 23:08:47
+https://www.twitch.tv/videos/1757305469,"[H] [Part 40] Phobos | A couple of Linq adjustments and a short attempt at continuing work IL register list/group compilation | No Music",highlight,2,1h39m47s,2023-03-06 15:04:22
+https://www.twitch.tv/videos/1732365571,"[H] Window Manager | Converting the window manager I made into a standalone mod and improving maximize logic | No Music",highlight,8,2h55m56s,2023-02-08 22:43:11
+https://www.twitch.tv/videos/1662019469,"[H] Factorio Sumneko Lua Plugin | Tiny bit of cleaning up and adding LuaObject type narrowing using object_name | No Music",highlight,8,1h43m31s,2022-11-25 03:44:45
+https://www.twitch.tv/videos/1652910572,"[H] [Part 39] Phobos | Writing a script to strip everything but docs from a file, then some cleaning up and some IL for loop work",highlight,5,2h33m23s,2022-11-15 00:07:05
+https://www.twitch.tv/videos/1652859515,"[H] Why I should not stream VRChat Udon development",highlight,3,13m52s,2022-11-14 23:01:12
+https://www.twitch.tv/videos/1652636788,"[H] VRC Udon | Figuring out networking a bit more... | The second quarter of the stream is maybe worth watching, the rest isn't",highlight,4,2h40m58s,2022-11-14 18:22:24
+https://www.twitch.tv/videos/1647378161,"[H] [Part 38] Phobos | Fixing bugs in the IL compiler. And, spoiler, the stream leads up to a big success in the end!",highlight,9,3h9m7s,2022-11-09 01:20:37
+https://www.twitch.tv/videos/1646521768,"[H] A talk about networking in VRChat's Udon (using UdonSharp) | No Music",highlight,6,2h28m56s,2022-11-08 01:51:22
+https://www.twitch.tv/videos/1646466781,"[H] Preparing for a talk about networking in VRChat's Udon (using UdonSharp) | No Music",highlight,1,2h41m18s,2022-11-08 00:49:27
+https://www.twitch.tv/videos/1640215438,"[H] Dealing with require loops in Lua | No Music",highlight,0,1h27m7s,2022-11-01 04:28:21
+https://www.twitch.tv/videos/1638887079,"[H] [Part 37] Phobos | Compiling register lists from intermediate language to Lua bytecode",highlight,1,1h32m23s,2022-10-30 19:11:15
+https://www.twitch.tv/videos/1629377504,"[H] Factorio GUI Editor | The list of TODOs for the window manager is getting smaller... maybe",highlight,3,1h30m18s,2022-10-20 16:24:30
+https://www.twitch.tv/videos/1629315210,"[H] Factorio GUI Editor | Continuing work on window anchors",highlight,1,1h28m53s,2022-10-20 14:32:15
+https://www.twitch.tv/videos/1628215274,"[H] Factorio GUI Editor | Redoing window anchors | Trying my best to talk quietly | No Music",highlight,0,1h15m20s,2022-10-19 04:55:01
+https://www.twitch.tv/videos/1626228352,"[H] [Highlight Part 2/2] Factorio GUI Editor | Chipping away at TODOs, mostly window manager related",highlight,0,1h10m12s,2022-10-16 22:52:22
+https://www.twitch.tv/videos/1626212790,"[H] [Highlight Part 1/2] Factorio GUI Editor | Chipping away at TODOs, mostly window manager related",highlight,1,2h33m50s,2022-10-16 22:31:33
+https://www.twitch.tv/videos/1621573487,"[H] Factorio GUI Editor | Improving the window manager | No Music",highlight,1,2h39m53s,2022-10-11 22:20:36
+https://www.twitch.tv/videos/1608364575,"[H] Factorio GUI Editor | Making a Script Text Box",highlight,2,1h51m51s,2022-10-03 19:55:45
+https://www.twitch.tv/videos/1605800366,"[H] Factorio GUI Editor | Refactoring the many layers of abstraction for editors and the data behind them | No Music",highlight,0,2h9m31s,2022-10-01 01:09:44
+https://www.twitch.tv/videos/1600283479,"[H] Factorio Window Manager | I finally found a reason to do this, I'm so excited | No Music",highlight,1,2h39m42s,2022-09-24 22:07:03
+https://www.twitch.tv/videos/1599387397,"[H] Variety Programming | A bit of sumneko.lua plugin work and some C# git tools | No Music",highlight,1,2h20m36s,2022-09-24 00:38:28
+https://www.twitch.tv/videos/1598386016,"[H] Writing git hooks and scripts to work around issues with VRChat's Udon | No Music",highlight,2,1h35m0s,2022-09-22 23:17:27
+https://www.twitch.tv/videos/1591323206,"[H] GUI Editor | Making a GUI to make GUIs in Factorio, FeelsGoodMan | No Music",highlight,1,3h2m58s,2022-09-15 05:02:05
+https://www.twitch.tv/videos/1568851377,"[H] Just working | Hi. I pressed the button. Didn't really plan this, so there's no good title for this, so uh yea... Hi! | No Music",highlight,4,49m17s,2022-08-22 00:40:20
+https://www.twitch.tv/videos/1564738734,"[H] [Part 36] Phobos | Having fun with IL modification and compilation | No Music",highlight,3,2h56m52s,2022-08-17 20:20:14
+https://www.twitch.tv/videos/1509895565,"[H] How to spread out a mod's workload, writing a bit of documentation/a tutorial | No Music",highlight,4,1h15m4s,2022-06-21 14:33:47
+https://www.twitch.tv/videos/1490527533,"[H] [Part 35] Phobos | Design Requirements and why Phobos hasn't been progressing | No Music",highlight,4,49m16s,2022-05-22 04:15:29
+https://www.twitch.tv/videos/1480464186,"[H] [Part 34] Phobos | Intermediate Language Type System (attempt 5 or something) | No Music",highlight,5,2h59m46s,2022-05-10 23:45:22
+https://www.twitch.tv/videos/1467494255,"[H] [Part 33] Phobos | Refactoring and improving AST, stat_elem begone! | I need a break from profiles | No Music",highlight,1,3h0m49s,2022-04-26 17:21:09
+https://www.twitch.tv/videos/1467493112,"[H] [Part 32] Phobos | Exploring ideas regarding static and dynamic includes and require path resolution | No Music",highlight,0,1h0m15s,2022-04-26 17:19:16
+https://www.twitch.tv/videos/1456218923,"[H] [Part 31] Phobos | Writing more tests. Build profile cache tests | No Music",highlight,1,2h2m50s,2022-04-15 02:21:00
+https://www.twitch.tv/videos/1449504764,"[H] [Part 30] Phobos | A layer of abstraction I should have realized I needed much sooner. the io_util, but better | No Music",highlight,1,2h14m59s,2022-04-08 03:35:00
+https://www.twitch.tv/videos/1447454504,"[H] [Part 29] Phobos | Tests tests tests. EmmyLua linker tests. So many tests. Almost 1000! So many. Tests. | No Music",highlight,0,3h35m3s,2022-04-06 00:24:57
+https://www.twitch.tv/videos/1439691609,"[H] [Part 28] Phobos | Write type annotations for the EmmyLua parser and generate a tiny bit of markdown and html docs | No Music",highlight,2,1h24m15s,2022-03-29 00:49:11
+https://www.twitch.tv/videos/1439688627,"[H] A little bit of Horizon Zero Dawn for testing and for fun",highlight,2,30m51s,2022-03-29 00:45:19
+https://www.twitch.tv/videos/1436937016,"[H] [Part 27] Phobos | Parsing EmmyLua comments and resolving type references | No Music",highlight,1,2h3m58s,2022-03-26 04:17:58
+https://www.twitch.tv/videos/1436935955,"[H] [Part 26] Phobos | Parsing EmmyLua comments setting up for generation of documentation from them | No Music",highlight,1,2h47m28s,2022-03-26 04:16:45
+https://www.twitch.tv/videos/1435467131,"[H] I wanted to try streaming Horizon Zero Dawn, but that didn't happen so I'm just talking about random stuff",highlight,3,41m22s,2022-03-24 19:54:57
+https://www.twitch.tv/videos/1435465632,"[H] [Part 25] Phobos | Chilling and making a bit of progress with build profiles | No Music",highlight,1,1h20m55s,2022-03-24 19:53:23
+https://www.twitch.tv/videos/1435463485,"[H] [Part 24] Phobos | Absolutely NOT having fun with cross platform stuff and just in general not having fun | No Music",highlight,0,1h35m40s,2022-03-24 19:51:02
+https://www.twitch.tv/videos/1431703241,"[H] [Part 23] Phobos | Update a bit of stuff and then work on virtual file system for tests | I pressed the stream button. Hi! | No Music",highlight,2,2h58m25s,2022-03-20 20:23:18
+https://www.twitch.tv/videos/1423269450,"[H] [Part 22] Phobos | Binary Serialization stuff | No Music",highlight,2,2h56m23s,2022-03-12 14:21:08
+https://www.twitch.tv/videos/1414449472,"[H] [Part 21] Phobos | Build Profiles | No Music",highlight,1,2h48m0s,2022-03-03 23:54:29
+https://www.twitch.tv/videos/1301973959,"[H] [Part 20] Phobos | Refactoring, cleaning up, writing tests, fixing publish script, idk, just felt like streaming | No Music",highlight,1,1h28m8s,2022-02-18 14:55:19
+https://www.twitch.tv/videos/1293008806,"[H] [Part 19] Phobos | Fixing concats with parenthesis and writing tests",highlight,4,1h35m38s,2022-02-10 02:15:11
+https://www.twitch.tv/videos/1293004762,"[H] Anno 1800 | Hello (New) World! ... get it?",highlight,1,1h58m18s,2022-02-10 02:11:20
+https://www.twitch.tv/videos/1290988602,"[H] Anno 1800 | Late night Anno, because why not",highlight,3,4h12m19s,2022-02-08 05:35:18
+https://www.twitch.tv/videos/1289857492,"[H] [Part 18] Phobos | Writing a few more expression parsing tests and talking a lot | No Music",highlight,0,2h0m6s,2022-02-07 04:01:07
+https://www.twitch.tv/videos/1289853407,"[H] Anno 1800 | Chilling with some Anno | Restarting with a bit more chill settings",highlight,2,3h55m37s,2022-02-07 03:56:28
+https://www.twitch.tv/videos/1289846710,"[H] [Part 17] Phobos | Grinding Tests and fixing some hilarious and spicy bugs | No Music, keyboard sounds for fun",highlight,0,1h56m52s,2022-02-07 03:48:20
+https://www.twitch.tv/videos/1287420775,"[H] Anno 1800 | First time playing Anno 1800, Pog! | Trying out how it feels to stream the game at the same time",highlight,1,3h24m6s,2022-02-05 03:42:03
+https://www.twitch.tv/videos/1287415740,"[H] [Part 16] Phobos | Grinding Tests | Mute",highlight,0,2h45m26s,2022-02-05 03:37:21
+https://www.twitch.tv/videos/1283061512,"[H] [Part 15] Phobos | Grinding Tests. Or, well, figuring out how to test the parser | No Music",highlight,0,3h8m12s,2022-02-01 05:12:57
+https://www.twitch.tv/videos/1283060440,"[H] Writing the testing framework I wish I had, then realizing just how hard it is to use Phobos in 0.1.1 | No Music",highlight,0,2h12m7s,2022-02-01 05:11:20
+https://www.twitch.tv/videos/1278924150,"[H] Pipe Visualizer | How hard is it to get ""pipe networks"" | No Music",highlight,6,4h58m3s,2022-01-28 18:28:37
+https://www.twitch.tv/videos/1278921782,"[H] My opinion on Testing Frameworks and Assertion Libraries and why I'm writing my own | No Music",highlight,2,52m40s,2022-01-28 18:26:13
+https://www.twitch.tv/videos/1272935383,"[H] Checking out Testorio | A testing framework for Factorio mods | No Music",highlight,3,44m1s,2022-01-23 03:45:47
+https://www.twitch.tv/videos/1272934246,"[H] Simulation Function Capture | metatables... I kind of forgot about those. Oops | No Music",highlight,4,1h3m13s,2022-01-23 03:44:33
+https://www.twitch.tv/videos/1271594501,"[H] Simulation Function Capture | more tests and more infrastructure | No Music",highlight,2,3h10m7s,2022-01-22 01:46:13
+https://www.twitch.tv/videos/1269549963,"[H] Simulation Function Capture | tests. for real this time... like 1 hour into the stream LUL | No Music",highlight,0,2h55m52s,2022-01-20 04:11:14
+https://www.twitch.tv/videos/1268964683,"[H] Mod Code Review | flexible-modules | Just a few Lua and modding tips | I also talk about simhelper testing at the end | No Music",highlight,8,1h16m37s,2022-01-19 18:35:28
+https://www.twitch.tv/videos/1268954473,"[H] Simulation Function Capture | More finishing touches | No Music",highlight,1,54m6s,2022-01-19 18:24:17
+https://www.twitch.tv/videos/1267379103,"[H] [Part 14] Phobos | Language Extensions! I refuse to do IL => bytecode right now | Mute, then some keyboard ASMR",highlight,1,2h21m56s,2022-01-18 03:14:03
+https://www.twitch.tv/videos/1267377481,"[H] [Part 13] Phobos | Language Extensions! (compiler part for safe chaining) | No music",highlight,4,1h42m13s,2022-01-18 03:12:25
+https://www.twitch.tv/videos/1264739400,"[H] Data Stage Profiling | Trying to use 'print' to get current times with an external program... and, well, setting up dotnet | No music",highlight,1,2h48m42s,2022-01-15 20:37:42
+https://www.twitch.tv/videos/1262911164,"[H] Simulation Function Capture | Performance Testing... Or rather writing a ""data stage profiling"" tool | No music",highlight,0,1h20m29s,2022-01-14 03:55:13
+https://www.twitch.tv/videos/1262906973,"[H] Slay the Spire | A short run to take a short break from Factorio modding while eating",highlight,4,41m2s,2022-01-14 03:50:25
+https://www.twitch.tv/videos/1262896736,"[H] Simulation Function Capture | Integrating it into simhelper, fixing stuff, improving stuff, custom restorers, docs | No music",highlight,0,3h32m17s,2022-01-14 03:38:39
+https://www.twitch.tv/videos/1261840047,"[H] Simulation Function Capture | Dealing with the function max stack limitation, then preserving table iteration order | No music",highlight,0,1h52m6s,2022-01-13 03:07:03
+https://www.twitch.tv/videos/1261835349,"[H] Simulation Function Capture | Improvements and adding support for C functions | No music",highlight,0,1h0m47s,2022-01-13 03:03:00
+https://www.twitch.tv/videos/1261830262,"[H] Simulation Function Capture | I have an idea that is so stupid that it might actually be good | No music",highlight,0,4h6m40s,2022-01-13 02:59:14
+https://www.twitch.tv/videos/1261384318,"[H] SumnekoLuaPluginDevEnv | Using Factorio to make and debug sumneko.lua plugins, because why not | Setting up a repo",highlight,2,1h50m28s,2022-01-12 19:30:32
+https://www.twitch.tv/videos/1261382128,"[H] [Part 12] Phobos | Continue on syntax errors | Mute at the start, but not for long",highlight,0,2h5m33s,2022-01-12 19:28:19
+https://www.twitch.tv/videos/1261380760,"[H] [Part 11] Phobos | General organization stuff like the readme, building and the debugging setup",highlight,0,1h43m9s,2022-01-12 19:26:49
+https://www.twitch.tv/videos/1253049323,"[H] Talking about Manjaro, my setup, the good and the bad, and trying a couple of things",highlight,0,1h14m56s,2022-01-04 22:17:44
+https://www.twitch.tv/videos/1253036093,"[H] Improving Factorio Sumneko Lua Plugin Documentation",highlight,2,2h15m24s,2022-01-04 22:04:03
+https://www.twitch.tv/videos/1253023101,"[H] [Part 1] Ori and the Will of the Wisps) | First stream from Linux (Ubuntu)! Yay! | Just chatting with a game in the background",highlight,3,1h54m19s,2022-01-04 21:52:09
+https://www.twitch.tv/videos/1253017364,"[H] [Part 13] [Run 09.1] Chrono Ark | First stream from Linux (Ubuntu)! Yay! Mostly just chatting, hardly playing the game",highlight,2,22m52s,2022-01-04 21:45:53
+https://www.twitch.tv/videos/1219747145,"[H] [Part 10] Phobos | Properly implementing upvalues for IL (#1 ?) | Trying out this microphone, specifically when talking quietly",highlight,3,44m53s,2021-11-30 02:53:47
+https://www.twitch.tv/videos/1219198777,"[H] [Part 12] [Run 08.1] Chrono Ark | Oh wait, I already had a run started. Well, time to make Trisha slightly strong",highlight,10,2h18m57s,2021-11-29 15:16:20
+https://www.twitch.tv/videos/1219195784,"[H] [Part 2] Puzzletory | I said I'd continue this, and so I shall",highlight,1,2h29m17s,2021-11-29 15:10:07
+https://www.twitch.tv/videos/1216885654,"[H] [Part 9] Phobos | Intermediate Language (#1 ?) generation from AST (the rest of the statements) | Talking about Compilers | No Music",highlight,2,1h57m25s,2021-11-27 02:15:31
+https://www.twitch.tv/videos/1216570499,"[H] [Part 4] TrackMania Canyon WTC | Basically just chatting",highlight,4,1h13m52s,2021-11-26 20:26:41
+https://www.twitch.tv/videos/1216566540,"[H] [Part 8] Phobos | Intermediate Language (#1 ?) generation from AST. Mainly statements this time | No music because DMCA",highlight,0,1h12m42s,2021-11-26 20:22:19
+https://www.twitch.tv/videos/1214309656,"[H] [Part 3] TrackMania Canyon WTC | Oh god I'm muted for over half of it, I was talking so much... oh well, blame hydration!",highlight,3,33m47s,2021-11-24 04:05:06
+https://www.twitch.tv/videos/1214303260,"[H] [Part 7] Phobos | Intermediate Language (#1 ?) generation from AST",highlight,1,1h35m51s,2021-11-24 03:58:16
+https://www.twitch.tv/videos/1213860303,"[H] [Part 6] Phobos | Intermediate Language (#1 ?) generation from AST",highlight,1,1h31m31s,2021-11-23 19:17:50
+https://www.twitch.tv/videos/1201734953,"[H] [Part 5] Phobos | AST node util refactor | No music because DMCA",highlight,8,2h29m59s,2021-11-10 22:11:28
+https://www.twitch.tv/videos/1177896881,"[H] [Part 4] Phobos | Big register refactor, in this video mostly expressions | Mute",highlight,15,1h39m30s,2021-10-16 02:31:54
+https://www.twitch.tv/videos/1168242465,"[H] [Part 3] Phobos | Implementing more robust yet strict path library",highlight,6,2h23m18s,2021-10-05 19:42:47
+https://www.twitch.tv/videos/1148746026,"[H] [Part 11] [R 07.1] Chrono Ark | Once again, one run of Chrono Ark :D | This time a successful Helia + Selena run! Feels a bit broken",highlight,8,4h32m51s,2021-09-14 21:43:54
+https://www.twitch.tv/videos/1139009609,"[H] [Part 1] Puzzletory | I generally love puzzles, so let's see what this is",highlight,5,4h59m18s,2021-09-04 20:25:48
+https://www.twitch.tv/videos/1139003958,"[H] [Part 10] [R 06.1] Chrono Ark | This game is great! | A run with a Helia/Selena start, big brain deck",highlight,6,2h45m38s,2021-09-04 20:19:23
+https://www.twitch.tv/videos/1139001466,"[H] [Part 2] Phobos | Mostly debugging and thinking about how to make a type system work. Logistical stuff, or so | Muted music",highlight,5,1h37m43s,2021-09-04 20:16:38
+https://www.twitch.tv/videos/1130428714,"[H] [Part 98] Wave Defense Speedrun | Review and talking about future plans",highlight,0,22m26s,2021-08-26 23:49:02
+https://www.twitch.tv/videos/1130425746,"[H] [Part 97] [Run 44] Wave Defense Speedrun | Chill runs to get back into it. Well, hopefully chill ;)",highlight,1,1h9m21s,2021-08-26 23:45:24
+https://www.twitch.tv/videos/1130423597,"[H] [Part 96] Wave Defense Speedrun | Review and starting another run",highlight,0,9m59s,2021-08-26 23:42:43
+https://www.twitch.tv/videos/1130421663,"[H] [Part 95] [Run 43] Wave Defense Speedrun | Chill runs to get back into it. Well, hopefully chill ;)",highlight,0,1h8m11s,2021-08-26 23:40:16
+https://www.twitch.tv/videos/1130420381,"[H] [Part 94] Wave Defense Speedrun | Intro/Setup",highlight,0,9m27s,2021-08-26 23:38:41
+https://www.twitch.tv/videos/1104458762,"[H] [Part 25] GuiGlue (?) Dev | Wanting to do crazy things, ending up just mostly trying to fix/finish data stage style type resolving",highlight,16,1h35m14s,2021-08-01 04:14:54
+https://www.twitch.tv/videos/1104456087,"[H] [Part 24] GuiGlue (?) Dev | Code maintenance and fixing and testing with the test mod",highlight,1,1h45m11s,2021-08-01 04:11:49
+https://www.twitch.tv/videos/1104441150,"[H] [Part 23] GuiGlue (?) Dev | Bad Mood at the very beginning | Doing stuff and things and data stage styles",highlight,5,3h22m53s,2021-08-01 03:55:38
+https://www.twitch.tv/videos/1104436555,"[H] FactorioSumnekoLuaPlugin Dev | Thinking on_event is broken when i'm just on the wrong plugin branch in the factorio mods workspace",highlight,4,20m21s,2021-08-01 03:50:19
+https://www.twitch.tv/videos/1095230655,"[H] [Part 93] Wave Defense Speedrun | Review and End",highlight,2,6m52s,2021-07-23 04:09:04
+https://www.twitch.tv/videos/1095227108,"[H] [Part 92] [Run 42] Wave Defense Speedrun | Full focus mode | Look at those splits! Oh wait, comparing against what?",highlight,1,1h4m1s,2021-07-23 04:05:36
+https://www.twitch.tv/videos/1095224372,"[H] [Part 91] Wave Defense Speedrun | Review, taking a small break and to not end on a bad note starting another run",highlight,1,14m39s,2021-07-23 04:03:00
+https://www.twitch.tv/videos/1095217144,"[H] [Part 90] [Run 41] Wave Defense Speedrun | Another RIP! Well at least i know why, though it's more meta/irl than run related",highlight,0,38m15s,2021-07-23 03:56:45
+https://www.twitch.tv/videos/1095211905,"[H] [Part 89] Wave Defense Speedrun | Review and starting another run",highlight,0,5m2s,2021-07-23 03:51:14
+https://www.twitch.tv/videos/1095207701,"[H] [Part 88] [Run 40] Wave Defense Speedrun | Hm, rip RC again. I'm not relaxed enough",highlight,0,1h17m46s,2021-07-23 03:46:40
+https://www.twitch.tv/videos/1095187432,"[H] [Part 87] Wave Defense Speedrun | Starting another run, so just re-rolling",highlight,0,1m9s,2021-07-23 03:26:18
+https://www.twitch.tv/videos/1095185229,"[H] [Part 86] [Run 39] Wave Defense Speedrun | No idea what to expect, so just chilling and doing a few runs | Rip RC",highlight,0,1h2m47s,2021-07-23 03:24:07
+https://www.twitch.tv/videos/1095182519,"[H] [Part 85] Wave Defense Speedrun | Intro and some setup",highlight,0,8m10s,2021-07-23 03:21:20
+https://www.twitch.tv/videos/1083989579,"[H] [Part 84] Wave Defense Speedrun | Review and End",highlight,1,7m8s,2021-07-12 03:16:01
+https://www.twitch.tv/videos/1083987788,"[H] [Part 83] [Run 38] Wave Defense Speedrun | PB, yay! | It's late, i should probably be doing other things, but i want to do a run",highlight,100,1h1m17s,2021-07-12 03:13:46
+https://www.twitch.tv/videos/1083984741,"[H] [Part 82] Wave Defense Speedrun | Intro",highlight,0,2m58s,2021-07-12 03:10:09
+https://www.twitch.tv/videos/1081961375,"[H] [Part 81] Wave Defense Speedrun | Review and End",highlight,1,4m0s,2021-07-10 02:05:39
+https://www.twitch.tv/videos/1081957944,"[H] [Part 80] [Run 37] Wave Defense Speedrun | Another chill run, an even better one",highlight,23,1h2m27s,2021-07-10 02:02:35
+https://www.twitch.tv/videos/1081954708,"[H] [Part 79] Wave Defense Speedrun | Review, chatting and starting another run",highlight,1,4m59s,2021-07-10 02:00:22
+https://www.twitch.tv/videos/1081951937,"[H] [Part 78] [Run 36] Wave Defense Speedrun | A chill run. Good one at that",highlight,3,1h2m45s,2021-07-10 01:58:10
+https://www.twitch.tv/videos/1081947738,"[H] [Part 77] Wave Defense Speedrun | Intro",highlight,1,2m21s,2021-07-10 01:54:09
+https://www.twitch.tv/videos/1081946157,"[H] [Part 76] Wave Defense Speedrun | Review and end",highlight,1,2m26s,2021-07-10 01:52:26
+https://www.twitch.tv/videos/1081943387,"[H] [Part 75] [Run 35] Wave Defense Speedrun | Bots/Robo ports need more planning, doing a ""normal"" chilll run instead",highlight,1,1h5m53s,2021-07-10 01:49:19
+https://www.twitch.tv/videos/1081939991,"[H] [Part 74] Wave Defense Speedrun | Taking a break, messing around and starting another run",highlight,0,9m37s,2021-07-10 01:45:19
+https://www.twitch.tv/videos/1081934259,"[H] [Part 73] [Run 34] Wave Defense Speedrun | Let's see how well robo ports do again, for real this time | Still Rip",highlight,0,1h11m34s,2021-07-10 01:38:41
+https://www.twitch.tv/videos/1081930863,"[H] [Part 72] Wave Defense Speedrun | Review, getting a better idea for how much space i need (hopefully) and starting another run",highlight,0,6m8s,2021-07-10 01:34:51
+https://www.twitch.tv/videos/1081929160,"[H] [Part 71] [Run 33] Wave Defense Speedrun | Let's see how well robo ports do again | Oh hi there lake",highlight,0,24m22s,2021-07-10 01:33:00
+https://www.twitch.tv/videos/1081926733,"[H] [Part 70] Wave Defense Speedrun | Review and some discussion/planning and starting another run",highlight,0,9m16s,2021-07-10 01:30:29
+https://www.twitch.tv/videos/1081924546,"[H] [Part 69] [Run 32] Wave Defense Speedrun | Let's see how well robo ports do | Rip Silo btw",highlight,0,51m30s,2021-07-10 01:28:00
+https://www.twitch.tv/videos/1081921551,"[H] [Part 68] Wave Defense Speedrun | A bit of planning for robo ports and robots then starting a run",highlight,0,14m21s,2021-07-10 01:24:41
+https://www.twitch.tv/videos/1076459862,"[H] [Part 1] Phobos | Implementing code => AST => code, so basically a Lua formatter | Streaming because maybe it'll help me focus",highlight,3,1h52m24s,2021-07-04 16:48:08
+https://www.twitch.tv/videos/1070890256,"[H] [Part 67] Wave Defense Speedrun | Review and End",highlight,2,2m36s,2021-06-29 04:02:47
+https://www.twitch.tv/videos/1070887213,"[H] [Part 66] [Run 31] Wave Defense Speedrun | Good map + decent run = PB! Just don't look at RF... and the other mistakes :)",highlight,82,1h5m12s,2021-06-29 04:00:21
+https://www.twitch.tv/videos/1070884015,"[H] [Part 65] Wave Defense Speedrun | Review and starting another run",highlight,0,3m53s,2021-06-29 03:57:18
+https://www.twitch.tv/videos/1070882813,"[H] [Part 64] [Run 30] Wave Defense Speedrun | This is what happens when i mess up artillery",highlight,0,1h11m42s,2021-06-29 03:56:04
+https://www.twitch.tv/videos/1069882838,"[H] [Part 63] Wave Defense Speedrun | Outro",highlight,0,1m11s,2021-06-28 03:39:27
+https://www.twitch.tv/videos/1069881000,"[H] [Part 62] [Run 29] Wave Defense Speedrun | Really good start but then i'm not feeling it with oil. Oh well",highlight,1,11m58s,2021-06-28 03:37:12
+https://www.twitch.tv/videos/1069878670,"[H] [Part 61] Wave Defense Speedrun | Transition",highlight,1,3m3s,2021-06-28 03:34:26
+https://www.twitch.tv/videos/1069875484,"[H] [Part 60] [Run 28] Wave Defense Speedrun | No way i'll PB so i'm just messing around and having fun | RGB items",highlight,2,1h18m1s,2021-06-28 03:30:49
+https://www.twitch.tv/videos/1069873424,"[H] [Part 59] Wave Defense Speedrun | Short intro | RGB items",highlight,0,1m45s,2021-06-28 03:28:22
+https://www.twitch.tv/videos/1069870936,"[H] [Part 3] Car Engineer Dev | Finalizing, polishing, testing, releasing. All kinds of stuff",highlight,7,2h4m51s,2021-06-28 03:25:12
+https://www.twitch.tv/videos/1057502092,"[H] [Part 2] Car Engineer Dev | Adding health regen, fish healing, repair packs and out of fuel icon | A bit of play testing | Some chatting",highlight,9,4h2m41s,2021-06-16 02:17:18
+https://www.twitch.tv/videos/1057496255,"[H] [Part 1] Car Engineer Dev | Stuck in a car. No wait, you are the car. | Mod for AntiElitz and Nefrums race",highlight,5,4h6m39s,2021-06-16 02:11:29
+https://www.twitch.tv/videos/1057492318,"[H] [Part 22] GuiGlue (?) Dev | Uh, where was i? | Changing how states are passed around | First stream with new monitor setup, yay!",highlight,2,2h14m11s,2021-06-16 02:07:42
+https://www.twitch.tv/videos/1057482387,"[H] New monitor setup and music player app!",highlight,2,5m17s,2021-06-16 02:00:09
+https://www.twitch.tv/videos/1057478917,"[H] Safe Tiles (?) Dev | Using the new $() with statements and trying to figure tile placement logic out. Note: i'm dumb. It's on the item",highlight,4,26m1s,2021-06-16 01:57:29
+https://www.twitch.tv/videos/1057474501,"[H] Factorio Lua Preprocessor Dev | Enabling statements in $()",highlight,13,8m18s,2021-06-16 01:53:22
+https://www.twitch.tv/videos/1057470667,"[H] Safe Tiles (?) Dev | Starting Safe Tiles and working on the preprocessor and other random things",highlight,3,1h6m12s,2021-06-16 01:49:25
+https://www.twitch.tv/videos/1047177050,"[H] [Part 6] Any% Speedrun | Just hanging out a bit after the race, but my brain is fried",highlight,0,7m44s,2021-06-06 01:21:08
+https://www.twitch.tv/videos/1047175322,"[H] [Part 5] [Run 2] Any% Speedrun | Race | Let's have some fun together!",highlight,44,3h21m34s,2021-06-06 01:19:02
+https://www.twitch.tv/videos/1047174111,"[H] [Part 4] Any% Speedrun | Pre Race Intro",highlight,0,19m15s,2021-06-06 01:17:38
+https://www.twitch.tv/videos/1046602762,"[H] [Part 3] Any% Speedrun | Recap for First Run",highlight,1,9m12s,2021-06-05 14:47:31
+https://www.twitch.tv/videos/1046601727,"[H] [Part 2] [Run 1] Any% Speedrun | Test Run | What even are science packs?",highlight,6,3h48m23s,2021-06-05 14:45:43
+https://www.twitch.tv/videos/1046600927,"[H] [Part 1] Any% Speedrun | Test Run Intro",highlight,1,13m15s,2021-06-05 14:44:14
+https://www.twitch.tv/videos/1040604174,"[H] (Factorio) Lua Preprocessor | Enabling require inside preprocessor statements",highlight,5,2h40m26s,2021-05-30 22:03:41
+https://www.twitch.tv/videos/1040603152,"[H] [Part 58] Wave Defense Speedrun | Review and End",highlight,26,1m56s,2021-05-30 22:02:45
+https://www.twitch.tv/videos/1040601926,"[H] [Part 57] [Run 27] Wave Defense Speedrun | A decent run with Artillery",highlight,76,1h6m21s,2021-05-30 22:01:40
+https://www.twitch.tv/videos/1040596383,"[H] [Part 56] [Run 26] Wave Defense Speedrun | Messing up Artillery again, reset",highlight,1,37m9s,2021-05-30 21:56:52
+https://www.twitch.tv/videos/1040592903,"[H] [Part 55] [Run 25] Wave Defense Speedrun | Just chilling",highlight,0,1h13m9s,2021-05-30 21:53:29
+https://www.twitch.tv/videos/1040591218,"[H] [Part 54] Wave Defense Speedrun | Practicing (Artillery) Mall",highlight,1,16m2s,2021-05-30 21:51:46
+https://www.twitch.tv/videos/1040588874,"[H] [Part 53] [Run 24] Wave Defense Speedrun | First run of the day, reset",highlight,0,23m51s,2021-05-30 21:49:16
+https://www.twitch.tv/videos/1040542627,"[H] [Part 52] Wave Defense Speedrun | Review... or rather just ending",highlight,0,1m31s,2021-05-30 21:04:12
+https://www.twitch.tv/videos/1040540124,"[H] [Part 51] [Run 23] Wave Defense Speedrun | Trying out Artillery | Take 2",highlight,0,1h11m18s,2021-05-30 21:02:16
+https://www.twitch.tv/videos/1040535469,"[H] [Part 50] Wave Defense Speedrun | Planning some more for Artillery mall",highlight,0,14m23s,2021-05-30 20:59:07
+https://www.twitch.tv/videos/1040532934,"[H] [Part 49] [Run 22] Wave Defense Speedrun | Trying to try out Artillery",highlight,0,17m38s,2021-05-30 20:57:06
+https://www.twitch.tv/videos/1040529512,"[H] [Part 48] Wave Defense Speedrun | Planning mall for Artillery",highlight,0,13m33s,2021-05-30 20:54:14
+https://www.twitch.tv/videos/1040526891,"[H] [Part 47] Wave Defense Speedrun | Investigating the wave spawning algorithm",highlight,0,44m18s,2021-05-30 20:51:47
+https://www.twitch.tv/videos/1033687530,"[H] [Part 46] Wave Defense Speedrun | Review and End",highlight,1,5m43s,2021-05-24 17:18:27
+https://www.twitch.tv/videos/1033683105,"[H] [Part 45] [Run 21] Wave Defense Speedrun | What if instead of sleeping you speedran? (third run, and good run)",highlight,49,1h7m26s,2021-05-24 17:12:19
+https://www.twitch.tv/videos/1033681327,"[H] [Part 44] Wave Defense Speedrun | Review and go again",highlight,0,6m24s,2021-05-24 17:09:50
+https://www.twitch.tv/videos/1033679049,"[H] [Part 43] [Run 20] Wave Defense Speedrun | What if instead of sleeping you speedran? (Second run)",highlight,1,1h11m18s,2021-05-24 17:06:54
+https://www.twitch.tv/videos/1033676437,"[H] [Part 42] Wave Defense Speedrun | Absolute tiny break",highlight,0,2m16s,2021-05-24 17:03:35
+https://www.twitch.tv/videos/1033674214,"[H] [Part 41] [Run 19] Wave Defense Speedrun | What if instead of sleeping you speedran?",highlight,0,1h15m44s,2021-05-24 17:01:13
+https://www.twitch.tv/videos/1033670223,"[H] [Part 40] Wave Defense Speedrun | Intro and my thoughts on starting with a save game with the hotbar setup",highlight,45,11m35s,2021-05-24 16:56:54
+https://www.twitch.tv/videos/1031705009,"[H] [Part 39] Wave Defense Speedrun | Review",highlight,1,3m14s,2021-05-22 21:14:12
+https://www.twitch.tv/videos/1031701933,"[H] [Part 38] [Run 18] Wave Defense Speedrun | Not quite clean, but clean enough!",highlight,16,1h9m14s,2021-05-22 21:11:36
+https://www.twitch.tv/videos/1030998092,"[H] [Part 37] Wave Defense Speedrun | Reviewing and chatting",highlight,0,13m23s,2021-05-22 05:08:04
+https://www.twitch.tv/videos/1030996337,"[H] [Part 36] [Run 17] Wave Defense Speedrun | Don't forget the main goal: Having fun!",highlight,1,1h11m36s,2021-05-22 05:06:24
+https://www.twitch.tv/videos/1030992217,"[H] [Part 35] [Run 16] Wave Defense Speedrun | Biters be speedrunning",highlight,0,18m22s,2021-05-22 05:02:35
+https://www.twitch.tv/videos/1030987617,"[H] [Part 34] Wave Defense Speedrun | Review and or break",highlight,0,10m34s,2021-05-22 04:58:42
+https://www.twitch.tv/videos/1030984853,"[H] [Part 33] [Run 15] Wave Defense Speedrun | Trying to stay silent because of a wound in my mouth",highlight,1,1h11m8s,2021-05-22 04:55:56
+https://www.twitch.tv/videos/1030549620,"[H] [Part 32] Wave Defense Speedrun | Review",highlight,1,8m7s,2021-05-21 22:20:22
+https://www.twitch.tv/videos/1030548750,"[H] [Part 31] [Run 14] Wave Defense Speedrun | Close to PB, but cleared way too many biters",highlight,2,1h10m47s,2021-05-21 22:19:35
+https://www.twitch.tv/videos/1030545091,"[H] [Part 30] Wave Defense Speedrun | Review and setup for another run",highlight,0,6m51s,2021-05-21 22:16:14
+https://www.twitch.tv/videos/1030540999,"[H] [Part 29] [Run 13] Wave Defense Speedrun | Trying out disabled item groups and subgroups as well. Don't love it",highlight,1,1h14m16s,2021-05-21 22:12:36
+https://www.twitch.tv/videos/1030536806,"[H] [Part 28] [Run 12] Wave Defense Speedrun | First legitimate death",highlight,1,28m38s,2021-05-21 22:09:05
+https://www.twitch.tv/videos/1030531093,"[H] [Part 27] Wave Defense Speedrun | New Plan and Tiny Warmup",highlight,0,23m38s,2021-05-21 22:04:31
+https://www.twitch.tv/videos/1028415489,"[H] [Part 26] Wave Defense Speedrun | Tiny bit of review",highlight,0,3m43s,2021-05-19 23:32:19
+https://www.twitch.tv/videos/1028414344,"[H] [Part 25] [Run 11] Wave Defense Speedrun | Surprisingly fast",highlight,6,1h10m29s,2021-05-19 23:31:12
+https://www.twitch.tv/videos/1028411352,"[H] [Part 24] Wave Defense Speedrun | Review, taking a break and and eating",highlight,0,44m46s,2021-05-19 23:28:15
+https://www.twitch.tv/videos/1028409868,"[H] [Part 23] [Run 10] Wave Defense Speedrun | Comparing to the wrong splits and getting confused",highlight,2,1h19m21s,2021-05-19 23:26:44
+https://www.twitch.tv/videos/1028407778,"[H] [Part 22] Wave Defense Speedrun | A bit of planning",highlight,0,49m42s,2021-05-19 23:24:34
+https://www.twitch.tv/videos/1027372313,"[H] [Part 21] GuiGlue (?) Dev | big changes, big improvements. Namely default get_children and default struct class_names",highlight,1,1h53m30s,2021-05-19 00:40:41
+https://www.twitch.tv/videos/1027370716,"[H] [Part 21] Wave Defense Speedrun | An even tiny-ier amount of review",highlight,2,3m3s,2021-05-19 00:38:59
+https://www.twitch.tv/videos/1027368335,"[H] [Part 20] [Run 9] Wave Defense Speedrun | Stressed start, but still good in the end",highlight,12,1h20m1s,2021-05-19 00:36:25
+https://www.twitch.tv/videos/1027363319,"[H] [Part 19] Wave Defense Speedrun | Some warmup, even though i didn't think i was doing a warmup run",highlight,9,9m40s,2021-05-19 00:31:21
+https://www.twitch.tv/videos/1027360200,"[H] [Part 20] GuiGlue (?) Dev | writing a test mod",highlight,1,1h2m56s,2021-05-19 00:28:14
+https://www.twitch.tv/videos/1027359238,"[H] [Part 19] GuiGlue (?) Dev | writing a test mod",highlight,0,1h14m32s,2021-05-19 00:27:14
+https://www.twitch.tv/videos/1023968138,"[H] [Part 18] GuiGlue (?) Dev | Removing state controllers and setting up for a test mod | Mute to stay focused",highlight,5,2h35m55s,2021-05-15 22:53:25
+https://www.twitch.tv/videos/1023966402,"[H] [Part 2] Trackmania Canyon WTC",highlight,3,1h2m3s,2021-05-15 22:51:53
+https://www.twitch.tv/videos/1023962597,"[H] [Part 17] GuiGlue (?) Dev | Dynamic values | Mute",highlight,0,3h13m27s,2021-05-15 22:48:27
+https://www.twitch.tv/videos/1023938900,"[H] [Part 16] GuiGlue (?) Dev | gui structure, static and dynamic values, debugging and a short story | Mute cause i'm suddenly very tired",highlight,0,1h34m41s,2021-05-15 22:27:58
+https://www.twitch.tv/videos/1023931370,"[H] [Part 9] [R 05.1] Chrono Ark | Throw everything at Trisha",highlight,7,2h35m55s,2021-05-15 22:21:33
+https://www.twitch.tv/videos/1023927133,"[H] [Part 15] GuiGlue (?) Dev | Setup debug only code",highlight,2,24m41s,2021-05-15 22:18:01
+https://www.twitch.tv/videos/1023922015,"[H] [Part 14] GuiGlue (?) Dev | Caching add params and setup debug only code",highlight,2,46m9s,2021-05-15 22:13:37
+https://www.twitch.tv/videos/1019360977,"[H] [Part 18] Wave Defense Speedrun | Tiny review of the previous run",highlight,1,4m45s,2021-05-12 00:26:44
+https://www.twitch.tv/videos/1019359229,"[H] [Part 17] [Run 8] Wave Defense Speedrun | Having some fun",highlight,4,1h26m40s,2021-05-12 00:25:15
+https://www.twitch.tv/videos/1019355777,"[H] [Part 16] Wave Defense Speedrun | Rerolling and thinking i'm getting the same maps",highlight,0,5m52s,2021-05-12 00:21:33
+https://www.twitch.tv/videos/1019353610,"[H] [Part 15] [Run 7] Wave Defense Speedrun | Unplanned warmup",highlight,1,13m50s,2021-05-12 00:19:23
+https://www.twitch.tv/videos/1019352141,"[H] [Part 14] Wave Defense Speedrun | Transitioning to Wave Defense, mostly talking about random things",highlight,2,15m54s,2021-05-12 00:17:54
+https://www.twitch.tv/videos/1019346386,"[H] [Part 13] GuiGlue (?) Dev | Fixing EmmyLua types and redoing the definition of/plan for children and add params",highlight,1,1h44m37s,2021-05-12 00:12:04
+https://www.twitch.tv/videos/1019337344,"[H] [Part 12] GuiGlue (?) Dev | Making more test gui and finding fundamental problems | Tired, but i wanted to stream the entire dev process",highlight,0,1h36m56s,2021-05-12 00:03:45
+https://www.twitch.tv/videos/1018283338,"[H] [Part 11] GuiGlue (?) Dev | Fleshing out the system and writing/cleaning up for the final version",highlight,2,2h54m12s,2021-05-11 00:50:22
+https://www.twitch.tv/videos/1018281617,"[H] [Part 10] GuiGlue (?) Dev | Adding and improving things here and there | Mute for the first part",highlight,0,3h22m33s,2021-05-11 00:48:34
+https://www.twitch.tv/videos/1014700291,"[H] [Part 13] Wave Defense Speedrun | Reviewing the last run",highlight,3,9m16s,2021-05-07 23:04:44
+https://www.twitch.tv/videos/1014697801,"[H] [Part 12] [Run 6] Wave Defense Speedrun | Exhausted from programming, but i wanted to do a nice, chill run",highlight,13,1h34m14s,2021-05-07 23:03:01
+https://www.twitch.tv/videos/1014691591,"[H] [Part 11] Wave Defense Speedrun | Setting up splits past mines and doing some math",highlight,0,58m4s,2021-05-07 22:59:00
+https://www.twitch.tv/videos/1014686296,"[H] [Part 9] GuiGlue (?) Dev | Cores and states of children continued madness but with a potential step forward",highlight,0,2h50m59s,2021-05-07 22:55:08
+https://www.twitch.tv/videos/1014684073,"[H] [Part 8] GuiGlue (?) Dev | How to get/set cores and states of children (madness)",highlight,0,59m53s,2021-05-07 22:53:18
+https://www.twitch.tv/videos/1013684852,"[H] [Part 6] [Run 3] Wave Defense Speedrun | How much wood could you possibly need?",highlight,2,13m3s,2021-05-07 01:55:16
+https://www.twitch.tv/videos/1013684853,"[H] [Part 10] Wave Defense Speedrun | Reviewing and talking a bit",highlight,1,27m23s,2021-05-07 01:55:16
+https://www.twitch.tv/videos/1013684857,"[H] [Part 8] Wave Defense Speedrun | Reviewing the last run and planning for the next",highlight,1,57m45s,2021-05-07 01:55:16
+https://www.twitch.tv/videos/1013684850,"[H] [Part 7] [Run 4] Wave Defense Speedrun | The first win!",highlight,1,2h43m23s,2021-05-07 01:55:16
+https://www.twitch.tv/videos/1013684856,"[H] [Part 9] [Run 5] Wave Defense Speedrun | Sub 2 hours?",highlight,25,1h57m3s,2021-05-07 01:55:16
+https://www.twitch.tv/videos/1013684855,"[H] [Part 5] Wave Defense Speedrun | Planning... think big",highlight,0,1h8m52s,2021-05-07 01:55:16
+https://www.twitch.tv/videos/1013666107,"[H] [Part 3] Wave Defense Speedrun | Tiny bit of planning in between",highlight,0,15m16s,2021-05-07 01:36:10
+https://www.twitch.tv/videos/1013666109,"[H] [Part 1] Wave Defense Speedrun | Intro",highlight,7,9m51s,2021-05-07 01:36:10
+https://www.twitch.tv/videos/1013666108,"[H] [Part 2] [Run 1] Wave Defense Speedrun | No prep, haven't played in a while, just trying this out because i'm interested in speedrunning",highlight,0,58m44s,2021-05-07 01:36:10
+https://www.twitch.tv/videos/1013666106,"[H] [Part 4] [Run 2] Wave Defense Speedrun",highlight,0,1h8m30s,2021-05-07 01:36:10
+https://www.twitch.tv/videos/1013644840,"[H] [Part 7] GuiGlue (?) Dev | standard library class children and state controllers",highlight,0,5h4m6s,2021-05-07 01:15:03
+https://www.twitch.tv/videos/1013643098,"[H] [Part 6] GuiGlue (?) Dev | standard library overhaul to generate classes from a static table structure defining the gui",highlight,1,1h39m46s,2021-05-07 01:13:23
+https://www.twitch.tv/videos/1009357255,"[H] A tiny bit of space exploration while taking a brake from GuiGlue (?) Dev. I don't really do much",highlight,0,38m18s,2021-05-03 05:40:36
+https://www.twitch.tv/videos/1009354570,"[H] [Part 5] GuiGlue (?) Dev | States and std-list",highlight,0,2h43m32s,2021-05-03 05:36:25
+https://www.twitch.tv/videos/1009351082,"[H] [Part 4] GuiGlue (?) Dev | Continue with std-frame-title-bar | Mute",highlight,0,1h0m10s,2021-05-03 05:31:22
+https://www.twitch.tv/videos/1009348577,"[H] [Part 3] GuiGlue (?) Dev | Implement some of std-frame-title-bar, or so, to test the framework",highlight,1,2h39m47s,2021-05-03 05:27:46
+https://www.twitch.tv/videos/1009338470,"[H] [Part 2] GuiGlue (?) Dev | Refactor old gui lib and add inst cores",highlight,1,1h56m7s,2021-05-03 05:13:33
+https://www.twitch.tv/videos/1009335236,"[H] [Part 1] GuiGlue (?) Dev | Refactor old gui lib | Mute",highlight,2,2h28m22s,2021-05-03 05:09:31
+https://www.twitch.tv/videos/991074020,"[H] Lua preprocessor string interpolation",highlight,1,1h10m41s,2021-04-17 20:14:23
+https://www.twitch.tv/videos/952353398,"[H] [Part 8] [R 04.1] Chrono Ark | Final boss and and some talking",highlight,14,1h0m52s,2021-03-17 04:10:48
+https://www.twitch.tv/videos/941777165,"[H] sumneko.lua plugin dev for factorio",highlight,6,1h50m3s,2021-03-08 17:10:34
+https://www.twitch.tv/videos/941775808,"[H] lua preprocessor dev, lua debugger setup and LuaFileSystem install and setup",highlight,20,2h14m0s,2021-03-08 17:09:03
+https://www.twitch.tv/videos/941775807,"[H] [Part 6] Trackmania",highlight,0,42m23s,2021-03-08 17:09:03
+https://www.twitch.tv/videos/937504412,"[H] lua preprocessor dev for factorio",highlight,4,2h6m37s,2021-03-05 05:04:00
+https://www.twitch.tv/videos/931156738,"[H] sumneko.lua plugin dev for factorio || ---@typelist",highlight,5,1h17m32s,2021-02-28 01:30:55
+https://www.twitch.tv/videos/888393097,"[H] [Part 2] Nullius Modded Run | More Bricks, More Iron, Mall Planning",highlight,1,1h44m14s,2021-01-26 04:27:13
+https://www.twitch.tv/videos/888393098,"[H] [Part 7] [R 03.4] Chrono Ark",highlight,6,1h58m28s,2021-01-26 04:27:13
+https://www.twitch.tv/videos/888393096,"[H] [Part 5] Trackmania",highlight,0,46m53s,2021-01-26 04:27:13
+https://www.twitch.tv/videos/887236415,"[H] Just hanging out, chatting about quite literally random things, including some factorio talk",highlight,3,36m15s,2021-01-25 06:02:03
+https://www.twitch.tv/videos/887236416,"[H] [Part 1] Nullius Modded Run | Beep Boop, I am an Android",highlight,6,3h29m46s,2021-01-25 06:02:03
+https://www.twitch.tv/videos/887236417,"[H] [Part 4] One Life Ori and the Blind Forest",highlight,0,37m22s,2021-01-25 06:02:03
+https://www.twitch.tv/videos/881898779,"[H] Some ""random"" gui modding | mute",highlight,12,1h47m9s,2021-01-21 05:03:20
+https://www.twitch.tv/videos/872847233,"[H] [Part 6] [R 03.3] Chrono Ark",highlight,8,1h55m33s,2021-01-14 03:38:47
+https://www.twitch.tv/videos/870532443,"[H] [Part 5] [R 03.2] Chrono Ark",highlight,3,2h34m40s,2021-01-12 05:47:01
+https://www.twitch.tv/videos/868369822,"[H] [Part 4] TrackMania",highlight,1,11m55s,2021-01-10 13:35:31
+https://www.twitch.tv/videos/868369823,"[H] [Part 17] Gui Plus Framework Dev",highlight,3,1h47m20s,2021-01-10 13:35:31
+https://www.twitch.tv/videos/868369821,"[H] [Part 4] [R 03.1] Chrono Ark",highlight,4,1h4m37s,2021-01-10 13:35:31
+https://www.twitch.tv/videos/862604405,"[H] [Part 8] Radar Equipment Dev",highlight,2,2h13m29s,2021-01-05 22:33:38
+https://www.twitch.tv/videos/862604406,"[H] [Part 3] TrackMania",highlight,2,43m57s,2021-01-05 22:33:38
+https://www.twitch.tv/videos/862604408,"[H] [Part 3] [R 02.2] Chrono Ark",highlight,5,51m27s,2021-01-05 22:33:38
+https://www.twitch.tv/videos/861796857,"[H] [Part 2] [R 02.1] Chrono Ark",highlight,5,3h40m30s,2021-01-05 04:09:12
+https://www.twitch.tv/videos/861776206,"[H] OBS Streaming Setup",highlight,4,3m40s,2021-01-05 03:50:02
+https://www.twitch.tv/videos/859431682,"[H] [Part 2] Anno 2070",highlight,2,1h17m43s,2021-01-03 04:12:57
+https://www.twitch.tv/videos/858169578,"[H] [Part 16] Gui Plus Framework Dev",highlight,1,2h14m58s,2021-01-02 03:10:19
+https://www.twitch.tv/videos/858169577,"[H] [Part 1] Anno 2070",highlight,11,3h20m43s,2021-01-02 03:10:19
+https://www.twitch.tv/videos/855803798,"[H] [Part 7] Radar Equipment Dev",highlight,1,1h1m35s,2020-12-31 01:04:08
+https://www.twitch.tv/videos/855803799,"[H] [Part 3] One Life Ori and the Blind Forest",highlight,0,1h16m29s,2020-12-31 01:04:08
+https://www.twitch.tv/videos/854768500,"[H] [Part 2] One Life Ori and the Blind Forest",highlight,0,2h15m38s,2020-12-30 04:02:00
+https://www.twitch.tv/videos/854768499,"[H] [Part 6] Radar Equipment Dev",highlight,0,1h35m3s,2020-12-30 04:02:00
+https://www.twitch.tv/videos/853501539,"[H] [Part 1] [R 01] Chrono Ark",highlight,5,2h59m14s,2020-12-29 03:23:26
+https://www.twitch.tv/videos/853501538,"[H] [Part 5] Radar Equipment Dev",highlight,0,2h33m40s,2020-12-29 03:23:26
+https://www.twitch.tv/videos/852782597,"[H] [Part 4] Radar Equipment Dev",highlight,1,1h54m36s,2020-12-28 16:48:34
+https://www.twitch.tv/videos/852772389,"[H] [Part 3] Radar Equipment Dev",highlight,0,11m22s,2020-12-28 16:35:33
+https://www.twitch.tv/videos/852365743,"[H] [Part 4] Baba Is You",highlight,2,55m51s,2020-12-28 04:32:58
+https://www.twitch.tv/videos/852365740,"[H] [Part 2] Radar Equipment Dev",highlight,0,1h45m26s,2020-12-28 04:32:58
+https://www.twitch.tv/videos/851097801,"[H] [Part 3] Baba Is You",highlight,1,1h33m22s,2020-12-27 03:05:43
+https://www.twitch.tv/videos/851097804,"[H] [Part 2] TrackMania",highlight,1,38m52s,2020-12-27 03:05:43
+https://www.twitch.tv/videos/851097803,"[H] [Part 1] Radar Equipment Dev",highlight,1,1h30m26s,2020-12-27 03:05:43
+https://www.twitch.tv/videos/851087651,"[H] [Part 2] Baba Is You",highlight,0,1h59m54s,2020-12-27 02:56:51
+https://www.twitch.tv/videos/851087650,"[H] [Part 1] One Life Ori and the Blind Forest",highlight,1,26m36s,2020-12-27 02:56:51
+https://www.twitch.tv/videos/851079351,"[H] [Part 1] Baba Is You",highlight,0,2h39m5s,2020-12-27 02:48:34
+https://www.twitch.tv/videos/851077623,"[H] make cross mod require work with sumneko.lua (vscode) | Factorio Modding Dev Env Setup",highlight,10,1h55m55s,2020-12-27 02:46:45
+https://www.twitch.tv/videos/851074022,"[H] [Part 1] TrackMania",highlight,3,27m43s,2020-12-27 02:43:04
+https://www.twitch.tv/videos/851074023,"[H] CSExe Dev | compiling and running C# .NET Core at runtime",highlight,7,1h43m6s,2020-12-27 02:43:04
+https://www.twitch.tv/videos/851074021,"[H] [Part 1] TrackMania Canyon WTC",highlight,10,53m36s,2020-12-27 02:43:04
+https://www.twitch.tv/videos/847908759,"[H] [Part 15] Gui Plus Framework Dev",highlight,1,34m31s,2020-12-24 00:03:42
+https://www.twitch.tv/videos/831024356,"[H] [Part 14] Gui Plus Framework Dev",highlight,1,1h11m7s,2020-12-09 13:32:38
+https://www.twitch.tv/videos/828455426,"[H] [Part 13] Gui Plus Framework Dev",highlight,1,4h0m37s,2020-12-07 02:33:09
+https://www.twitch.tv/videos/828453434,"[H] [Part 12] gui-plus framework dev",highlight,0,2h49m3s,2020-12-07 02:31:10
+https://www.twitch.tv/videos/828447062,"[H] [Part 11] Gui Plus Framework Dev",highlight,1,2h4m49s,2020-12-07 02:24:47
+https://www.twitch.tv/videos/828443172,"[H] [Part 10] Gui Plus Framework Dev",highlight,1,59m30s,2020-12-07 02:20:36
+https://www.twitch.tv/videos/828439235,"[H] [Part 9] Gui Plus Framework Dev",highlight,2,1h57m15s,2020-12-07 02:16:26
+https://www.twitch.tv/videos/828436951,"[H] [Part 8] Gui Plus Framework Dev",highlight,0,1h23m20s,2020-12-07 02:13:55
+https://www.twitch.tv/videos/828429672,"[H] [Part 7] Gui Plus Framework Dev",highlight,1,9m41s,2020-12-07 02:06:33
+https://www.twitch.tv/videos/828424271,"[H] [Part 4] Satisfactory",highlight,1,2h38m36s,2020-12-07 02:01:36
+https://www.twitch.tv/videos/828418665,"[H] [Part 6] Gui Plus Framework Dev",highlight,0,1h29m36s,2020-12-07 01:56:46
+https://www.twitch.tv/videos/828411526,"[H] [Part 3] Satisfactory",highlight,0,1h23m30s,2020-12-07 01:49:10
+https://www.twitch.tv/videos/828409485,"[H] [Part 5] Gui Plus Framework Dev",highlight,1,41m6s,2020-12-07 01:46:52
+https://www.twitch.tv/videos/828407446,"[H] [Part 4] Gui Plus Framework Dev",highlight,0,38m53s,2020-12-07 01:44:39
+https://www.twitch.tv/videos/828402212,"[H] [Part 2] Satisfactory",highlight,2,2h43m31s,2020-12-07 01:38:53
+https://www.twitch.tv/videos/828392236,"[H] [Part 3] Gui Plus Framework Dev",highlight,0,1h36m47s,2020-12-07 01:28:17
+https://www.twitch.tv/videos/828388004,"[H] [Part 2] Gui Plus Framework Dev",highlight,0,2h29m51s,2020-12-07 01:23:42
+https://www.twitch.tv/videos/827451597,"[H] [Part 1] Satisfactory",highlight,6,1h58m11s,2020-12-06 05:33:58
+https://www.twitch.tv/videos/827451469,"[H] [Part 1] Gui Plus Framework Dev",highlight,8,2h6m46s,2020-12-06 05:33:48

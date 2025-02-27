@@ -1,0 +1,414 @@
+1
+[H] Just working | Hi. I pressed the button. Didn't really plan this, so there's no good title for this, so uh yea... Hi! | No Music
+[H] Just working | Hi. I pressed the button. Didn't really plan this, so there's no good title for this, so uh yea... Hi! | No Music
+August 22, 2022
+
+49:17
+4
+Highlight
+
+2
+[H] Writing git hooks and scripts to work around issues with VRChat's Udon | No Music
+[H] Writing git hooks and scripts to work around issues with VRChat's Udon | No Music
+September 22, 2022
+
+1:35:00
+1
+Highlight
+
+4
+[H] Preparing for a talk about networking in VRChat's Udon (using UdonSharp) | No Music
+[H] Preparing for a talk about networking in VRChat's Udon (using UdonSharp) | No Music
+November 8, 2022
+
+2:41:18
+1
+Highlight
+
+5
+[H] VRC Udon | Figuring out networking a bit more... | The second quarter of the stream is maybe worth watching, the rest isn't
+[H] VRC Udon | Figuring out networking a bit more... | The second quarter of the stream is maybe worth watching, the rest isn't
+November 14, 2022
+
+2:40:58
+4
+Highlight
+
+6
+[H] Why I should not stream VRChat Udon development
+[H] Why I should not stream VRChat Udon development
+November 14, 2022
+
+13:52
+3
+Highlight
+
+7
+[H] Udon Dev Stuff | I said I wouldn't... but then Lists and Dictionaries got added. I mean, how could I resist! | (Not actually using them)
+[H] Udon Dev Stuff | I said I wouldn't... but then Lists and Dictionaries got added. I mean, how could I resist! | (Not actually using them)
+May 6, 2023
+
+3:16:46
+2
+Highlight
+
+8
+[H] Udon Dev Stuff | We continue cleaning the project and testing things. Probably won't get to use Lists or Dictionaries today either, tbh
+[H] Udon Dev Stuff | We continue cleaning the project and testing things. Probably won't get to use Lists or Dictionaries today either, tbh
+May 7, 2023
+
+2:23:38
+0
+Highlight
+
+9
+[H] Udon Dev Stuff | Trying to get Unity to stop crashing, further cleaning up the project and fixing things
+[H] Udon Dev Stuff | Trying to get Unity to stop crashing, further cleaning up the project and fixing things
+May 9, 2023
+
+4:07:59
+1
+Highlight
+
+10
+[H] Udon Dev Stuff... But in Lua? | While Unity is having a crash party, I'll just prototype in the sacrad lands of Lua
+[H] Udon Dev Stuff... But in Lua? | While Unity is having a crash party, I'll just prototype in the sacrad lands of Lua
+May 10, 2023
+
+2:29:48
+2
+Highlight
+
+11
+[H] Udon Dev Stuff... But in Lua? | While Unity is having a crash party, I'll just prototype in the sacrad lands of Lua
+[H] Udon Dev Stuff... But in Lua? | While Unity is having a crash party, I'll just prototype in the sacrad lands of Lua
+May 11, 2023
+
+2:21:17
+3
+Highlight
+
+12
+[H] Udon Dev Stuff... But in Lua? | Simulating all kinds of ways Udon _might_ be implemented, so that I can more easily test syncing
+[H] Udon Dev Stuff... But in Lua? | Simulating all kinds of ways Udon _might_ be implemented, so that I can more easily test syncing
+May 14, 2023
+
+1:24:01
+0
+Highlight
+
+13
+[H] Udon Dev Stuff... But in Lua? | Simulation of Udon Networking | Lot's of theory, lot's of talking
+[H] Udon Dev Stuff... But in Lua? | Simulation of Udon Networking | Lot's of theory, lot's of talking
+May 14, 2023
+
+1:16:30
+1
+Highlight
+
+14
+[H] Udon Dev Stuff... But in Lua? | Still working on this, good progress though and I can finally talk about it (context not provided)
+[H] Udon Dev Stuff... But in Lua? | Still working on this, good progress though and I can finally talk about it (context not provided)
+June 5, 2023
+
+1:36:31
+1
+Highlight
+
+15
+[H] Udon Dev | Player TP menu & utilities | No Networking! I'll actually get stuff done! (first some catching up)
+[H] Udon Dev | Player TP menu & utilities | No Networking! I'll actually get stuff done! (first some catching up)
+June 9, 2023
+
+3:36:44
+4
+Highlight
+
+16
+[H] Udon Dev | Updating the last of my scripts, all of the syncing fixed!
+[H] Udon Dev | Updating the last of my scripts, all of the syncing fixed!
+June 15, 2023
+
+4:08:26
+4
+Highlight
+
+17
+[H] Udon Dev | Updating my scripts... again. This time because I learned how to do editor scripting more correctly
+[H] Udon Dev | Updating my scripts... again. This time because I learned how to do editor scripting more correctly
+June 19, 2023
+
+4:02:08
+2
+Highlight
+
+18
+[H] Udon Dev | Figuring out how to make VCC/VPM packages and VCC listings... my own way | Short break with Satisfactory in between
+[H] Udon Dev | Figuring out how to make VCC/VPM packages and VCC listings... my own way | Short break with Satisfactory in between
+June 28, 2023
+
+3:08:20
+0
+Highlight
+
+19
+[H] Udon Dev | What if "enums + extension methods = custom data structures in UdonSharp"?
+[H] Udon Dev | What if "enums + extension methods = custom data structures in UdonSharp"?
+June 30, 2023
+
+35:32
+2
+Highlight
+
+20
+[H] Udon Dev | Manually publishing a VPM package and creating a VCC listing, then writing down the steps
+[H] Udon Dev | Manually publishing a VPM package and creating a VCC listing, then writing down the steps
+June 30, 2023
+
+1:30:42
+0
+Highlight
+
+21
+[H] Udon Dev | Writing a custom VPM (VRChat Package Manager) publish script/program. Unusual start, but then good Pogress
+[H] Udon Dev | Writing a custom VPM (VRChat Package Manager) publish script/program. Unusual start, but then good Pogress
+July 6, 2023
+
+3:26:58
+0
+Highlight
+
+22
+[H] Udon Dev | Still writing a custom VPM (VRChat Package Manager) publish script/program, again good progress
+[H] Udon Dev | Still writing a custom VPM (VRChat Package Manager) publish script/program, again good progress
+July 8, 2023
+
+2:06:35
+0
+Highlight
+
+23
+[H] Udon Dev | Still writing a custom VPM (VRChat Package Manager) publish script/program | Publish command done!
+[H] Udon Dev | Still writing a custom VPM (VRChat Package Manager) publish script/program | Publish command done!
+July 8, 2023
+
+1:58:56
+0
+Highlight
+
+24
+[H] Udon Dev | Generating changelog drafts for a custom VPM publish script
+[H] Udon Dev | Generating changelog drafts for a custom VPM publish script
+July 9, 2023
+
+1:49:10
+1
+Highlight
+
+25
+[H] Udon Dev | VPMPublish, finishing changelog generation, writing documentation and discussing website generation
+[H] Udon Dev | VPMPublish, finishing changelog generation, writing documentation and discussing website generation
+July 10, 2023
+
+2:14:39
+0
+Highlight
+
+26
+[H] Udon Dev | Refactoring a bit and starting on the VCC listing website generator
+[H] Udon Dev | Refactoring a bit and starting on the VCC listing website generator
+July 11, 2023
+
+3:19:28
+0
+Highlight
+
+27
+[H] Udon Dev | Recapping the VCC listing json generation that I did off stream and then genreating the human readable page
+[H] Udon Dev | Recapping the VCC listing json generation that I did off stream and then genreating the human readable page
+July 12, 2023
+
+1:14:35
+10
+Highlight
+
+28
+[H] Udon Dev | Open source everything! | Recap VPMPublsih and my own VCC listing webpage and the package migration process
+[H] Udon Dev | Open source everything! | Recap VPMPublsih and my own VCC listing webpage and the package migration process
+July 28, 2023
+
+3:38:59
+2
+Highlight
+
+29
+[H] Udon Dev | Music Control | Adding a lot of new features and improving quality of life
+[H] Udon Dev | Music Control | Adding a lot of new features and improving quality of life
+August 5, 2023
+
+6:15:45
+3
+Highlight
+
+30
+[H] Udon Dev | Music Control polish, working through the TODO list
+[H] Udon Dev | Music Control polish, working through the TODO list
+August 14, 2023
+
+3:08:59
+8
+Highlight
+
+31
+[H] LockStep networking | Working through TODOs
+[H] LockStep networking | Working through TODOs
+April 15, 2024
+
+4:37:34
+1
+Highlight
+
+32
+[H] LockStep networking and then VFXTargetGun | More TODOs, then actually using the system!
+[H] LockStep networking and then VFXTargetGun | More TODOs, then actually using the system!
+April 19, 2024
+
+4:17:49
+1
+Highlight
+
+33
+[H] VFXTarget Gun | Rewriting networking to use Lockstep - successfully!
+[H] VFXTarget Gun | Rewriting networking to use Lockstep - successfully!
+April 19, 2024
+
+3:40:15
+0
+Highlight
+
+34
+[H] VFXTarget Gun | Fixing 1 out of 2 bugs in 1 hour, then implementing latency hiding, once again successfully!
+[H] VFXTarget Gun | Fixing 1 out of 2 bugs in 1 hour, then implementing latency hiding, once again successfully!
+April 19, 2024
+
+3:10:33
+1
+Highlight
+
+35
+[H] VFXTarget Gun | Adding import/export support | Late stream
+[H] VFXTarget Gun | Adding import/export support | Late stream
+April 24, 2024
+
+2:31:27
+1
+Highlight
+
+36
+[H] Lockstep Networking | Idk what to do, but I pressed the stream button
+[H] Lockstep Networking | Idk what to do, but I pressed the stream button
+April 29, 2024
+
+3:12:35
+2
+Highlight
+
+37
+[H] Lockstep Networking | Starting work on master change requests, what an absolute beast
+[H] Lockstep Networking | Starting work on master change requests, what an absolute beast
+April 30, 2024
+
+4:52:05
+0
+Highlight
+
+38
+[H] Lockstep Networking | Turns out master changing in general was (and is) broken
+[H] Lockstep Networking | Turns out master changing in general was (and is) broken
+May 3, 2024
+
+2:34:04
+6
+Highlight
+
+39
+[H] VRC and Udon hate version control, Unity dislikes version control, git lfs tricks you, git loves you and I'm looking for a way out
+[H] VRC and Udon hate version control, Unity dislikes version control, git lfs tricks you, git loves you and I'm looking for a way out
+May 13, 2024
+
+3:02:52
+7
+Highlight
+
+40
+[H] Unity Editor Scripting | Unity's hierarchy selection handling is mediocre, I need something more powerful
+[H] Unity Editor Scripting | Unity's hierarchy selection handling is mediocre, I need something more powerful
+May 20, 2024
+
+4:54:58
+2
+Highlight
+
+41
+[H] Custom Interacts and Pickups, it is time PogChamp
+[H] Custom Interacts and Pickups, it is time PogChamp
+July 22, 2024
+
+2:32:14
+0
+Highlight
+
+42
+[H] Custom Interacts and Pickups, we continue PauseChamp
+[H] Custom Interacts and Pickups, we continue PauseChamp
+July 23, 2024
+
+3:49:50
+6
+Highlight
+
+43
+[H] How To Make Admin/GM/DM Only Toggles
+[H] How To Make Admin/GM/DM Only Toggles
+August 7, 2024
+
+1:24:00
+5
+Highlight
+
+44
+[H] Some programming, talking and UI creation - mainly for Lockstep | No noise suppression initially, but better stream quality later
+[H] Some programming, talking and UI creation - mainly for Lockstep | No noise suppression initially, but better stream quality later
+August 16, 2024
+
+2:45:30
+28
+Highlight
+
+45
+[H] Attaching Transforms to player bones and tracking data generically - creating a library for it
+[H] Attaching Transforms to player bones and tracking data generically - creating a library for it
+November 7, 2024
+
+2:36:50
+13
+Highlight
+
+46
+[H] Entity Extension System on top of a GameObject Component system, smile
+[H] Entity Extension System on top of a GameObject Component system, smile
+December 30, 2024
+
+3:20:50
+25
+Highlight
+
+47
+[H] Short little mute stream. Lockstep looking good, entity system struggling | Learning about remote player tracking data
+[H] Short little mute stream. Lockstep looking good, entity system struggling | Learning about remote player tracking data
+February 10, 2025
+
+2:55:40
+2
+Highlight
+

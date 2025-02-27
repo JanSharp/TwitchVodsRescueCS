@@ -1,0 +1,423 @@
+1
+[H] [Part 1] Phobos | Implementing code => AST => code, so basically a Lua formatter | Streaming because maybe it'll help me focus
+[H] [Part 1] Phobos | Implementing code => AST => code, so basically a Lua formatter | Streaming because maybe it'll help me focus
+July 4, 2021
+
+1:52:24
+3
+Highlight
+
+2
+[H] [Part 2] Phobos | Mostly debugging and thinking about how to make a type system work. Logistical stuff, or so | Muted music
+[H] [Part 2] Phobos | Mostly debugging and thinking about how to make a type system work. Logistical stuff, or so | Muted music
+September 4, 2021
+
+1:37:43
+5
+Highlight
+
+3
+[H] [Part 3] Phobos | Implementing more robust yet strict path library
+[H] [Part 3] Phobos | Implementing more robust yet strict path library
+October 5, 2021
+
+2:23:18
+6
+Highlight
+
+4
+[H] [Part 4] Phobos | Big register refactor, in this video mostly expressions | Mute
+[H] [Part 4] Phobos | Big register refactor, in this video mostly expressions | Mute
+October 16, 2021
+
+1:39:30
+15
+Highlight
+
+5
+[H] [Part 5] Phobos | AST node util refactor | No music because DMCA
+[H] [Part 5] Phobos | AST node util refactor | No music because DMCA
+November 10, 2021
+
+2:29:59
+8
+Highlight
+
+6
+[H] [Part 6] Phobos | Intermediate Language (#1 ?) generation from AST
+[H] [Part 6] Phobos | Intermediate Language (#1 ?) generation from AST
+November 23, 2021
+
+1:31:31
+1
+Highlight
+
+7
+[H] [Part 7] Phobos | Intermediate Language (#1 ?) generation from AST
+[H] [Part 7] Phobos | Intermediate Language (#1 ?) generation from AST
+November 24, 2021
+
+1:35:51
+1
+Highlight
+
+8
+[H] [Part 8] Phobos | Intermediate Language (#1 ?) generation from AST. Mainly statements this time | No music because DMCA
+[H] [Part 8] Phobos | Intermediate Language (#1 ?) generation from AST. Mainly statements this time | No music because DMCA
+November 26, 2021
+
+1:12:42
+0
+Highlight
+
+9
+[H] [Part 9] Phobos | Intermediate Language (#1 ?) generation from AST (the rest of the statements) | Talking about Compilers | No Music
+[H] [Part 9] Phobos | Intermediate Language (#1 ?) generation from AST (the rest of the statements) | Talking about Compilers | No Music
+November 27, 2021
+
+1:57:25
+2
+Highlight
+
+10
+[H] [Part 10] Phobos | Properly implementing upvalues for IL (#1 ?) | Trying out this microphone, specifically when talking quietly
+[H] [Part 10] Phobos | Properly implementing upvalues for IL (#1 ?) | Trying out this microphone, specifically when talking quietly
+November 30, 2021
+
+44:53
+3
+Highlight
+
+11
+[H] [Part 11] Phobos | General organization stuff like the readme, building and the debugging setup
+[H] [Part 11] Phobos | General organization stuff like the readme, building and the debugging setup
+January 12, 2022
+
+1:43:09
+0
+Highlight
+
+12
+[H] [Part 12] Phobos | Continue on syntax errors | Mute at the start, but not for long
+[H] [Part 12] Phobos | Continue on syntax errors | Mute at the start, but not for long
+January 12, 2022
+
+2:05:33
+0
+Highlight
+
+13
+[H] [Part 13] Phobos | Language Extensions! (compiler part for safe chaining) | No music
+[H] [Part 13] Phobos | Language Extensions! (compiler part for safe chaining) | No music
+January 18, 2022
+
+1:42:13
+4
+Highlight
+
+14
+[H] [Part 14] Phobos | Language Extensions! I refuse to do IL => bytecode right now | Mute, then some keyboard ASMR
+[H] [Part 14] Phobos | Language Extensions! I refuse to do IL => bytecode right now | Mute, then some keyboard ASMR
+January 18, 2022
+
+2:21:56
+1
+Highlight
+
+15
+[H] [Part 15] Phobos | Grinding Tests. Or, well, figuring out how to test the parser | No Music
+[H] [Part 15] Phobos | Grinding Tests. Or, well, figuring out how to test the parser | No Music
+February 1, 2022
+
+3:08:12
+0
+Highlight
+
+16
+[H] [Part 16] Phobos | Grinding Tests | Mute
+[H] [Part 16] Phobos | Grinding Tests | Mute
+February 5, 2022
+
+2:45:26
+0
+Highlight
+
+17
+[H] [Part 17] Phobos | Grinding Tests and fixing some hilarious and spicy bugs | No Music, keyboard sounds for fun
+[H] [Part 17] Phobos | Grinding Tests and fixing some hilarious and spicy bugs | No Music, keyboard sounds for fun
+February 7, 2022
+
+1:56:52
+0
+Highlight
+
+18
+[H] [Part 18] Phobos | Writing a few more expression parsing tests and talking a lot | No Music
+[H] [Part 18] Phobos | Writing a few more expression parsing tests and talking a lot | No Music
+February 7, 2022
+
+2:00:06
+0
+Highlight
+
+19
+[H] [Part 19] Phobos | Fixing concats with parenthesis and writing tests
+[H] [Part 19] Phobos | Fixing concats with parenthesis and writing tests
+February 10, 2022
+
+1:35:38
+4
+Highlight
+
+20
+[H] [Part 20] Phobos | Refactoring, cleaning up, writing tests, fixing publish script, idk, just felt like streaming | No Music
+[H] [Part 20] Phobos | Refactoring, cleaning up, writing tests, fixing publish script, idk, just felt like streaming | No Music
+February 18, 2022
+
+1:28:08
+1
+Highlight
+
+21
+[H] [Part 21] Phobos | Build Profiles | No Music
+[H] [Part 21] Phobos | Build Profiles | No Music
+March 3, 2022
+
+2:48:00
+1
+Highlight
+
+22
+[H] [Part 22] Phobos | Binary Serialization stuff | No Music
+[H] [Part 22] Phobos | Binary Serialization stuff | No Music
+March 12, 2022
+
+2:56:23
+2
+Highlight
+
+23
+[H] [Part 23] Phobos | Update a bit of stuff and then work on virtual file system for tests | I pressed the stream button. Hi! | No Music
+[H] [Part 23] Phobos | Update a bit of stuff and then work on virtual file system for tests | I pressed the stream button. Hi! | No Music
+March 20, 2022
+
+2:58:25
+2
+Highlight
+
+24
+[H] [Part 24] Phobos | Absolutely NOT having fun with cross platform stuff and just in general not having fun | No Music
+[H] [Part 24] Phobos | Absolutely NOT having fun with cross platform stuff and just in general not having fun | No Music
+March 24, 2022
+
+1:35:40
+0
+Highlight
+
+25
+[H] [Part 25] Phobos | Chilling and making a bit of progress with build profiles | No Music
+[H] [Part 25] Phobos | Chilling and making a bit of progress with build profiles | No Music
+March 24, 2022
+
+1:20:55
+1
+Highlight
+
+26
+[H] [Part 26] Phobos | Parsing EmmyLua comments setting up for generation of documentation from them | No Music
+[H] [Part 26] Phobos | Parsing EmmyLua comments setting up for generation of documentation from them | No Music
+March 26, 2022
+
+2:47:28
+1
+Highlight
+
+27
+[H] [Part 27] Phobos | Parsing EmmyLua comments and resolving type references | No Music
+[H] [Part 27] Phobos | Parsing EmmyLua comments and resolving type references | No Music
+March 26, 2022
+
+2:03:58
+1
+Highlight
+
+28
+[H] [Part 28] Phobos | Write type annotations for the EmmyLua parser and generate a tiny bit of markdown and html docs | No Music
+[H] [Part 28] Phobos | Write type annotations for the EmmyLua parser and generate a tiny bit of markdown and html docs | No Music
+March 29, 2022
+
+1:24:15
+2
+Highlight
+
+29
+[H] [Part 29] Phobos | Tests tests tests. EmmyLua linker tests. So many tests. Almost 1000! So many. Tests. | No Music
+[H] [Part 29] Phobos | Tests tests tests. EmmyLua linker tests. So many tests. Almost 1000! So many. Tests. | No Music
+April 6, 2022
+
+3:35:03
+0
+Highlight
+
+30
+[H] [Part 30] Phobos | A layer of abstraction I should have realized I needed much sooner. the io_util, but better | No Music
+[H] [Part 30] Phobos | A layer of abstraction I should have realized I needed much sooner. the io_util, but better | No Music
+April 8, 2022
+
+2:14:59
+1
+Highlight
+
+31
+[H] [Part 31] Phobos | Writing more tests. Build profile cache tests | No Music
+[H] [Part 31] Phobos | Writing more tests. Build profile cache tests | No Music
+April 15, 2022
+
+2:02:50
+1
+Highlight
+
+32
+[H] [Part 32] Phobos | Exploring ideas regarding static and dynamic includes and require path resolution | No Music
+[H] [Part 32] Phobos | Exploring ideas regarding static and dynamic includes and require path resolution | No Music
+April 26, 2022
+
+1:00:15
+0
+Highlight
+
+33
+[H] [Part 33] Phobos | Refactoring and improving AST, stat_elem begone! | I need a break from profiles | No Music
+[H] [Part 33] Phobos | Refactoring and improving AST, stat_elem begone! | I need a break from profiles | No Music
+April 26, 2022
+
+3:00:49
+1
+Highlight
+
+34
+[H] [Part 34] Phobos | Intermediate Language Type System (attempt 5 or something) | No Music
+[H] [Part 34] Phobos | Intermediate Language Type System (attempt 5 or something) | No Music
+May 10, 2022
+
+2:59:46
+5
+Highlight
+
+35
+[H] [Part 35] Phobos | Design Requirements and why Phobos hasn't been progressing | No Music
+[H] [Part 35] Phobos | Design Requirements and why Phobos hasn't been progressing | No Music
+May 22, 2022
+
+49:16
+4
+Highlight
+
+36
+[H] [Part 36] Phobos | Having fun with IL modification and compilation | No Music
+[H] [Part 36] Phobos | Having fun with IL modification and compilation | No Music
+August 17, 2022
+
+2:56:52
+3
+Highlight
+
+37
+[H] [Part 37] Phobos | Compiling register lists from intermediate language to Lua bytecode
+[H] [Part 37] Phobos | Compiling register lists from intermediate language to Lua bytecode
+October 30, 2022
+
+1:32:23
+1
+Highlight
+
+38
+[H] [Part 38] Phobos | Fixing bugs in the IL compiler. And, spoiler, the stream leads up to a big success in the end!
+[H] [Part 38] Phobos | Fixing bugs in the IL compiler. And, spoiler, the stream leads up to a big success in the end!
+November 9, 2022
+
+3:09:07
+9
+Highlight
+
+39
+[H] [Part 39] Phobos | Writing a script to strip everything but docs from a file, then some cleaning up and some IL for loop work
+[H] [Part 39] Phobos | Writing a script to strip everything but docs from a file, then some cleaning up and some IL for loop work
+November 15, 2022
+
+2:33:23
+5
+Highlight
+
+40
+[H] [Part 40] Phobos | A couple of Linq adjustments and a short attempt at continuing work IL register list/group compilation | No Music
+[H] [Part 40] Phobos | A couple of Linq adjustments and a short attempt at continuing work IL register list/group compilation | No Music
+March 6, 2023
+
+1:39:47
+2
+Highlight
+
+41
+[H] [Part 41] Phobos | Adding a diff output option to the test runner and implementing table pretty printing for better diffs | No Music
+[H] [Part 41] Phobos | Adding a diff output option to the test runner and implementing table pretty printing for better diffs | No Music
+March 7, 2023
+
+3:22:37
+1
+Highlight
+
+42
+[H] [Part 42] Phobos | I thought I was done with Linq, I thought wrong | No Mic | No Music
+[H] [Part 42] Phobos | I thought I was done with Linq, I thought wrong | No Mic | No Music
+March 12, 2023
+
+2:00:25
+1
+Highlight
+
+43
+[H] [Part 43] Phobos | Some infrastructure for IL transformations, specifically to replace registers in IL instructions needed for compiling
+[H] [Part 43] Phobos | Some infrastructure for IL transformations, specifically to replace registers in IL instructions needed for compiling
+March 17, 2023
+
+3:08:05
+2
+Highlight
+
+44
+[H] [Part 44] Phobos | Finishing move instructions for register groups at special instruction groups
+[H] [Part 44] Phobos | Finishing move instructions for register groups at special instruction groups
+March 27, 2023
+
+1:06:50
+0
+Highlight
+
+45
+[H] [Part 45] Phobos | Adding some validation to linq | No Music
+[H] [Part 45] Phobos | Adding some validation to linq | No Music
+April 4, 2023
+
+1:22:30
+0
+Highlight
+
+46
+[H] Phobos | Intermediate language register liveliness interference graph vertex coloring. And I'm not just throwing fancy words together
+[H] Phobos | Intermediate language register liveliness interference graph vertex coloring. And I'm not just throwing fancy words together
+September 2, 2023
+
+2:39:57
+2
+Highlight
+
+47
+[H] Phobos | At this point you can guess what I'm working on. Bingo! It's IL compilation. I had a great idea though
+[H] Phobos | At this point you can guess what I'm working on. Bingo! It's IL compilation. I had a great idea though
+October 2, 2023
+
+1:57:58
+3
+Highlight
+

@@ -1,0 +1,225 @@
+1
+[H] [Part 1] GuiGlue (?) Dev | Refactor old gui lib | Mute
+[H] [Part 1] GuiGlue (?) Dev | Refactor old gui lib | Mute
+May 3, 2021
+
+2:28:22
+2
+Highlight
+
+2
+[H] [Part 2] GuiGlue (?) Dev | Refactor old gui lib and add inst cores
+[H] [Part 2] GuiGlue (?) Dev | Refactor old gui lib and add inst cores
+May 3, 2021
+
+1:56:07
+1
+Highlight
+
+3
+[H] [Part 3] GuiGlue (?) Dev | Implement some of std-frame-title-bar, or so, to test the framework
+[H] [Part 3] GuiGlue (?) Dev | Implement some of std-frame-title-bar, or so, to test the framework
+May 3, 2021
+
+2:39:47
+1
+Highlight
+
+4
+[H] [Part 4] GuiGlue (?) Dev | Continue with std-frame-title-bar | Mute
+[H] [Part 4] GuiGlue (?) Dev | Continue with std-frame-title-bar | Mute
+May 3, 2021
+
+1:00:10
+0
+Highlight
+
+5
+[H] [Part 5] GuiGlue (?) Dev | States and std-list
+[H] [Part 5] GuiGlue (?) Dev | States and std-list
+May 3, 2021
+
+2:43:32
+0
+Highlight
+
+6
+[H] [Part 6] GuiGlue (?) Dev | standard library overhaul to generate classes from a static table structure defining the gui
+[H] [Part 6] GuiGlue (?) Dev | standard library overhaul to generate classes from a static table structure defining the gui
+May 7, 2021
+
+1:39:46
+1
+Highlight
+
+7
+[H] [Part 7] GuiGlue (?) Dev | standard library class children and state controllers
+[H] [Part 7] GuiGlue (?) Dev | standard library class children and state controllers
+May 7, 2021
+
+5:04:06
+0
+Highlight
+
+8
+[H] [Part 8] GuiGlue (?) Dev | How to get/set cores and states of children (madness)
+[H] [Part 8] GuiGlue (?) Dev | How to get/set cores and states of children (madness)
+May 7, 2021
+
+59:53
+0
+Highlight
+
+9
+[H] [Part 9] GuiGlue (?) Dev | Cores and states of children continued madness but with a potential step forward
+[H] [Part 9] GuiGlue (?) Dev | Cores and states of children continued madness but with a potential step forward
+May 7, 2021
+
+2:50:59
+0
+Highlight
+
+10
+[H] [Part 10] GuiGlue (?) Dev | Adding and improving things here and there | Mute for the first part
+[H] [Part 10] GuiGlue (?) Dev | Adding and improving things here and there | Mute for the first part
+May 11, 2021
+
+3:22:33
+0
+Highlight
+
+11
+[H] [Part 11] GuiGlue (?) Dev | Fleshing out the system and writing/cleaning up for the final version
+[H] [Part 11] GuiGlue (?) Dev | Fleshing out the system and writing/cleaning up for the final version
+May 11, 2021
+
+2:54:12
+2
+Highlight
+
+12
+[H] [Part 12] GuiGlue (?) Dev | Making more test gui and finding fundamental problems | Tired, but i wanted to stream the entire dev process
+[H] [Part 12] GuiGlue (?) Dev | Making more test gui and finding fundamental problems | Tired, but i wanted to stream the entire dev process
+May 12, 2021
+
+1:36:56
+0
+Highlight
+
+13
+[H] [Part 13] GuiGlue (?) Dev | Fixing EmmyLua types and redoing the definition of/plan for children and add params
+[H] [Part 13] GuiGlue (?) Dev | Fixing EmmyLua types and redoing the definition of/plan for children and add params
+May 12, 2021
+
+1:44:37
+1
+Highlight
+
+14
+[H] [Part 14] GuiGlue (?) Dev | Caching add params and setup debug only code
+[H] [Part 14] GuiGlue (?) Dev | Caching add params and setup debug only code
+May 15, 2021
+
+46:09
+2
+Highlight
+
+15
+[H] [Part 15] GuiGlue (?) Dev | Setup debug only code
+[H] [Part 15] GuiGlue (?) Dev | Setup debug only code
+May 15, 2021
+
+24:41
+2
+Highlight
+
+16
+[H] [Part 16] GuiGlue (?) Dev | gui structure, static and dynamic values, debugging and a short story | Mute cause i'm suddenly very tired
+[H] [Part 16] GuiGlue (?) Dev | gui structure, static and dynamic values, debugging and a short story | Mute cause i'm suddenly very tired
+May 15, 2021
+
+1:34:41
+0
+Highlight
+
+17
+[H] [Part 17] GuiGlue (?) Dev | Dynamic values | Mute
+[H] [Part 17] GuiGlue (?) Dev | Dynamic values | Mute
+May 15, 2021
+
+3:13:27
+0
+Highlight
+
+18
+[H] [Part 18] GuiGlue (?) Dev | Removing state controllers and setting up for a test mod | Mute to stay focused
+[H] [Part 18] GuiGlue (?) Dev | Removing state controllers and setting up for a test mod | Mute to stay focused
+May 15, 2021
+
+2:35:55
+5
+Highlight
+
+19
+[H] [Part 19] GuiGlue (?) Dev | writing a test mod
+[H] [Part 19] GuiGlue (?) Dev | writing a test mod
+May 19, 2021
+
+1:14:32
+0
+Highlight
+
+20
+[H] [Part 20] GuiGlue (?) Dev | writing a test mod
+[H] [Part 20] GuiGlue (?) Dev | writing a test mod
+May 19, 2021
+
+1:02:56
+1
+Highlight
+
+21
+[H] [Part 21] GuiGlue (?) Dev | big changes, big improvements. Namely default get_children and default struct class_names
+[H] [Part 21] GuiGlue (?) Dev | big changes, big improvements. Namely default get_children and default struct class_names
+May 19, 2021
+
+1:53:30
+1
+Highlight
+
+22
+[H] [Part 22] GuiGlue (?) Dev | Uh, where was i? | Changing how states are passed around | First stream with new monitor setup, yay!
+[H] [Part 22] GuiGlue (?) Dev | Uh, where was i? | Changing how states are passed around | First stream with new monitor setup, yay!
+June 16, 2021
+
+2:14:11
+2
+Highlight
+
+23
+[H] [Part 23] GuiGlue (?) Dev | Bad Mood at the very beginning | Doing stuff and things and data stage styles
+[H] [Part 23] GuiGlue (?) Dev | Bad Mood at the very beginning | Doing stuff and things and data stage styles
+August 1, 2021
+
+3:22:53
+5
+Highlight
+
+24
+[H] [Part 24] GuiGlue (?) Dev | Code maintenance and fixing and testing with the test mod
+[H] [Part 24] GuiGlue (?) Dev | Code maintenance and fixing and testing with the test mod
+August 1, 2021
+
+1:45:11
+1
+Highlight
+
+25
+[H] [Part 25] GuiGlue (?) Dev | Wanting to do crazy things, ending up just mostly trying to fix/finish data stage style type resolving
+[H] [Part 25] GuiGlue (?) Dev | Wanting to do crazy things, ending up just mostly trying to fix/finish data stage style type resolving
+August 1, 2021
+
+1:35:14
+16
+Highlight
+

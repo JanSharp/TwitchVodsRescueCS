@@ -1,0 +1,495 @@
+1
+[H] CSExe Dev | compiling and running C# .NET Core at runtime
+[H] CSExe Dev | compiling and running C# .NET Core at runtime
+December 27, 2020
+
+1:43:06
+7
+Highlight
+
+2
+[H] make cross mod require work with sumneko.lua (vscode) | Factorio Modding Dev Env Setup
+[H] make cross mod require work with sumneko.lua (vscode) | Factorio Modding Dev Env Setup
+December 27, 2020
+
+1:55:55
+10
+Highlight
+
+3
+[H] Some "random" gui modding | mute
+[H] Some "random" gui modding | mute
+January 21, 2021
+
+1:47:09
+12
+Highlight
+
+4
+[H] lua preprocessor dev for factorio
+[H] lua preprocessor dev for factorio
+March 5, 2021
+
+2:06:37
+4
+Highlight
+
+5
+[H] lua preprocessor dev, lua debugger setup and LuaFileSystem install and setup
+[H] lua preprocessor dev, lua debugger setup and LuaFileSystem install and setup
+March 8, 2021
+
+2:14:00
+20
+Highlight
+
+6
+[H] Lua preprocessor string interpolation
+[H] Lua preprocessor string interpolation
+April 17, 2021
+
+1:10:41
+1
+Highlight
+
+7
+[H] (Factorio) Lua Preprocessor | Enabling require inside preprocessor statements
+[H] (Factorio) Lua Preprocessor | Enabling require inside preprocessor statements
+May 30, 2021
+
+2:40:26
+5
+Highlight
+
+8
+[H] Safe Tiles (?) Dev | Starting Safe Tiles and working on the preprocessor and other random things
+[H] Safe Tiles (?) Dev | Starting Safe Tiles and working on the preprocessor and other random things
+June 16, 2021
+
+1:06:12
+3
+Highlight
+
+9
+[H] Factorio Lua Preprocessor Dev | Enabling statements in $()
+[H] Factorio Lua Preprocessor Dev | Enabling statements in $()
+June 16, 2021
+
+8:18
+13
+Highlight
+
+10
+[H] Safe Tiles (?) Dev | Using the new $() with statements and trying to figure tile placement logic out. Note: i'm dumb. It's on the item
+[H] Safe Tiles (?) Dev | Using the new $() with statements and trying to figure tile placement logic out. Note: i'm dumb. It's on the item
+June 16, 2021
+
+26:01
+4
+Highlight
+
+11
+[H] Simulation Function Capture | I have an idea that is so stupid that it might actually be good | No music
+[H] Simulation Function Capture | I have an idea that is so stupid that it might actually be good | No music
+January 13, 2022
+
+4:06:40
+0
+Highlight
+
+12
+[H] Simulation Function Capture | Improvements and adding support for C functions | No music
+[H] Simulation Function Capture | Improvements and adding support for C functions | No music
+January 13, 2022
+
+1:00:47
+0
+Highlight
+
+13
+[H] Simulation Function Capture | Dealing with the function max stack limitation, then preserving table iteration order | No music
+[H] Simulation Function Capture | Dealing with the function max stack limitation, then preserving table iteration order | No music
+January 13, 2022
+
+1:52:06
+0
+Highlight
+
+14
+[H] Simulation Function Capture | Integrating it into simhelper, fixing stuff, improving stuff, custom restorers, docs | No music
+[H] Simulation Function Capture | Integrating it into simhelper, fixing stuff, improving stuff, custom restorers, docs | No music
+January 14, 2022
+
+3:32:17
+0
+Highlight
+
+15
+[H] Simulation Function Capture | Performance Testing... Or rather writing a "data stage profiling" tool | No music
+[H] Simulation Function Capture | Performance Testing... Or rather writing a "data stage profiling" tool | No music
+January 14, 2022
+
+1:20:29
+0
+Highlight
+
+16
+[H] Data Stage Profiling | Trying to use 'print' to get current times with an external program... and, well, setting up dotnet | No music
+[H] Data Stage Profiling | Trying to use 'print' to get current times with an external program... and, well, setting up dotnet | No music
+January 15, 2022
+
+2:48:42
+1
+Highlight
+
+17
+[H] Simulation Function Capture | More finishing touches | No Music
+[H] Simulation Function Capture | More finishing touches | No Music
+January 19, 2022
+
+54:06
+1
+Highlight
+
+18
+[H] Mod Code Review | flexible-modules | Just a few Lua and modding tips | I also talk about simhelper testing at the end | No Music
+[H] Mod Code Review | flexible-modules | Just a few Lua and modding tips | I also talk about simhelper testing at the end | No Music
+January 19, 2022
+
+1:16:37
+8
+Highlight
+
+19
+[H] Simulation Function Capture | tests. for real this time... like 1 hour into the stream LUL | No Music
+[H] Simulation Function Capture | tests. for real this time... like 1 hour into the stream LUL | No Music
+January 20, 2022
+
+2:55:52
+0
+Highlight
+
+20
+[H] Simulation Function Capture | more tests and more infrastructure | No Music
+[H] Simulation Function Capture | more tests and more infrastructure | No Music
+January 22, 2022
+
+3:10:07
+2
+Highlight
+
+21
+[H] Simulation Function Capture | metatables... I kind of forgot about those. Oops | No Music
+[H] Simulation Function Capture | metatables... I kind of forgot about those. Oops | No Music
+January 23, 2022
+
+1:03:13
+4
+Highlight
+
+22
+[H] Checking out Testorio | A testing framework for Factorio mods | No Music
+[H] Checking out Testorio | A testing framework for Factorio mods | No Music
+January 23, 2022
+
+44:01
+3
+Highlight
+
+23
+[H] My opinion on Testing Frameworks and Assertion Libraries and why I'm writing my own | No Music
+[H] My opinion on Testing Frameworks and Assertion Libraries and why I'm writing my own | No Music
+January 28, 2022
+
+52:40
+2
+Highlight
+
+24
+[H] Pipe Visualizer | How hard is it to get "pipe networks" | No Music
+[H] Pipe Visualizer | How hard is it to get "pipe networks" | No Music
+January 28, 2022
+
+4:58:03
+6
+Highlight
+
+25
+[H] Writing the testing framework I wish I had, then realizing just how hard it is to use Phobos in 0.1.1 | No Music
+[H] Writing the testing framework I wish I had, then realizing just how hard it is to use Phobos in 0.1.1 | No Music
+February 1, 2022
+
+2:12:07
+0
+Highlight
+
+26
+[H] How to spread out a mod's workload, writing a bit of documentation/a tutorial | No Music
+[H] How to spread out a mod's workload, writing a bit of documentation/a tutorial | No Music
+June 21, 2022
+
+1:15:04
+4
+Highlight
+
+27
+[H] GUI Editor | Making a GUI to make GUIs in Factorio, FeelsGoodMan | No Music
+[H] GUI Editor | Making a GUI to make GUIs in Factorio, FeelsGoodMan | No Music
+September 15, 2022
+
+3:02:58
+1
+Highlight
+
+28
+[H] Factorio Window Manager | I finally found a reason to do this, I'm so excited | No Music
+[H] Factorio Window Manager | I finally found a reason to do this, I'm so excited | No Music
+September 24, 2022
+
+2:39:42
+1
+Highlight
+
+29
+[H] Factorio GUI Editor | Refactoring the many layers of abstraction for editors and the data behind them | No Music
+[H] Factorio GUI Editor | Refactoring the many layers of abstraction for editors and the data behind them | No Music
+October 1, 2022
+
+2:09:31
+0
+Highlight
+
+30
+[H] Factorio GUI Editor | Making a Script Text Box
+[H] Factorio GUI Editor | Making a Script Text Box
+October 3, 2022
+
+1:51:51
+2
+Highlight
+
+31
+[H] Factorio GUI Editor | Improving the window manager | No Music
+[H] Factorio GUI Editor | Improving the window manager | No Music
+October 11, 2022
+
+2:39:53
+1
+Highlight
+
+32
+[H] [Highlight Part 1/2] Factorio GUI Editor | Chipping away at TODOs, mostly window manager related
+[H] [Highlight Part 1/2] Factorio GUI Editor | Chipping away at TODOs, mostly window manager related
+October 16, 2022
+
+2:33:50
+1
+Highlight
+
+33
+[H] [Highlight Part 2/2] Factorio GUI Editor | Chipping away at TODOs, mostly window manager related
+[H] [Highlight Part 2/2] Factorio GUI Editor | Chipping away at TODOs, mostly window manager related
+October 16, 2022
+
+1:10:12
+0
+Highlight
+
+34
+[H] Factorio GUI Editor | Redoing window anchors | Trying my best to talk quietly | No Music
+[H] Factorio GUI Editor | Redoing window anchors | Trying my best to talk quietly | No Music
+October 19, 2022
+
+1:15:20
+0
+Highlight
+
+35
+[H] Factorio GUI Editor | Continuing work on window anchors
+[H] Factorio GUI Editor | Continuing work on window anchors
+October 20, 2022
+
+1:28:53
+1
+Highlight
+
+36
+[H] Factorio GUI Editor | The list of TODOs for the window manager is getting smaller... maybe
+[H] Factorio GUI Editor | The list of TODOs for the window manager is getting smaller... maybe
+October 20, 2022
+
+1:30:18
+3
+Highlight
+
+37
+[H] Dealing with require loops in Lua | No Music
+[H] Dealing with require loops in Lua | No Music
+November 1, 2022
+
+1:27:07
+0
+Highlight
+
+38
+[H] Window Manager | Converting the window manager I made into a standalone mod and improving maximize logic | No Music
+[H] Window Manager | Converting the window manager I made into a standalone mod and improving maximize logic | No Music
+February 8, 2023
+
+2:55:56
+8
+Highlight
+
+39
+[H] Lua Table serializer directly to bytecode
+[H] Lua Table serializer directly to bytecode
+April 9, 2023
+
+2:36:19
+5
+Highlight
+
+40
+[H] Mod Dev | Quick Adjustable Inserters | let's see how far I get
+[H] Mod Dev | Quick Adjustable Inserters | let's see how far I get
+August 8, 2023
+
+2:45:09
+4
+Highlight
+
+41
+[H] WindowManager | A bit of refactoring for anchors
+[H] WindowManager | A bit of refactoring for anchors
+September 5, 2023
+
+2:26:08
+2
+Highlight
+
+42
+[H] simhelper function capture troubleshooting
+[H] simhelper function capture troubleshooting
+October 2, 2023
+
+29:32
+0
+Highlight
+
+43
+[H] A splits program for speed running implemented using Factorio. In other words: Fun!
+[H] A splits program for speed running implemented using Factorio. In other words: Fun!
+October 2, 2023
+
+2:19:58
+8
+Highlight
+
+44
+[H] Quick Adjustable Inserters Dev | Refactoring and improving reachable tile evaluation, and related stuff
+[H] Quick Adjustable Inserters Dev | Refactoring and improving reachable tile evaluation, and related stuff
+November 11, 2023
+
+2:15:59
+3
+Highlight
+
+45
+[H] Quick Adjustable Inserters Dev | Lots of little steps leading to good progress. Starting to see it working
+[H] Quick Adjustable Inserters Dev | Lots of little steps leading to good progress. Starting to see it working
+November 11, 2023
+
+5:22:21
+5
+Highlight
+
+46
+[H] Quick Adjustable Inserters Dev | Recap off stream work and more polish
+[H] Quick Adjustable Inserters Dev | Recap off stream work and more polish
+November 12, 2023
+
+2:29:37
+1
+Highlight
+
+47
+[H] Quick Adjustable Inserters Dev | Working through the TODO list, mostly force related
+[H] Quick Adjustable Inserters Dev | Working through the TODO list, mostly force related
+November 13, 2023
+
+1:51:30
+1
+Highlight
+
+48
+[H] Quick Adjustable Inserters Dev | Progress has been made. Maybe some more today
+[H] Quick Adjustable Inserters Dev | Progress has been made. Maybe some more today
+November 23, 2023
+
+3:08:15
+2
+Highlight
+
+49
+[H] Inserters... Inserters everywhere. All I see is vectors, circles and numbers. There is no escape
+[H] Inserters... Inserters everywhere. All I see is vectors, circles and numbers. There is no escape
+December 13, 2023
+
+1:46:45
+3
+Highlight
+
+50
+[H] Quick Adjustable Inserters Dev | A bit of muted progress. Can't distract myself by talking if the mic is off! Just for the first half :P
+[H] Quick Adjustable Inserters Dev | A bit of muted progress. Can't distract myself by talking if the mic is off! Just for the first half :P
+December 15, 2023
+
+4:00:13
+4
+Highlight
+
+51
+[H] Quick Adjustable Inserters Dev | Ghost support | I just felt like streaming. Maybe I'll talk, maybe not. Who knows!
+[H] Quick Adjustable Inserters Dev | Ghost support | I just felt like streaming. Maybe I'll talk, maybe not. Who knows!
+December 29, 2023
+
+2:25:19
+2
+Highlight
+
+52
+[H] inserter-throughput-lib dev | Improving the api | no mic, or rather just relaxed typing (except for 1 short bit of talking early on)
+[H] inserter-throughput-lib dev | Improving the api | no mic, or rather just relaxed typing (except for 1 short bit of talking early on)
+January 24, 2024
+
+2:55:10
+4
+Highlight
+
+53
+[H] Catch up time (and a little bit of programming later)
+[H] Catch up time (and a little bit of programming later)
+March 23, 2024
+
+2:19:03
+0
+Highlight
+
+54
+[H] Working on some projects purely for the fun of it
+[H] Working on some projects purely for the fun of it
+April 9, 2024
+
+2:09:52
+0
+Highlight
+
+55
+[H] Arduino + SD + RTC + Light sensor = ~~pain~~ power usage logging!
+[H] Arduino + SD + RTC + Light sensor = ~~pain~~ power usage logging!
+December 12, 2024
+
+1:59:18
+9
+Highlight
+

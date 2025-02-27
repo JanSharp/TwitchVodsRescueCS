@@ -1,0 +1,162 @@
+1
+[H] AA PauseChamp | Writing git filters to reduce merge conflicts caused by Udon and UdonSharp
+[H] AA PauseChamp | Writing git filters to reduce merge conflicts caused by Udon and UdonSharp
+May 12, 2024
+
+5:02:48
+11
+Highlight
+
+2
+[H] Ascension Academy Map Work | Learnging how to export meshes as obj files
+[H] Ascension Academy Map Work | Learnging how to export meshes as obj files
+May 14, 2024
+
+5:04:55
+11
+Highlight
+
+3
+[H] Ascension Academy Map Work | Today's plan will work flawlessly, surely
+[H] Ascension Academy Map Work | Today's plan will work flawlessly, surely
+May 16, 2024
+
+3:54:55
+4
+Highlight
+
+4
+[H] Ascension Academy Map Work | We've got the tools, time to clean up and remove some ProBuilder meshes
+[H] Ascension Academy Map Work | We've got the tools, time to clean up and remove some ProBuilder meshes
+May 18, 2024
+
+5:13:59
+7
+Highlight
+
+5
+[H] Ascension Academy Map Work | Doing random things
+[H] Ascension Academy Map Work | Doing random things
+May 24, 2024
+
+5:44:31
+2
+Highlight
+
+6
+[H] Ascension Academy Map Work | Highly recommend to skip to 50 minutes in | Adding some utility scripts for UI toggles
+[H] Ascension Academy Map Work | Highly recommend to skip to 50 minutes in | Adding some utility scripts for UI toggles
+May 27, 2024
+
+2:49:25
+4
+Highlight
+
+7
+[H] Ascension Academy Map Work | Part 1 | Sleepy, no plans, and it does not go well
+[H] Ascension Academy Map Work | Part 1 | Sleepy, no plans, and it does not go well
+June 5, 2024
+
+11:10
+2
+Highlight
+
+8
+[H] Ascension Academy Map Work | Part 2 | Sleepy, no plans, and it does not go well
+[H] Ascension Academy Map Work | Part 2 | Sleepy, no plans, and it does not go well
+June 5, 2024
+
+1:20:01
+3
+Highlight
+
+9
+[H] Ascension Academy Map Work | Part 3 | Sleepy, no plans, and it does not go well
+[H] Ascension Academy Map Work | Part 3 | Sleepy, no plans, and it does not go well
+June 5, 2024
+
+1:20:00
+4
+Highlight
+
+10
+[H] AA Map Work | ProBuilder begone part... idk I lost count | Tiny stream
+[H] AA Map Work | ProBuilder begone part... idk I lost count | Tiny stream
+June 27, 2024
+
+50:50
+2
+Highlight
+
+11
+[H] AA Map Work | ProBuilder begone part... idk I lost count | Not quite so tiny stream
+[H] AA Map Work | ProBuilder begone part... idk I lost count | Not quite so tiny stream
+June 28, 2024
+
+2:22:26
+2
+Highlight
+
+12
+[H] AA Map Work | No Mic for the first few mins | Just removing some ProBuilder for a bit. Numbers go down!
+[H] AA Map Work | No Mic for the first few mins | Just removing some ProBuilder for a bit. Numbers go down!
+July 1, 2024
+
+1:38:10
+3
+Highlight
+
+13
+[H] When Unity tells you no, you say no back... and reimplement object, component and asset reference resolution yourself
+[H] When Unity tells you no, you say no back... and reimplement object, component and asset reference resolution yourself
+July 6, 2024
+
+2:41:20
+4
+Highlight
+
+14
+[H] AA Map Work | The little things, like wrist menu auto scaling, some colliders, static flags and gpu instnacing
+[H] AA Map Work | The little things, like wrist menu auto scaling, some colliders, static flags and gpu instnacing
+July 11, 2024
+
+3:31:40
+12
+Highlight
+
+15
+[H] AA Map Work | Item System changes, slowly working towards updating the main academy map | Music in the VOD PauseChamp
+[H] AA Map Work | Item System changes, slowly working towards updating the main academy map | Music in the VOD PauseChamp
+July 17, 2024
+
+2:44:54
+6
+Highlight
+
+16
+[H] AA Map Work | Getting the main Academy map back in working order
+[H] AA Map Work | Getting the main Academy map back in working order
+July 17, 2024
+
+1:55:10
+1
+Highlight
+
+17
+[H] AA Map Work | Time to replace 318 teleport scripts... alright I'll write a script to automate it
+[H] AA Map Work | Time to replace 318 teleport scripts... alright I'll write a script to automate it
+July 18, 2024
+
+4:35:00
+7
+Highlight
+
+18
+[H] Creating a happy little TP to Player UI, with a list and pins and such
+[H] Creating a happy little TP to Player UI, with a list and pins and such
+July 25, 2024
+
+3:41:20
+17
+Highlight
+
