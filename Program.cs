@@ -56,9 +56,10 @@ namespace TwitchVodsRescueCS
         bool listCollections,
         bool listDuplicateTitles,
         bool listVideos,
-        DirectoryInfo outputDir,
-        DirectoryInfo configDir,
+        DirectoryInfo? outputDir,
+        DirectoryInfo? configDir,
         DirectoryInfo? tempDir,
+        FileInfo? downloaderCli,
         bool dryRun)
     {
         public bool downloadVideo = downloadVideo;
@@ -72,6 +73,7 @@ namespace TwitchVodsRescueCS
         public DirectoryInfo outputDir = outputDir ?? new DirectoryInfo("downloads");
         public DirectoryInfo configDir = configDir ?? new DirectoryInfo("configuration");
         public DirectoryInfo? tempDir = tempDir;
+        public FileInfo downloaderCli = downloaderCli ?? new FileInfo("TwitchDownloaderCLI");
         public bool dryRun = dryRun;
     }
 
@@ -87,6 +89,7 @@ namespace TwitchVodsRescueCS
         Option<DirectoryInfo> outputDirOpt,
         Option<DirectoryInfo> configDirOpt,
         Option<DirectoryInfo?> tempDirOpt,
+        Option<FileInfo> downloaderCliOpt,
         Option<bool> dryRunOpt) : BinderBase<Options>
     {
         private readonly Option<bool> downloadVideoOpt = downloadVideoOpt;
@@ -100,6 +103,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<DirectoryInfo> outputDirOpt = outputDirOpt;
         private readonly Option<DirectoryInfo> configDirOpt = configDirOpt;
         private readonly Option<DirectoryInfo?> tempDirOpt = tempDirOpt;
+        private readonly Option<FileInfo> downloaderCliOpt = downloaderCliOpt;
         private readonly Option<bool> dryRunOpt = dryRunOpt;
 
         protected override Options GetBoundValue(BindingContext bindingContext)
@@ -113,9 +117,10 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(listCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(listDuplicateTitlesOpt),
                 bindingContext.ParseResult.GetValueForOption(listVideosOpt),
-                bindingContext.ParseResult.GetValueForOption(outputDirOpt)!,
-                bindingContext.ParseResult.GetValueForOption(configDirOpt)!,
+                bindingContext.ParseResult.GetValueForOption(outputDirOpt),
+                bindingContext.ParseResult.GetValueForOption(configDirOpt),
                 bindingContext.ParseResult.GetValueForOption(tempDirOpt),
+                bindingContext.ParseResult.GetValueForOption(downloaderCliOpt),
                 bindingContext.ParseResult.GetValueForOption(dryRunOpt));
         }
     }
@@ -160,6 +165,9 @@ namespace TwitchVodsRescueCS
                 + "Default: 'configuration'.");
             var tempDirOpt = new Option<DirectoryInfo?>("--temp-dir",
                 "The temp directory the TwitchDownloaderCLI uses.");
+            var downloaderCliOpt = new Option<FileInfo>("--downloader-cli",
+                "Path of the TwitchDownloaderCLI executable. "
+                + "Default: 'TwitchDownloaderCLI'.");
             var dryRunOpt = new Option<bool>("--dry-run",
                 "Tries to give an idea of what the current command would do, without "
                 + "actually downloading anything or writing any files.");
@@ -175,6 +183,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(outputDirOpt);
             root.AddOption(configDirOpt);
             root.AddOption(tempDirOpt);
+            root.AddOption(downloaderCliOpt);
             root.AddOption(dryRunOpt);
 
             root.SetHandler(RunMain, new OptionsBinder(
@@ -189,6 +198,7 @@ namespace TwitchVodsRescueCS
                 outputDirOpt,
                 configDirOpt,
                 tempDirOpt,
+                downloaderCliOpt,
                 dryRunOpt));
 
             int libExitCode = root.Invoke(args);
@@ -613,7 +623,7 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
             if (options.dryRun)
                 return;
-            ProcessStartInfo startInfo = new("TwitchDownloaderCLI")
+            ProcessStartInfo startInfo = new(options.downloaderCli.FullName)
             {
                 UseShellExecute = true,
                 CreateNoWindow = true,
@@ -642,7 +652,7 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
             if (options.dryRun)
                 return;
-            ProcessStartInfo startInfo = new("TwitchDownloaderCLI")
+            ProcessStartInfo startInfo = new(options.downloaderCli.FullName)
             {
                 UseShellExecute = true,
                 CreateNoWindow = true,
