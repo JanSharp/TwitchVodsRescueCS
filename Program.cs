@@ -1,4 +1,5 @@
-﻿using System.CommandLine;
+﻿using System.Collections.Concurrent;
+using System.CommandLine;
 using System.CommandLine.Binding;
 using System.Diagnostics;
 using System.Globalization;
@@ -59,7 +60,7 @@ namespace TwitchVodsRescueCS
         DirectoryInfo? outputDir,
         DirectoryInfo? configDir,
         DirectoryInfo? tempDir,
-        FileInfo? downloaderCli,
+        string? downloaderCli,
         bool dryRun)
     {
         public bool downloadVideo = downloadVideo;
@@ -73,7 +74,7 @@ namespace TwitchVodsRescueCS
         public DirectoryInfo outputDir = outputDir ?? new DirectoryInfo("downloads");
         public DirectoryInfo configDir = configDir ?? new DirectoryInfo("configuration");
         public DirectoryInfo? tempDir = tempDir;
-        public FileInfo downloaderCli = downloaderCli ?? new FileInfo("TwitchDownloaderCLI");
+        public string downloaderCli = downloaderCli ?? "TwitchDownloaderCLI";
         public bool dryRun = dryRun;
     }
 
@@ -89,7 +90,7 @@ namespace TwitchVodsRescueCS
         Option<DirectoryInfo> outputDirOpt,
         Option<DirectoryInfo> configDirOpt,
         Option<DirectoryInfo?> tempDirOpt,
-        Option<FileInfo> downloaderCliOpt,
+        Option<string> downloaderCliOpt,
         Option<bool> dryRunOpt) : BinderBase<Options>
     {
         private readonly Option<bool> downloadVideoOpt = downloadVideoOpt;
@@ -103,7 +104,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<DirectoryInfo> outputDirOpt = outputDirOpt;
         private readonly Option<DirectoryInfo> configDirOpt = configDirOpt;
         private readonly Option<DirectoryInfo?> tempDirOpt = tempDirOpt;
-        private readonly Option<FileInfo> downloaderCliOpt = downloaderCliOpt;
+        private readonly Option<string> downloaderCliOpt = downloaderCliOpt;
         private readonly Option<bool> dryRunOpt = dryRunOpt;
 
         protected override Options GetBoundValue(BindingContext bindingContext)
@@ -165,7 +166,7 @@ namespace TwitchVodsRescueCS
                 + "Default: 'configuration'.");
             var tempDirOpt = new Option<DirectoryInfo?>("--temp-dir",
                 "The temp directory the TwitchDownloaderCLI uses.");
-            var downloaderCliOpt = new Option<FileInfo>("--downloader-cli",
+            var downloaderCliOpt = new Option<string>("--downloader-cli",
                 "Path of the TwitchDownloaderCLI executable. "
                 + "Default: 'TwitchDownloaderCLI'.");
             var dryRunOpt = new Option<bool>("--dry-run",
@@ -385,6 +386,9 @@ namespace TwitchVodsRescueCS
         private static List<Detail> details = null!;
         private static List<Collection> collections = [];
         private static readonly Stopwatch mainTimer = new();
+        private static readonly EventWaitHandle downloadFinishedHandle = new(false, EventResetMode.AutoReset);
+        private static readonly EventWaitHandle clearHandle = new(false, EventResetMode.AutoReset);
+        private static int concurrentFinalizationTasks = 0;
 
         private static void RunMain(Options options)
         {
@@ -580,6 +584,9 @@ namespace TwitchVodsRescueCS
                         break;
                 }
             }
+
+            while (concurrentFinalizationTasks != 0)
+                Thread.Sleep(100);
         }
 
         private static void ProcessDownloads(Detail detail)
@@ -589,7 +596,8 @@ namespace TwitchVodsRescueCS
                 ProcessSpecificDownloads(detail, null);
                 return;
             }
-            foreach (CollectionEntry entry in detail.collectionEntries)
+            // Reverse to make it generate all the external metadata files first, downloading the video very last.
+            foreach (CollectionEntry entry in detail.collectionEntries.AsEnumerable().Reverse())
                 ProcessSpecificDownloads(detail, entry);
         }
 
@@ -602,7 +610,10 @@ namespace TwitchVodsRescueCS
             {
                 Console.WriteLine($"Creating:    {GetCollectionPrefixForPrinting(detail, entry)}{GetMetadataFilename(detail, entry)}");
                 if (!options.dryRun)
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(metadataPath)!);
                     File.WriteAllText(metadataPath, GetMetadataFileContents(detail, entry));
+                }
             }
 
             if (IsExternal(detail, entry))
@@ -623,7 +634,7 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
             if (options.dryRun)
                 return;
-            ProcessStartInfo startInfo = new(options.downloaderCli.FullName)
+            ProcessStartInfo startInfo = new(options.downloaderCli)
             {
                 UseShellExecute = true,
                 CreateNoWindow = true,
@@ -648,11 +659,21 @@ namespace TwitchVodsRescueCS
 
         private static void DownloadVideo(Detail detail)
         {
-            string filename = GetVideoFilename(detail, null);
-            Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
+            Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
             if (options.dryRun)
                 return;
-            ProcessStartInfo startInfo = new(options.downloaderCli.FullName)
+            while (concurrentFinalizationTasks > 4)
+                Thread.Sleep(100);
+            Interlocked.Increment(ref concurrentFinalizationTasks);
+            Task.Run(() => DownloadVideoTask(detail));
+            downloadFinishedHandle.WaitOne();
+            clearHandle.Set();
+        }
+
+        private static void DownloadVideoTask(Detail detail)
+        {
+            string outputFilePath = Path.Combine(GetOutputPath(detail, null), GetVideoFilename(detail, null));
+            ProcessStartInfo startInfo = new(options.downloaderCli)
             {
                 UseShellExecute = true,
                 CreateNoWindow = true,
@@ -661,7 +682,7 @@ namespace TwitchVodsRescueCS
             startInfo.ArgumentList.Add("--id");
             startInfo.ArgumentList.Add(detail.GetId().ToString());
             startInfo.ArgumentList.Add("-o");
-            startInfo.ArgumentList.Add(Path.Combine(GetOutputPath(detail, null), filename));
+            startInfo.ArgumentList.Add(outputFilePath);
             if (options.tempDir != null)
             {
                 startInfo.ArgumentList.Add("--temp-path");
@@ -669,10 +690,21 @@ namespace TwitchVodsRescueCS
             }
             Process process = Process.Start(startInfo)
                 ?? throw new UserException("Failed to start TwitchDownloaderCLI process");
+
+            while (!Path.Exists(outputFilePath))
+                Thread.Sleep(10);
+            // FileInfo seems to do caching? Not entirely sure but creating a new one each iteration to be safe.
+            while (Path.Exists(outputFilePath) && new FileInfo(outputFilePath).Length == 0)
+                Thread.Sleep(100);
+            Console.WriteLine("Done downloading, finalizing...");
+            WaitHandle.SignalAndWait(downloadFinishedHandle, clearHandle);
+
             process.WaitForExit();
             if (process.ExitCode != 0)
                 throw new UserException("TwitchDownloaderCLI failed to download a video.");
             Console.WriteLine(); // TwitchDownloaderCLI does not write a trailing newline to stdout before existing.
+
+            Interlocked.Decrement(ref concurrentFinalizationTasks);
         }
     }
 }
