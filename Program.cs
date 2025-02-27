@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json.Linq;
 
 namespace TwitchVodsRescueCS
 {
@@ -240,6 +241,11 @@ namespace TwitchVodsRescueCS
                 seconds = h * 60 * 60 + m * 60 + s;
                 createdAtDate = DateTime.Parse(CreatedAt);
             }
+
+            public int GetId()
+            {
+                return int.Parse(Regex.Match(URL, @"/(\d+)$").Groups[1].Value);
+            }
         }
 
         public class Collection(string collectionTitle)
@@ -251,6 +257,9 @@ namespace TwitchVodsRescueCS
         public class CollectionEntry
         {
             public Collection collection;
+            /// <summary>
+            /// <para>One based.</para>
+            /// </summary>
             public int index;
             public string title;
             public string date;
@@ -297,7 +306,7 @@ namespace TwitchVodsRescueCS
             return dir.EnumerateFiles().FirstOrDefault(f => f.Extension == ".csv");
         }
 
-        private static void ReadConfigurationCSV(Options options)
+        private static void ReadConfigurationCSV()
         {
             FileInfo csvFile = FindCSVFile(options.configDir)
                 ?? throw new UserException($"Missing csv file in: {options.configDir}");
@@ -313,7 +322,7 @@ namespace TwitchVodsRescueCS
             Collection collection = new(Path.GetFileNameWithoutExtension(collectionFile.Name));
             string content = File.ReadAllText(collectionFile.FullName);
             var parser = new VeryStupidParser(content);
-            int index = 0;
+            int index = 1; // One based.
             while (!parser.EndOfFile)
             {
                 parser.ReadLine(discard: true);
@@ -328,7 +337,7 @@ namespace TwitchVodsRescueCS
             return collection;
         }
 
-        private static void ReadConfigUrationCollections(Options options)
+        private static void ReadConfigUrationCollections()
         {
             var collectionsDir = new DirectoryInfo(Path.Combine(options.configDir.FullName, "collections"));
             if (!collectionsDir.Exists)
@@ -379,14 +388,16 @@ namespace TwitchVodsRescueCS
             return success;
         }
 
+        private static Options options;
         private static List<Detail> details;
         private static List<Collection> collections = new();
 
         private static void RunMain(Options options)
         {
+            Program.options = options;
             try
             {
-                Run(options);
+                Run();
             }
             catch (UserException e)
             {
@@ -395,12 +406,12 @@ namespace TwitchVodsRescueCS
             }
         }
 
-        private static void Run(Options options)
+        private static void Run()
         {
             if (!options.configDir.Exists)
                 throw new UserException($"No such configuration folder: {options.configDir}");
-            ReadConfigurationCSV(options);
-            ReadConfigUrationCollections(options);
+            ReadConfigurationCSV();
+            ReadConfigUrationCollections();
             if (!ResolveCollectionEntryDetailReferences())
             {
                 exitCode = 1;
@@ -419,13 +430,11 @@ namespace TwitchVodsRescueCS
             }
             if (options.listVideos)
             {
-                ListVideos(options);
+                ListVideos();
                 return;
             }
 
-            var foo = details;
-            var bar = collections;
-            Console.WriteLine("done!");
+            ProcessAllDownloads();
         }
 
         private static void ListCollections()
@@ -443,7 +452,7 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"unique duplicate title count: {groups.Count()}");
         }
 
-        private static void ListVideos(Options options)
+        private static void ListVideos()
         {
             if (options.nonCollections || options.collections == null)
             {
@@ -462,6 +471,162 @@ namespace TwitchVodsRescueCS
                 foreach (CollectionEntry entry in collection.entries)
                     Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.title}");
             }
+        }
+
+        private static string GetOutputPath(Detail detail, CollectionEntry? entry)
+        {
+            return detail.collectionEntries.Count != 0
+                ? Path.Combine(options.outputDir.FullName, (entry ?? detail.collectionEntries.First()).collection.collectionTitle)
+                : options.outputDir.FullName;
+        }
+
+        private static int GetCollectionIndex(Detail detail, CollectionEntry? entry)
+        {
+            if (detail.collectionEntries.Count == 0)
+                return -1;
+            if (entry != null)
+                return entry.index;
+            return detail.collectionEntries.First().index;
+        }
+
+        private static string AddCollectionIndexPrefix(Detail detail, CollectionEntry? entry, string filename)
+        {
+            if (detail.collectionEntries.Count == 0)
+                return filename;
+            return $"{GetCollectionIndex(detail, entry):000}  {filename}";
+        }
+
+        private static string GetCollectionPrefixForPrinting(Detail detail, CollectionEntry? entry)
+        {
+            string? title = entry?.collection.collectionTitle
+                ?? detail.collectionEntries.FirstOrDefault()?.collection.collectionTitle
+                ?? null;
+            return title == null ? "" : $"{title}/";
+        }
+
+        private static string FormatDate(DateTime date)
+        {
+            return date.ToString("yyyy-MM-dd HH-mm-ss");
+        }
+
+        private static bool IsExternal(Detail detail, CollectionEntry? entry)
+        {
+            return entry != null && detail.collectionEntries.First() != entry;
+        }
+
+        private static string GetMetadataFilename(Detail detail, CollectionEntry? entry)
+        {
+            string name = $"{FormatDate(detail.createdAtDate)}  metadata{(IsExternal(detail, entry) ? " (external)" : "")}.json";
+            return AddCollectionIndexPrefix(detail, entry, name);
+        }
+
+        private static string GetChatFilename(Detail detail, CollectionEntry? entry)
+        {
+            string name = $"{FormatDate(detail.createdAtDate)}  chat.json";
+            return AddCollectionIndexPrefix(detail, entry, name);
+        }
+
+        private static string GetVideoFilename(Detail detail, CollectionEntry? entry)
+        {
+            string name = $"{FormatDate(detail.createdAtDate)}  {Regex.Replace(detail.Title, @"[\\/:*?""'<>|]", "")}.mp4";
+            return AddCollectionIndexPrefix(detail, entry, name);
+        }
+
+        private static string GetMetadataFileContents(Detail detail, CollectionEntry? entry)
+        {
+            JObject metadata = new()
+            {
+                {"title", detail.Title},
+                // No description unfortunately
+                {"broadcast_type", detail.Type},
+                // No viewable unfortunately
+                {"views", detail.ViewCount},
+                {"seconds", detail.seconds},
+                {"created_at", detail.CreatedAt},
+                {"url", detail.URL},
+                {"id", detail.GetId()},
+                {"collection_index", GetCollectionIndex(detail, entry)},
+                {"collection_title", (entry ?? detail.collectionEntries.FirstOrDefault())?.collection.collectionTitle ?? ""},
+                {"collection_title_external", IsExternal(detail, entry) ? detail.collectionEntries.First().collection.collectionTitle : ""},
+            };
+            return metadata.ToString();
+        }
+
+        private static void ProcessAllDownloads()
+        {
+            if (options.collections != null)
+            {
+                Dictionary<string, Collection> collectionsByTitle = collections.ToDictionary(c => c.collectionTitle, c => c);
+                HashSet<Detail> visited = new();
+                foreach (Detail detail in options.collections
+                    .SelectMany(ct => collectionsByTitle[ct].entries.Select(e => e.detail)))
+                {
+                    if (visited.Contains(detail))
+                        continue;
+                    visited.Add(detail);
+                    ProcessDownloads(detail);
+                }
+                return;
+            }
+
+            foreach (Detail detail in details.AsEnumerable().Reverse())
+            {
+                if (!options.nonCollections || detail.collectionEntries.Count == 0)
+                    ProcessDownloads(detail);
+            }
+        }
+
+        private static void ProcessDownloads(Detail detail)
+        {
+            if (detail.collectionEntries.Count == 0)
+            {
+                ProcessSpecificDownloads(detail, null);
+                return;
+            }
+            foreach (CollectionEntry entry in detail.collectionEntries)
+                ProcessSpecificDownloads(detail, entry);
+        }
+
+        private static void ProcessSpecificDownloads(Detail detail, CollectionEntry? entry)
+        {
+            string outputPath = GetOutputPath(detail, entry);
+
+            string metadataPath = Path.Combine(outputPath, GetMetadataFilename(detail, entry));
+            if (!File.Exists(metadataPath))
+            {
+                Console.WriteLine($"Creating:    {GetCollectionPrefixForPrinting(detail, entry)}{GetMetadataFilename(detail, entry)}");
+                if (!options.dryRun)
+                    File.WriteAllText(metadataPath, GetMetadataFileContents(detail, entry));
+            }
+
+            if (IsExternal(detail, entry))
+                return;
+
+            string chatPath = Path.Combine(outputPath, GetChatFilename(detail, entry));
+            if (options.downloadChat && !File.Exists(chatPath))
+                DownloadChat(detail);
+
+            string videoPath = Path.Combine(outputPath, GetVideoFilename(detail, entry));
+            if (options.downloadChat && !File.Exists(videoPath))
+                DownloadVideo(detail);
+        }
+
+        private static void DownloadChat(Detail detail)
+        {
+            string filename = GetChatFilename(detail, null);
+            Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
+            if (options.dryRun)
+                return;
+            // TODO: start child process
+        }
+
+        private static void DownloadVideo(Detail detail)
+        {
+            string filename = GetVideoFilename(detail, null);
+            Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
+            if (options.dryRun)
+                return;
+            // TODO: start child process
         }
     }
 }
