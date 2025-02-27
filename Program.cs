@@ -52,6 +52,7 @@ namespace TwitchVodsRescueCS
         bool downloadVideo,
         bool downloadChat,
         int timeLimit,
+        int? maxConcurrentFinalization,
         string[]? collections,
         bool nonCollections,
         bool listCollections,
@@ -66,6 +67,7 @@ namespace TwitchVodsRescueCS
         public bool downloadVideo = downloadVideo;
         public bool downloadChat = downloadChat;
         public int timeLimit = timeLimit;
+        public int maxConcurrentFinalization = Math.Max(1, maxConcurrentFinalization ?? 4);
         public string[]? collections = collections!.Length == 0 ? null : collections;
         public bool nonCollections = nonCollections;
         public bool listCollections = listCollections;
@@ -82,6 +84,7 @@ namespace TwitchVodsRescueCS
         Option<bool> downloadVideoOpt,
         Option<bool> downloadChatOpt,
         Option<int> timeLimitOpt,
+        Option<int?> maxConcurrentFinalizationOpt,
         Option<string[]> collectionsOpt,
         Option<bool> nonCollectionsOpt,
         Option<bool> listCollectionsOpt,
@@ -96,6 +99,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> downloadVideoOpt = downloadVideoOpt;
         private readonly Option<bool> downloadChatOpt = downloadChatOpt;
         private readonly Option<int> timeLimitOpt = timeLimitOpt;
+        private readonly Option<int?> maxConcurrentFinalizationOpt = maxConcurrentFinalizationOpt;
         private readonly Option<string[]> collectionsOpt = collectionsOpt;
         private readonly Option<bool> nonCollectionsOpt = nonCollectionsOpt;
         private readonly Option<bool> listCollectionsOpt = listCollectionsOpt;
@@ -113,6 +117,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(downloadVideoOpt),
                 bindingContext.ParseResult.GetValueForOption(downloadChatOpt),
                 bindingContext.ParseResult.GetValueForOption(timeLimitOpt),
+                bindingContext.ParseResult.GetValueForOption(maxConcurrentFinalizationOpt),
                 bindingContext.ParseResult.GetValueForOption(collectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(nonCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(listCollectionsOpt),
@@ -146,6 +151,20 @@ namespace TwitchVodsRescueCS
                 + "or killing the process while it is running will most likely result in "
                 + "unfinished downloads in the output directory. Make sure to delete "
                 + "those files.");
+            var maxConcurrentFinalizationOpt = new Option<int?>("--max-concurrent-finalization",
+                "The TwitchDownloaderCLI first downloads videos by downloading many "
+                + "many 10 second snippets, then it uses ffmpeg to concatenate them into "
+                + "the final video. It calls this finalizing. This process can take a "
+                + "few minutes and if everything was sequential then nothing would be "
+                + "downloaded in that time. This wrapper tool can detect this and "
+                + "initiate another download while the previous one is still finalizing. "
+                + "But if the machine is slow, for example if the drive cannot keep up, "
+                + "it may end up stacking more and more concurrent finalization "
+                + "processes. This option puts a limit on concurrent finalization "
+                + "processes to prevent this, however allowing some concurrency can "
+                + "overall be faster so long as the drive is not the bottle neck and the "
+                + "CPU has free cores."
+                + "Default: 4.");
             var collectionsOpt = new Option<string[]>("--collections",
                 "Only process videos in the given collections.");
             var nonCollectionsOpt = new Option<bool>("--non-collections",
@@ -162,7 +181,7 @@ namespace TwitchVodsRescueCS
                 + "Default: 'downloads'.");
             var configDirOpt = new Option<DirectoryInfo>("--config-dir",
                 "The directory containing one vods csv file, and "
-                + "optionally a 'collections' folder."
+                + "optionally a 'collections' folder. "
                 + "Default: 'configuration'.");
             var tempDirOpt = new Option<DirectoryInfo?>("--temp-dir",
                 "The temp directory the TwitchDownloaderCLI uses.");
@@ -176,6 +195,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(downloadVideoOpt);
             root.AddOption(downloadChatOpt);
             root.AddOption(timeLimitOpt);
+            root.AddOption(maxConcurrentFinalizationOpt);
             root.AddOption(collectionsOpt);
             root.AddOption(nonCollectionsOpt);
             root.AddOption(listCollectionsOpt);
@@ -191,6 +211,7 @@ namespace TwitchVodsRescueCS
                 downloadVideoOpt,
                 downloadChatOpt,
                 timeLimitOpt,
+                maxConcurrentFinalizationOpt,
                 collectionsOpt,
                 nonCollectionsOpt,
                 listCollectionsOpt,
@@ -662,7 +683,7 @@ namespace TwitchVodsRescueCS
             Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
             if (options.dryRun)
                 return;
-            while (concurrentFinalizationTasks > 4)
+            while (concurrentFinalizationTasks > options.maxConcurrentFinalization)
                 Thread.Sleep(100);
             Interlocked.Increment(ref concurrentFinalizationTasks);
             Task.Run(() => DownloadVideoTask(detail));
