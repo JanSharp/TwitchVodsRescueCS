@@ -362,7 +362,7 @@ namespace TwitchVodsRescueCS
                 ?? throw new UserException($"Missing csv file in: {options.configDir}");
             using var reader = new StreamReader(csvFile.FullName);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            details = csv.GetRecords<Detail>().ToList();
+            details = csv.GetRecords<Detail>().Where(d => d.Type == "highlight" || d.Type == "upload").ToList();
             foreach (Detail detail in details)
                 detail.Initialize();
         }
