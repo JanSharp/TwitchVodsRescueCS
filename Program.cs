@@ -51,6 +51,7 @@ namespace TwitchVodsRescueCS
 
     public class Options(
         bool downloadVideo,
+        bool downloadThumbnails,
         bool downloadChat,
         int timeLimit,
         int? maxConcurrentFinalization,
@@ -66,6 +67,7 @@ namespace TwitchVodsRescueCS
         bool dryRun)
     {
         public bool downloadVideo = downloadVideo;
+        public bool downloadThumbnails = downloadThumbnails;
         public bool downloadChat = downloadChat;
         public int timeLimit = timeLimit;
         public int maxConcurrentFinalization = Math.Max(1, maxConcurrentFinalization ?? 4);
@@ -83,6 +85,7 @@ namespace TwitchVodsRescueCS
 
     public class OptionsBinder(
         Option<bool> downloadVideoOpt,
+        Option<bool> downloadThumbnailsOpt,
         Option<bool> downloadChatOpt,
         Option<int> timeLimitOpt,
         Option<int?> maxConcurrentFinalizationOpt,
@@ -98,6 +101,7 @@ namespace TwitchVodsRescueCS
         Option<bool> dryRunOpt) : BinderBase<Options>
     {
         private readonly Option<bool> downloadVideoOpt = downloadVideoOpt;
+        private readonly Option<bool> downloadThumbnailsOpt = downloadThumbnailsOpt;
         private readonly Option<bool> downloadChatOpt = downloadChatOpt;
         private readonly Option<int> timeLimitOpt = timeLimitOpt;
         private readonly Option<int?> maxConcurrentFinalizationOpt = maxConcurrentFinalizationOpt;
@@ -116,6 +120,7 @@ namespace TwitchVodsRescueCS
         {
             return new Options(
                 bindingContext.ParseResult.GetValueForOption(downloadVideoOpt),
+                bindingContext.ParseResult.GetValueForOption(downloadThumbnailsOpt),
                 bindingContext.ParseResult.GetValueForOption(downloadChatOpt),
                 bindingContext.ParseResult.GetValueForOption(timeLimitOpt),
                 bindingContext.ParseResult.GetValueForOption(maxConcurrentFinalizationOpt),
@@ -142,6 +147,12 @@ namespace TwitchVodsRescueCS
 
             var downloadVideoOpt = new Option<bool>("--download-video",
                 "Download the highest quality video and audio available.");
+            var downloadThumbnailsOpt = new Option<bool>("--download-thumbnails",
+                "Download all thumbnails for each video. There can be multiple "
+                + "thumbnails, and I am unsure how it choses which is the main one. Also "
+                + "they'll be downloaded in 1920x1080, because the resulting images look "
+                + "pretty alright. Even though custom thumbnails are limited to "
+                + "1280x720. Idk.");
             var downloadChatOpt = new Option<bool>("--download-chat",
                 "Download chat history into a json file. The TwitchDownloader CLI and "
                 + "GUI can render a video from this, which is a separate video from the "
@@ -194,6 +205,7 @@ namespace TwitchVodsRescueCS
                 + "actually downloading anything or writing any files.");
 
             root.AddOption(downloadVideoOpt);
+            root.AddOption(downloadThumbnailsOpt);
             root.AddOption(downloadChatOpt);
             root.AddOption(timeLimitOpt);
             root.AddOption(maxConcurrentFinalizationOpt);
@@ -210,6 +222,7 @@ namespace TwitchVodsRescueCS
 
             root.SetHandler(RunMain, new OptionsBinder(
                 downloadVideoOpt,
+                downloadThumbnailsOpt,
                 downloadChatOpt,
                 timeLimitOpt,
                 maxConcurrentFinalizationOpt,
@@ -269,7 +282,14 @@ namespace TwitchVodsRescueCS
                 JObject obj = JObject.Parse(contents);
                 bool fetchFromTwitch = obj["thumbnailURLs"] == null;
                 if (fetchFromTwitch)
+                {
+                    if (options.dryRun)
+                    {
+                        Console.WriteLine($"Fetch thumbnail urls for: {Title}");
+                        return false;
+                    }
                     await GetAdditionalMetadataFromTwitch();
+                }
                 else
                     GetThumbnailURLsFromJson(obj);
                 return fetchFromTwitch;
@@ -581,6 +601,12 @@ namespace TwitchVodsRescueCS
             return AddCollectionIndexPrefix(detail, entry, name);
         }
 
+        private static string GetThumbnailFilename(Detail detail, CollectionEntry? entry, string thumbnailUrl)
+        {
+            string name = $"{FormatDate(detail.createdAtDate)}  thumb {Regex.Match(thumbnailUrl, @"/([^/]+)$").Groups[1].Value}";
+            return AddCollectionIndexPrefix(detail, entry, name);
+        }
+
         private static string GetVideoFilename(Detail detail, CollectionEntry? entry)
         {
             string name = $"{FormatDate(detail.createdAtDate)}  {Regex.Replace(detail.Title, @"[\\/:*?""'<>|]", "")}.mp4";
@@ -690,6 +716,9 @@ namespace TwitchVodsRescueCS
             if (options.downloadChat && !File.Exists(chatPath))
                 DownloadChat(detail);
 
+            if (options.downloadThumbnails)
+                await DownloadThumbnails(detail);
+
             string videoPath = Path.Combine(outputPath, GetVideoFilename(detail, entry));
             if (options.downloadChat && !File.Exists(videoPath))
                 DownloadVideo(detail);
@@ -722,6 +751,32 @@ namespace TwitchVodsRescueCS
             process.WaitForExit();
             if (process.ExitCode != 0)
                 throw new UserException("TwitchDownloaderCLI failed to download chat history.");
+        }
+
+        private static async Task DownloadThumbnails(Detail detail)
+        {
+            foreach (string url in detail.thumbnailURLs)
+            {
+                string filename = GetThumbnailFilename(detail, null, url);
+                if (Path.Exists(Path.Combine(GetOutputPath(detail, null), filename)))
+                    continue;
+                await DownloadThumbnail(detail, filename, url);
+            }
+        }
+
+        private static readonly HttpClient httpClient = new();
+        private static async Task DownloadThumbnail(Detail detail, string filename, string url)
+        {
+            Console.WriteLine($"Downloading: {GetCollectionPrefixForPrinting(detail, null)}{filename}");
+            if (options.dryRun)
+                return;
+            await Task.Delay(50); // A little bit of rate limiting.
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+            await Task.Delay(50); // A little bit of rate limiting.
+            response.EnsureSuccessStatusCode();
+            using Stream stream = await response.Content.ReadAsStreamAsync();
+            using FileStream fileStream = File.OpenWrite(Path.Combine(GetOutputPath(detail, null), filename));
+            await stream.CopyToAsync(fileStream);
         }
 
         private static void DownloadVideo(Detail detail)
@@ -793,6 +848,7 @@ namespace TwitchVodsRescueCS
             // however I am not interested in figuring out how twitch's api actually works. Besides me copying this
             // function into the project here is just a shortcut to make myself not have to prase standard output from the
             // TwitchDownloaderCLI. This is just easier and this entire program here is one time use throwaway anyway.
+            // cSpell:ignore kimne78kx3ncx6brgo4mv6wki5h1ko
             request.Headers.Add("Client-ID", "kimne78kx3ncx6brgo4mv6wki5h1ko");
             using var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
