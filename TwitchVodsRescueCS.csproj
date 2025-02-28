@@ -16,4 +16,24 @@
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="LICENSE_THIRD_PARTY.txt" />
+    <Content Include="LICENSE.txt" />
+    <Content Include="readme.md" />
+  </ItemGroup>
+
+  <Target Name="CopyScripts" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <MySourceFiles Include="LICENSE_THIRD_PARTY.txt;LICENSE.txt;readme.md" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(OutDir)" />
+  </Target>
+
+  <Target Name="CopyScriptsOnPublish" AfterTargets="Publish">
+    <ItemGroup>
+      <MySourceFiles Include="./scripts/**/*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(PublishDir)" />
+  </Target>
+
 </Project>
