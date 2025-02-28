@@ -1,9 +1,10 @@
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.CommandLine;
 using System.CommandLine.Binding;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 using Newtonsoft.Json.Linq;
@@ -135,7 +136,7 @@ namespace TwitchVodsRescueCS
     {
         static int exitCode = 0;
 
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             RootCommand root = new("Download twitch vods.");
 
@@ -223,7 +224,7 @@ namespace TwitchVodsRescueCS
                 downloaderCliOpt,
                 dryRunOpt));
 
-            int libExitCode = root.Invoke(args);
+            int libExitCode = await root.InvokeAsync(args);
             return libExitCode != 0 ? libExitCode : exitCode;
         }
 
@@ -245,6 +246,33 @@ namespace TwitchVodsRescueCS
             public int seconds;
             public DateTime createdAtDate;
             public List<CollectionEntry> collectionEntries = [];
+            public JObject? additionalMetadata;
+            public string[] thumbnailURLs = [];
+
+            public async Task GetAdditionalMetadataFromTwitch()
+            {
+                if (additionalMetadata != null)
+                    return;
+                additionalMetadata = (JObject)JObject.Parse(await TwitchHelper.GetVideoInfo(GetId()))["data"]!["video"]!;
+                GetThumbnailURLsFromJson(additionalMetadata);
+            }
+
+            public async Task<bool> ReadThumbnailsFromMetadataFile()
+            {
+                string contents = File.ReadAllText(Path.Combine(GetOutputPath(this, null), GetMetadataFilename(this, null)));
+                JObject obj = JObject.Parse(contents);
+                bool fetchFromTwitch = obj["thumbnailURLs"] == null;
+                if (fetchFromTwitch)
+                    await GetAdditionalMetadataFromTwitch();
+                else
+                    GetThumbnailURLsFromJson(obj);
+                return fetchFromTwitch;
+            }
+
+            private void GetThumbnailURLsFromJson(JObject obj)
+            {
+                thumbnailURLs = obj["thumbnailURLs"]?.Select(t => (string)t!).ToArray() ?? [];
+            }
 
             public void Initialize()
             {
@@ -411,12 +439,12 @@ namespace TwitchVodsRescueCS
         private static readonly EventWaitHandle clearHandle = new(false, EventResetMode.AutoReset);
         private static int concurrentFinalizationTasks = 0;
 
-        private static void RunMain(Options options)
+        private static async Task RunMain(Options options)
         {
             Program.options = options;
             try
             {
-                Run();
+                await Run();
             }
             catch (UserException e)
             {
@@ -425,7 +453,7 @@ namespace TwitchVodsRescueCS
             }
         }
 
-        private static void Run()
+        private static async Task Run()
         {
             mainTimer.Start();
             if (!options.configDir.Exists)
@@ -454,7 +482,7 @@ namespace TwitchVodsRescueCS
                 return;
             }
 
-            ProcessAllDownloads();
+            await ProcessAllDownloads();
         }
 
         private static void ListCollections()
@@ -552,22 +580,25 @@ namespace TwitchVodsRescueCS
             return AddCollectionIndexPrefix(detail, entry, name);
         }
 
-        private static string GetMetadataFileContents(Detail detail, CollectionEntry? entry)
+        private static async Task<string> GetMetadataFileContents(Detail detail, CollectionEntry? entry)
         {
+            await detail.GetAdditionalMetadataFromTwitch();
             JObject metadata = new()
             {
                 {"title", detail.Title},
-                // No description unfortunately
-                {"broadcast_type", detail.Type},
+                {"broadcastType", detail.Type},
                 // No viewable unfortunately
                 {"views", detail.ViewCount},
                 {"seconds", detail.seconds},
-                {"created_at", detail.CreatedAt},
+                {"createdAt", detail.additionalMetadata!["createdAt"]},
                 {"url", detail.URL},
                 {"id", detail.GetId()},
-                {"collection_index", GetCollectionIndex(detail, entry)},
-                {"collection_title", (entry ?? detail.collectionEntries.FirstOrDefault())?.collection.collectionTitle ?? ""},
-                {"collection_title_external", IsExternal(detail, entry) ? detail.collectionEntries.First().collection.collectionTitle : ""},
+                {"collectionIndex", GetCollectionIndex(detail, entry)},
+                {"collectionTitle", (entry ?? detail.collectionEntries.FirstOrDefault())?.collection.collectionTitle ?? ""},
+                {"collectionTitleExternal", IsExternal(detail, entry) ? detail.collectionEntries.First().collection.collectionTitle : ""},
+                {"thumbnailURLs", detail.additionalMetadata!["thumbnailURLs"]},
+                {"description", detail.additionalMetadata!["description"]},
+                {"game", detail.additionalMetadata!["game"]},
             };
             return metadata.ToString();
         }
@@ -577,7 +608,7 @@ namespace TwitchVodsRescueCS
             return options.timeLimit > 0 && mainTimer.Elapsed.TotalMinutes > options.timeLimit;
         }
 
-        private static void ProcessAllDownloads()
+        private static async Task ProcessAllDownloads()
         {
             if (options.collections != null)
             {
@@ -589,7 +620,7 @@ namespace TwitchVodsRescueCS
                     if (visited.Contains(detail))
                         continue;
                     visited.Add(detail);
-                    ProcessDownloads(detail);
+                    await ProcessDownloads(detail);
                     if (ReachedTimeLimit())
                         break;
                 }
@@ -600,7 +631,7 @@ namespace TwitchVodsRescueCS
             {
                 if (!options.nonCollections || detail.collectionEntries.Count == 0)
                 {
-                    ProcessDownloads(detail);
+                    await ProcessDownloads(detail);
                     if (ReachedTimeLimit())
                         break;
                 }
@@ -610,30 +641,38 @@ namespace TwitchVodsRescueCS
                 Thread.Sleep(100);
         }
 
-        private static void ProcessDownloads(Detail detail)
+        private static async Task ProcessDownloads(Detail detail)
         {
             if (detail.collectionEntries.Count == 0)
             {
-                ProcessSpecificDownloads(detail, null);
+                await ProcessSpecificDownloads(detail, null);
                 return;
             }
             // Reverse to make it generate all the external metadata files first, downloading the video very last.
             foreach (CollectionEntry entry in detail.collectionEntries.AsEnumerable().Reverse())
-                ProcessSpecificDownloads(detail, entry);
+                await ProcessSpecificDownloads(detail, entry);
         }
 
-        private static void ProcessSpecificDownloads(Detail detail, CollectionEntry? entry)
+        private static async Task ProcessSpecificDownloads(Detail detail, CollectionEntry? entry)
         {
             string outputPath = GetOutputPath(detail, entry);
 
             string metadataPath = Path.Combine(outputPath, GetMetadataFilename(detail, entry));
-            if (!File.Exists(metadataPath))
+            if (File.Exists(metadataPath))
+            {
+                if (await detail.ReadThumbnailsFromMetadataFile())
+                {
+                    Console.WriteLine($"Updating:    {GetCollectionPrefixForPrinting(detail, entry)}{GetMetadataFilename(detail, entry)}");
+                    File.WriteAllText(metadataPath, await GetMetadataFileContents(detail, entry));
+                }
+            }
+            else
             {
                 Console.WriteLine($"Creating:    {GetCollectionPrefixForPrinting(detail, entry)}{GetMetadataFilename(detail, entry)}");
                 if (!options.dryRun)
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(metadataPath)!);
-                    File.WriteAllText(metadataPath, GetMetadataFileContents(detail, entry));
+                    File.WriteAllText(metadataPath, await GetMetadataFileContents(detail, entry));
                 }
             }
 
@@ -726,6 +765,32 @@ namespace TwitchVodsRescueCS
             Console.WriteLine(); // TwitchDownloaderCLI does not write a trailing newline to stdout before existing.
 
             Interlocked.Decrement(ref concurrentFinalizationTasks);
+        }
+    }
+
+    // Taken from: https://github.com/lay295/TwitchDownloader/blob/192c8bf46ecd7597f220edc95000d1b3105525e0/TwitchDownloaderCore/TwitchHelper.cs#L31-L43
+    public static class TwitchHelper
+    {
+        private static readonly HttpClient httpClient = new();
+
+        public static async Task<string> GetVideoInfo(long videoId)
+        {
+            await Task.Delay(50); // A little bit of rate limiting.
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri("https://gql.twitch.tv/gql"),
+                Method = HttpMethod.Post,
+                Content = new StringContent("{\"query\":\"query{video(id:\\\"" + videoId + "\\\"){thumbnailURLs(height:1080,width:1920),createdAt,game{id,displayName,boxArtURL},description}}\",\"variables\":{}}", Encoding.UTF8, "application/json")
+            };
+            // NOTE: This is using the same client id as the TwitchDownloaderCLI. This is probably the wrong thing to do,
+            // however I am not interested in figuring out how twitch's api actually works. Besides me copying this
+            // function into the project here is just a shortcut to make myself not have to prase standard output from the
+            // TwitchDownloaderCLI. This is just easier and this entire program here is one time use throwaway anyway.
+            request.Headers.Add("Client-ID", "kimne78kx3ncx6brgo4mv6wki5h1ko");
+            using var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+            await Task.Delay(50); // A little bit of rate limiting.
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

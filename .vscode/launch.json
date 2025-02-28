@@ -13,6 +13,11 @@
       "program": "${workspaceFolder}/bin/Debug/net9.0/TwitchVodsRescueCS.dll",
       "args": [
         "--config-dir", "example_configuration",
+        "--temp-dir", "/run/media/jmpc4/huge/temp/",
+        "--output-dir", "/run/media/jmpc4/huge/TwitchVods/JanSharp",
+        "--download-video",
+        "--download-chat",
+        "--collections", "Car Engineer",
       ],
       "cwd": "${workspaceFolder}",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
