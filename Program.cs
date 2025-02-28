@@ -228,6 +228,12 @@ namespace TwitchVodsRescueCS
             return libExitCode != 0 ? libExitCode : exitCode;
         }
 
+        private static string CleanUpRandomWhiteSpaceForTitle(string title)
+        {
+            // Twitch is being very weird with random extra spaces.
+            return Regex.Replace(title.Trim(), "  +", " ");
+        }
+
         public class Detail
         {
             [Name("URL")]
@@ -276,6 +282,7 @@ namespace TwitchVodsRescueCS
 
             public void Initialize()
             {
+                Title = CleanUpRandomWhiteSpaceForTitle(Title);
                 Match match = Regex.Match(Duration, @"(?:(?:(\d+)h)?(\d+)m)?(\d+)s");
                 int h = match.Groups[1].Success ? int.Parse(match.Groups[1].Value) : 0;
                 int m = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;;
@@ -370,7 +377,7 @@ namespace TwitchVodsRescueCS
             {
                 parser.ReadLine(discard: true);
                 parser.ReadLine(discard: true);
-                string title = parser.ReadLine();
+                string title = CleanUpRandomWhiteSpaceForTitle(parser.ReadLine());
                 string date = parser.ReadLine();
                 string length = parser.ReadLine();
                 collection.entries.Add(new(collection, index++, title, date, length));
