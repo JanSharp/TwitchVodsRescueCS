@@ -276,9 +276,9 @@ namespace TwitchVodsRescueCS
 
             public void Initialize()
             {
-                Match match = Regex.Match(Duration, @"(?:(\d+)h)?(\d+)m(\d+)s");
+                Match match = Regex.Match(Duration, @"(?:(?:(\d+)h)?(\d+)m)?(\d+)s");
                 int h = match.Groups[1].Success ? int.Parse(match.Groups[1].Value) : 0;
-                int m = int.Parse(match.Groups[2].Value);
+                int m = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) : 0;;
                 int s = int.Parse(match.Groups[3].Value);
                 seconds = h * 60 * 60 + m * 60 + s;
                 createdAtDate = DateTime.Parse(CreatedAt);
