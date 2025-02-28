@@ -138,3 +138,5 @@ _NCrunch*
 /downloads/**
 /configuration/**
 !/configuration/readme.md
+/TwitchDownloaderCLI*
+/ffmpeg*
