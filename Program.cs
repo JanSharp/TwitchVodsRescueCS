@@ -53,6 +53,7 @@ namespace TwitchVodsRescueCS
         bool downloadVideo,
         bool downloadThumbnails,
         bool downloadChat,
+        bool newestFirst,
         int timeLimit,
         int? maxConcurrentFinalization,
         string[]? collections,
@@ -69,6 +70,7 @@ namespace TwitchVodsRescueCS
         public bool downloadVideo = downloadVideo;
         public bool downloadThumbnails = downloadThumbnails;
         public bool downloadChat = downloadChat;
+        public bool newestFirst = newestFirst;
         public int timeLimit = timeLimit;
         public int maxConcurrentFinalization = Math.Max(1, maxConcurrentFinalization ?? 4);
         public string[]? collections = collections!.Length == 0 ? null : collections;
@@ -87,6 +89,7 @@ namespace TwitchVodsRescueCS
         Option<bool> downloadVideoOpt,
         Option<bool> downloadThumbnailsOpt,
         Option<bool> downloadChatOpt,
+        Option<bool> newestFirstOpt,
         Option<int> timeLimitOpt,
         Option<int?> maxConcurrentFinalizationOpt,
         Option<string[]> collectionsOpt,
@@ -103,6 +106,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> downloadVideoOpt = downloadVideoOpt;
         private readonly Option<bool> downloadThumbnailsOpt = downloadThumbnailsOpt;
         private readonly Option<bool> downloadChatOpt = downloadChatOpt;
+        private readonly Option<bool> newestFirstOpt = newestFirstOpt;
         private readonly Option<int> timeLimitOpt = timeLimitOpt;
         private readonly Option<int?> maxConcurrentFinalizationOpt = maxConcurrentFinalizationOpt;
         private readonly Option<string[]> collectionsOpt = collectionsOpt;
@@ -122,6 +126,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(downloadVideoOpt),
                 bindingContext.ParseResult.GetValueForOption(downloadThumbnailsOpt),
                 bindingContext.ParseResult.GetValueForOption(downloadChatOpt),
+                bindingContext.ParseResult.GetValueForOption(newestFirstOpt),
                 bindingContext.ParseResult.GetValueForOption(timeLimitOpt),
                 bindingContext.ParseResult.GetValueForOption(maxConcurrentFinalizationOpt),
                 bindingContext.ParseResult.GetValueForOption(collectionsOpt),
@@ -157,6 +162,9 @@ namespace TwitchVodsRescueCS
                 "Download chat history into a json file. The TwitchDownloader CLI and "
                 + "GUI can render a video from this, which is a separate video from the "
                 + "main one, so that in particular is only useful for you locally.");
+            var newestFirstOpt = new Option<bool>("--newest-first",
+                "By default videos will be processed/downloaded from oldest to newest. "
+                + "When --newest-first is set the order is reversed.");
             var timeLimitOpt = new Option<int>("--time-limit",
                 "Automatically stop once more this amount of minutes have passed. "
                 + "Zero or less means no limit. Do note however that when closing "
@@ -207,6 +215,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(downloadVideoOpt);
             root.AddOption(downloadThumbnailsOpt);
             root.AddOption(downloadChatOpt);
+            root.AddOption(newestFirstOpt);
             root.AddOption(timeLimitOpt);
             root.AddOption(maxConcurrentFinalizationOpt);
             root.AddOption(collectionsOpt);
@@ -224,6 +233,7 @@ namespace TwitchVodsRescueCS
                 downloadVideoOpt,
                 downloadThumbnailsOpt,
                 downloadChatOpt,
+                newestFirstOpt,
                 timeLimitOpt,
                 maxConcurrentFinalizationOpt,
                 collectionsOpt,
@@ -648,7 +658,10 @@ namespace TwitchVodsRescueCS
                 Dictionary<string, Collection> collectionsByTitle = collections.ToDictionary(c => c.collectionTitle, c => c);
                 HashSet<Detail> visited = [];
                 foreach (Detail detail in options.collections
-                    .SelectMany(ct => collectionsByTitle[ct].entries.Select(e => e.detail)))
+                    .SelectMany(ct => {
+                        var list = collectionsByTitle[ct].entries.Select(e => e.detail);
+                        return options.newestFirst ? list.Reverse() : list;
+                    }))
                 {
                     if (visited.Contains(detail))
                         continue;
@@ -660,7 +673,7 @@ namespace TwitchVodsRescueCS
                 return;
             }
 
-            foreach (Detail detail in details.AsEnumerable().Reverse())
+            foreach (Detail detail in options.newestFirst ? details : details.AsEnumerable().Reverse())
             {
                 if (!options.nonCollections || detail.collectionEntries.Count == 0)
                 {
