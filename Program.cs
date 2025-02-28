@@ -153,7 +153,8 @@ namespace TwitchVodsRescueCS
 
         public static async Task<int> Main(string[] args)
         {
-            RootCommand root = new("Download twitch vods.");
+            RootCommand root = new("Download twitch vods. Press Q to request it to stop "
+                + "after finishing currently running processes.");
 
             var downloadVideoOpt = new Option<bool>("--download-video",
                 "Download the highest quality video and audio available.");
@@ -484,6 +485,7 @@ namespace TwitchVodsRescueCS
         private static readonly EventWaitHandle downloadFinishedHandle = new(false, EventResetMode.AutoReset);
         private static readonly EventWaitHandle clearHandle = new(false, EventResetMode.AutoReset);
         private static int concurrentFinalizationTasks = 0;
+        private static bool requestedToQuit = false;
 
         private static async Task RunMain(Options options)
         {
@@ -672,13 +674,29 @@ namespace TwitchVodsRescueCS
             return metadata.ToString();
         }
 
-        private static bool ReachedTimeLimit()
+        private static bool ShouldStop()
         {
-            return options.timeLimit > 0 && mainTimer.Elapsed.TotalMinutes > options.timeLimit;
+            return requestedToQuit || (options.timeLimit > 0 && mainTimer.Elapsed.TotalMinutes > options.timeLimit);
+        }
+
+        private static void StdInputWatcher()
+        {
+            while (!requestedToQuit)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Q)
+                {
+                    requestedToQuit = true;
+                    Console.WriteLine();
+                    Console.WriteLine("Quitting as soon as all currently running processes have finished.");
+                }
+            }
         }
 
         private static async Task ProcessAllDownloads()
         {
+            _ = Task.Factory.StartNew(StdInputWatcher, TaskCreationOptions.LongRunning | TaskCreationOptions.DenyChildAttach);
+
             if (options.collections != null)
             {
                 Dictionary<string, Collection> collectionsByTitle = collections.ToDictionary(c => c.collectionTitle, c => c);
@@ -693,7 +711,7 @@ namespace TwitchVodsRescueCS
                         continue;
                     visited.Add(detail);
                     await ProcessDownloads(detail);
-                    if (ReachedTimeLimit())
+                    if (ShouldStop())
                         break;
                 }
                 return;
@@ -704,7 +722,7 @@ namespace TwitchVodsRescueCS
                 if (!options.nonCollections || detail.collectionEntries.Count == 0)
                 {
                     await ProcessDownloads(detail);
-                    if (ReachedTimeLimit())
+                    if (ShouldStop())
                         break;
                 }
             }
@@ -825,6 +843,8 @@ namespace TwitchVodsRescueCS
                 return;
             while (concurrentFinalizationTasks > options.maxConcurrentFinalization)
                 Thread.Sleep(100);
+            if (ShouldStop()) // Never mind, guess we stop now.
+                return;
             Interlocked.Increment(ref concurrentFinalizationTasks);
             Task.Run(() => DownloadVideoTask(detail));
             downloadFinishedHandle.WaitOne();
