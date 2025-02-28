@@ -61,6 +61,7 @@ namespace TwitchVodsRescueCS
         bool listCollections,
         bool listDuplicateTitles,
         bool listVideos,
+        bool listVideosInMultipleCollections,
         DirectoryInfo? outputDir,
         DirectoryInfo? configDir,
         DirectoryInfo? tempDir,
@@ -78,6 +79,7 @@ namespace TwitchVodsRescueCS
         public bool listCollections = listCollections;
         public bool listDuplicateTitles = listDuplicateTitles;
         public bool listVideos = listVideos;
+        public bool listVideosInMultipleCollections = listVideosInMultipleCollections;
         public DirectoryInfo outputDir = outputDir ?? new DirectoryInfo("downloads");
         public DirectoryInfo configDir = configDir ?? new DirectoryInfo("configuration");
         public DirectoryInfo? tempDir = tempDir;
@@ -97,6 +99,7 @@ namespace TwitchVodsRescueCS
         Option<bool> listCollectionsOpt,
         Option<bool> listDuplicateTitlesOpt,
         Option<bool> listVideosOpt,
+        Option<bool> listVideosInMultipleCollectionsOpt,
         Option<DirectoryInfo> outputDirOpt,
         Option<DirectoryInfo> configDirOpt,
         Option<DirectoryInfo?> tempDirOpt,
@@ -114,6 +117,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> listCollectionsOpt = listCollectionsOpt;
         private readonly Option<bool> listDuplicateTitlesOpt = listDuplicateTitlesOpt;
         private readonly Option<bool> listVideosOpt = listVideosOpt;
+        private readonly Option<bool> listVideosInMultipleCollectionsOpt = listVideosInMultipleCollectionsOpt;
         private readonly Option<DirectoryInfo> outputDirOpt = outputDirOpt;
         private readonly Option<DirectoryInfo> configDirOpt = configDirOpt;
         private readonly Option<DirectoryInfo?> tempDirOpt = tempDirOpt;
@@ -134,6 +138,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(listCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(listDuplicateTitlesOpt),
                 bindingContext.ParseResult.GetValueForOption(listVideosOpt),
+                bindingContext.ParseResult.GetValueForOption(listVideosInMultipleCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(outputDirOpt),
                 bindingContext.ParseResult.GetValueForOption(configDirOpt),
                 bindingContext.ParseResult.GetValueForOption(tempDirOpt),
@@ -196,6 +201,8 @@ namespace TwitchVodsRescueCS
             var listVideosOpt = new Option<bool>("--list-videos",
                 "Lists vods in order, respects --collections and "
                 + "--non-collections as filters.");
+            var listVideosInMultipleCollectionsOpt = new Option<bool>("--list-videos-in-multiple-collections",
+                "Lists vods which are part of more than 1 collection.");
             var outputDirOpt = new Option<DirectoryInfo>("--output-dir",
                 "The directory to save downloaded files to. Use forward slashes. "
                 + "Default: 'downloads'.");
@@ -223,6 +230,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(listCollectionsOpt);
             root.AddOption(listDuplicateTitlesOpt);
             root.AddOption(listVideosOpt);
+            root.AddOption(listVideosInMultipleCollectionsOpt);
             root.AddOption(outputDirOpt);
             root.AddOption(configDirOpt);
             root.AddOption(tempDirOpt);
@@ -241,6 +249,7 @@ namespace TwitchVodsRescueCS
                 listCollectionsOpt,
                 listDuplicateTitlesOpt,
                 listVideosOpt,
+                listVideosInMultipleCollectionsOpt,
                 outputDirOpt,
                 configDirOpt,
                 tempDirOpt,
@@ -518,6 +527,11 @@ namespace TwitchVodsRescueCS
                 ListVideos();
                 return;
             }
+            if (options.listVideosInMultipleCollections)
+            {
+                ListVideosInMultipleCollections();
+                return;
+            }
 
             await ProcessAllDownloads();
         }
@@ -542,7 +556,8 @@ namespace TwitchVodsRescueCS
             if (options.nonCollections || options.collections == null)
             {
                 Console.WriteLine("Videos not in any collections:");
-                foreach (Detail detail in details.Where(d => d.collectionEntries.Count == 0))
+                var list = details.Where(d => d.collectionEntries.Count == 0);
+                foreach (Detail detail in options.newestFirst ? list : list.Reverse())
                     Console.WriteLine($"  {detail.CreatedAt}  {detail.Title}");
             }
             if (options.nonCollections)
@@ -553,8 +568,19 @@ namespace TwitchVodsRescueCS
                 if ((!collectionsLut?.Contains(collection.collectionTitle)) ?? false)
                     continue;
                 Console.WriteLine($"{collection.collectionTitle}:");
-                foreach (CollectionEntry entry in collection.entries)
+                foreach (CollectionEntry entry in options.newestFirst ? collection.entries.AsEnumerable().Reverse() : collection.entries)
                     Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.title}");
+            }
+        }
+
+        private static void ListVideosInMultipleCollections()
+        {
+            var list = details.Where(d => d.collectionEntries.Skip(1).Any());
+            foreach (Detail detail in options.newestFirst ? list : list.Reverse())
+            {
+                Console.WriteLine($"{detail.CreatedAt}  {detail.Title}");
+                foreach (CollectionEntry entry in detail.collectionEntries)
+                    Console.WriteLine($"  (#{entry.index,3})  {entry.collection.collectionTitle}");
             }
         }
 
