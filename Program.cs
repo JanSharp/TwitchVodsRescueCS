@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.CommandLine;
 using System.CommandLine.Binding;
 using System.Diagnostics;
@@ -574,7 +574,7 @@ namespace TwitchVodsRescueCS
 
         private static bool ReachedTimeLimit()
         {
-            return options.timeLimit <= 0 || mainTimer.Elapsed.TotalMinutes > options.timeLimit;
+            return options.timeLimit > 0 && mainTimer.Elapsed.TotalMinutes > options.timeLimit;
         }
 
         private static void ProcessAllDownloads()
