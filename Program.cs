@@ -680,14 +680,17 @@ namespace TwitchVodsRescueCS
 
         private static void StdInputWatcher()
         {
-            while (!requestedToQuit)
+            while (true)
             {
                 var key = Console.ReadKey(intercept: true);
                 if (key.Key == ConsoleKey.Q)
                 {
-                    requestedToQuit = true;
+                    requestedToQuit = !requestedToQuit;
                     Console.WriteLine();
-                    Console.WriteLine("Quitting as soon as all currently running processes have finished.");
+                    if (requestedToQuit)
+                        Console.WriteLine("Quitting as soon as all currently running processes have finished.");
+                    else
+                        Console.WriteLine("Undid quit request, continuing normally.");
                 }
             }
         }
