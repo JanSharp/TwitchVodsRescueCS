@@ -534,7 +534,7 @@ namespace TwitchVodsRescueCS
                 return;
             }
 
-            await ProcessAllDownloads();
+            await ProcessAllDownloadsMain();
         }
 
         private static void ListCollections()
@@ -695,10 +695,16 @@ namespace TwitchVodsRescueCS
             }
         }
 
-        private static async Task ProcessAllDownloads()
+        private static async Task ProcessAllDownloadsMain()
         {
             _ = Task.Factory.StartNew(StdInputWatcher, TaskCreationOptions.LongRunning | TaskCreationOptions.DenyChildAttach);
+            await ProcessAllDownloads();
+            while (concurrentFinalizationTasks != 0)
+                Thread.Sleep(100);
+        }
 
+        private static async Task ProcessAllDownloads()
+        {
             if (options.collections != null)
             {
                 Dictionary<string, Collection> collectionsByTitle = collections.ToDictionary(c => c.collectionTitle, c => c);
@@ -728,9 +734,6 @@ namespace TwitchVodsRescueCS
                         break;
                 }
             }
-
-            while (concurrentFinalizationTasks != 0)
-                Thread.Sleep(100);
         }
 
         private static async Task ProcessDownloads(Detail detail)
