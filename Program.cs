@@ -548,7 +548,7 @@ namespace TwitchVodsRescueCS
 
         private static void ListCollections()
         {
-            foreach (Collection collection in collections)
+            foreach (Collection collection in collections.OrderBy(c => c.collectionTitle))
                 Console.WriteLine(collection.collectionTitle);
         }
 
