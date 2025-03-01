@@ -833,9 +833,18 @@ namespace TwitchVodsRescueCS
             if (options.dryRun)
                 return;
             await Task.Delay(50); // A little bit of rate limiting.
-            HttpResponseMessage response = await httpClient.GetAsync(url);
+            HttpResponseMessage response;
+            try
+            {
+                response = await httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Failed downloading thumbnail: {e.Message}");
+                return;
+            }
             await Task.Delay(50); // A little bit of rate limiting.
-            response.EnsureSuccessStatusCode();
             using Stream stream = await response.Content.ReadAsStreamAsync();
             using FileStream fileStream = File.OpenWrite(Path.Combine(GetOutputPath(detail, null), filename));
             await stream.CopyToAsync(fileStream);
