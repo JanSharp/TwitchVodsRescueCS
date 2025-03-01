@@ -440,7 +440,7 @@ namespace TwitchVodsRescueCS
             var collectionsDir = new DirectoryInfo(Path.Combine(options.configDir.FullName, "collections"));
             if (!collectionsDir.Exists)
                 return;
-            collections = collectionsDir.EnumerateFiles().Select(f => ReadCollectionFile(f)).ToList();
+            collections = collectionsDir.EnumerateFiles().Select(f => ReadCollectionFile(f)).OrderBy(c => c.collectionTitle.ToLower()).ToList();
         }
 
         private static void WriteLineToStdErr(string msg)
@@ -548,7 +548,7 @@ namespace TwitchVodsRescueCS
 
         private static void ListCollections()
         {
-            foreach (Collection collection in collections.OrderBy(c => c.collectionTitle))
+            foreach (Collection collection in collections)
                 Console.WriteLine(collection.collectionTitle);
         }
 
