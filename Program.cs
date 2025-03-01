@@ -31,6 +31,14 @@ namespace TwitchVodsRescueCS
             SkipBlank();
         }
 
+        public void SkipPastMatch(Regex regex)
+        {
+            Match match = regex.Match(content, index);
+            if (!match.Success)
+                return;
+            index = match.Index + match.Length;
+        }
+
         private void SkipBlank()
         {
             while (index < content.Length && (content[index] == '\n' || content[index] == '\r'))
@@ -411,6 +419,7 @@ namespace TwitchVodsRescueCS
             Collection collection = new(Path.GetFileNameWithoutExtension(collectionFile.Name));
             string content = File.ReadAllText(collectionFile.FullName);
             var parser = new VeryStupidParser(content);
+            parser.SkipPastMatch(new Regex(@"of 100 videos added to collection\s*"));
             int index = 1; // One based.
             while (!parser.EndOfFile)
             {
