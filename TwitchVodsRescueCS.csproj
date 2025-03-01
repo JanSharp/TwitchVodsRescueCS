@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>linux-x64;win-x64;osx-x64</RuntimeIdentifiers>
     <PublishSingleFile>true</PublishSingleFile> <!-- Doesn't actually output a single file. Actually does nothing. Idk. -->
     <SelfContained>false</SelfContained>
   </PropertyGroup>
