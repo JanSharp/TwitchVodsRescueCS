@@ -75,7 +75,7 @@ The program uses the [TwitchDownloaderCLI](https://github.com/lay295/TwitchDownl
   - Copy some collection name
   - Remove `--list-collections` from the command
   - Add `--collections "Collection Name"`
-  - To download multiple collections do `--collections "Collection Name One" "Collection Name Two"`
+  - To download multiple collections do `--collections "Collection Name One" --collections "Collection Name Two"`
   - To download videos which aren't in any collections use `--non-collections`
 - Other notable options may be
   - `--newest-first` which reverses download order
