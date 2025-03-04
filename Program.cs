@@ -791,7 +791,7 @@ namespace TwitchVodsRescueCS
                 await DownloadThumbnails(detail);
 
             string videoPath = Path.Combine(outputPath, GetVideoFilename(detail, entry));
-            if (options.downloadChat && !File.Exists(videoPath))
+            if (options.downloadVideo && !File.Exists(videoPath))
                 DownloadVideo(detail);
         }
 
