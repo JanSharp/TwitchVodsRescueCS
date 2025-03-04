@@ -338,9 +338,9 @@ namespace TwitchVodsRescueCS
                 createdAtDate = DateTime.Parse(CreatedAt);
             }
 
-            public int GetId()
+            public long GetId()
             {
-                return int.Parse(Regex.Match(URL, @"/(\d+)$").Groups[1].Value);
+                return long.Parse(Regex.Match(URL, @"/(\d+)$").Groups[1].Value);
             }
         }
 
