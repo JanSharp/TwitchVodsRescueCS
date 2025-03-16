@@ -62,6 +62,7 @@ namespace TwitchVodsRescueCS
         bool downloadChat,
         bool newestFirst,
         int timeLimit,
+        bool validateVideos,
         int? maxConcurrentFinalization,
         string[]? collections,
         bool nonCollections,
@@ -80,6 +81,7 @@ namespace TwitchVodsRescueCS
         public bool downloadChat = downloadChat;
         public bool newestFirst = newestFirst;
         public int timeLimit = timeLimit;
+        public bool validateVideos = validateVideos;
         public int maxConcurrentFinalization = Math.Max(1, maxConcurrentFinalization ?? 4);
         public string[]? collections = collections!.Length == 0 ? null : collections;
         public bool nonCollections = nonCollections;
@@ -100,6 +102,7 @@ namespace TwitchVodsRescueCS
         Option<bool> downloadChatOpt,
         Option<bool> newestFirstOpt,
         Option<int> timeLimitOpt,
+        Option<bool> validateVideosOpt,
         Option<int?> maxConcurrentFinalizationOpt,
         Option<string[]> collectionsOpt,
         Option<bool> nonCollectionsOpt,
@@ -118,6 +121,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> downloadChatOpt = downloadChatOpt;
         private readonly Option<bool> newestFirstOpt = newestFirstOpt;
         private readonly Option<int> timeLimitOpt = timeLimitOpt;
+        private readonly Option<bool> validateVideosOpt = validateVideosOpt;
         private readonly Option<int?> maxConcurrentFinalizationOpt = maxConcurrentFinalizationOpt;
         private readonly Option<string[]> collectionsOpt = collectionsOpt;
         private readonly Option<bool> nonCollectionsOpt = nonCollectionsOpt;
@@ -139,6 +143,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(downloadChatOpt),
                 bindingContext.ParseResult.GetValueForOption(newestFirstOpt),
                 bindingContext.ParseResult.GetValueForOption(timeLimitOpt),
+                bindingContext.ParseResult.GetValueForOption(validateVideosOpt),
                 bindingContext.ParseResult.GetValueForOption(maxConcurrentFinalizationOpt),
                 bindingContext.ParseResult.GetValueForOption(collectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(nonCollectionsOpt),
@@ -184,6 +189,14 @@ namespace TwitchVodsRescueCS
                 + "or killing the process while it is running will most likely result in "
                 + "unfinished downloads in the output directory. Make sure to delete "
                 + "those files.");
+            var validateVideosOpt = new Option<bool>("--validate-videos",
+                "Validates all downloaded videos to make sure they actually fully "
+                + "downloaded. Requires the ffprobe tool. On linux install it through "
+                + "your package manager, it maybe probably already comes with ffmpeg, on "
+                + "windows either somehow install it system wide or go to "
+                + "https://ffbinaries.com/downloads, download latest ffprobe, extract it "
+                + "and put it in the same folder as this executable. Ignores the options "
+                + "--collections and --non-collections.");
             var maxConcurrentFinalizationOpt = new Option<int?>("--max-concurrent-finalization",
                 "The TwitchDownloaderCLI first downloads videos by downloading many "
                 + "many 10 second snippets, then it uses ffmpeg to concatenate them into "
@@ -232,6 +245,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(downloadChatOpt);
             root.AddOption(newestFirstOpt);
             root.AddOption(timeLimitOpt);
+            root.AddOption(validateVideosOpt);
             root.AddOption(maxConcurrentFinalizationOpt);
             root.AddOption(collectionsOpt);
             root.AddOption(nonCollectionsOpt);
@@ -251,6 +265,7 @@ namespace TwitchVodsRescueCS
                 downloadChatOpt,
                 newestFirstOpt,
                 timeLimitOpt,
+                validateVideosOpt,
                 maxConcurrentFinalizationOpt,
                 collectionsOpt,
                 nonCollectionsOpt,
@@ -568,7 +583,7 @@ namespace TwitchVodsRescueCS
                 Console.WriteLine("Videos not in any collections:");
                 var list = details.Where(d => d.collectionEntries.Count == 0);
                 foreach (Detail detail in options.newestFirst ? list : list.Reverse())
-                    Console.WriteLine($"  {detail.CreatedAt}  {detail.Title}");
+                    Console.WriteLine($"  {detail.CreatedAt}  {detail.GetId(),10}  {detail.Title}");
             }
             if (options.nonCollections)
                 return;
@@ -579,7 +594,7 @@ namespace TwitchVodsRescueCS
                     continue;
                 Console.WriteLine($"{collection.collectionTitle}:");
                 foreach (CollectionEntry entry in options.newestFirst ? collection.entries.AsEnumerable().Reverse() : collection.entries)
-                    Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.title}");
+                    Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.detail.GetId(),10}  {entry.title}");
             }
         }
 
@@ -684,7 +699,8 @@ namespace TwitchVodsRescueCS
 
         private static bool ShouldStop()
         {
-            return requestedToQuit || (options.timeLimit > 0 && mainTimer.Elapsed.TotalMinutes > options.timeLimit);
+            return !options.validateVideos
+                && (requestedToQuit || (options.timeLimit > 0 && mainTimer.Elapsed.TotalMinutes > options.timeLimit));
         }
 
         private static void StdInputWatcher()
@@ -706,7 +722,8 @@ namespace TwitchVodsRescueCS
 
         private static async Task ProcessAllDownloadsMain()
         {
-            _ = Task.Factory.StartNew(StdInputWatcher, TaskCreationOptions.LongRunning | TaskCreationOptions.DenyChildAttach);
+            if (!options.validateVideos)
+                _ = Task.Factory.StartNew(StdInputWatcher, TaskCreationOptions.LongRunning | TaskCreationOptions.DenyChildAttach);
             await ProcessAllDownloads();
             while (concurrentFinalizationTasks != 0)
                 Thread.Sleep(100);
@@ -714,7 +731,7 @@ namespace TwitchVodsRescueCS
 
         private static async Task ProcessAllDownloads()
         {
-            if (options.collections != null)
+            if (!options.validateVideos && options.collections != null)
             {
                 Dictionary<string, Collection> collectionsByTitle = collections.ToDictionary(c => c.collectionTitle, c => c);
                 HashSet<Detail> visited = [];
@@ -736,7 +753,7 @@ namespace TwitchVodsRescueCS
 
             foreach (Detail detail in options.newestFirst ? details : details.AsEnumerable().Reverse())
             {
-                if (!options.nonCollections || detail.collectionEntries.Count == 0)
+                if (options.validateVideos || !options.nonCollections || detail.collectionEntries.Count == 0)
                 {
                     await ProcessDownloads(detail);
                     if (ShouldStop())
@@ -757,11 +774,56 @@ namespace TwitchVodsRescueCS
                 await ProcessSpecificDownloads(detail, entry);
         }
 
+        private static string RunProcess(string programName, string[] args)
+        {
+            ProcessStartInfo startInfo = new(programName)
+            {
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8,
+            };
+            foreach (string arg in args)
+                startInfo.ArgumentList.Add(arg);
+            Process process = Process.Start(startInfo) ?? throw new UserException($"Failed to start process '{programName}'.");
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            List<string> lines = [];
+            process.ErrorDataReceived += (object sender, DataReceivedEventArgs e) => { };
+            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) => { if (e.Data != null) { lines.Add(e.Data); } };
+            process.WaitForExit();
+            return string.Join("\n", lines);
+        }
+
         private static async Task ProcessSpecificDownloads(Detail detail, CollectionEntry? entry)
         {
             string outputPath = GetOutputPath(detail, entry);
 
             string metadataPath = Path.Combine(outputPath, GetMetadataFilename(detail, entry));
+
+            if (options.validateVideos && (IsExternal(detail, entry) || !File.Exists(metadataPath)))
+                return;
+
+            string videoPath;
+            if (options.validateVideos)
+            {
+                videoPath = Path.Combine(outputPath, GetVideoFilename(detail, entry));
+                if (!File.Exists(videoPath))
+                    return;
+                FileInfo videoFile = new(videoPath);
+                long actualLength = videoFile.Length;
+                // Documentation: https://ffmpeg.org/ffprobe.html
+                string bitrateJsonStr = RunProcess("ffprobe", [videoPath, "-output_format", "json", "-show_entries", "format=bit_rate"]);
+                JObject bitrateJson = JObject.Parse(bitrateJsonStr);
+                long bitrate = bitrateJson["format"]!.Value<long>("bit_rate");
+                long expectedLength = detail.seconds * (bitrate / 8L);
+                long diff = actualLength - expectedLength;
+                if (diff < 0L) // Most tend to be slightly larger, 20 KB on average
+                    Console.WriteLine($"Deviation from expected size: {diff / 1_000_000d,13:f6} MB : {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                return;
+            }
+
             if (File.Exists(metadataPath))
             {
                 if (await detail.ReadThumbnailsFromMetadataFile())
@@ -790,7 +852,7 @@ namespace TwitchVodsRescueCS
             if (options.downloadThumbnails)
                 await DownloadThumbnails(detail);
 
-            string videoPath = Path.Combine(outputPath, GetVideoFilename(detail, entry));
+            videoPath = Path.Combine(outputPath, GetVideoFilename(detail, entry));
             if (options.downloadVideo && !File.Exists(videoPath))
                 DownloadVideo(detail);
         }

@@ -27,6 +27,7 @@ The program uses the [TwitchDownloaderCLI](https://github.com/lay295/TwitchDownl
     - Fail entirely, in which case you don't have any `dotnet` installed
     - Or it will print a list of installed SDKs and Runtimes. In which case check under `.Net Runtimes:` if it lists `Microsoft.NETCore.App  8.0.x`
     - If you are missing dotnet 8 then go to https://dotnet.microsoft.com/en-us/download/dotnet/8.0 and download the dotnet 8 runtime (just the `.Net Runtime`, no need for `.Net Desktop Runtime`)
+    -
 - Run the command `ffmpeg`
   - If it prints out version info and a bunch of other random help text then you're good
   - If it says no such program exists run the command `./TwitchDownloaderCLI ffmpeg --download`
@@ -82,6 +83,13 @@ The program uses the [TwitchDownloaderCLI](https://github.com/lay295/TwitchDownl
   - `--time-limit` which limits how long the program should run in minutes
   - `--list-duplicate-titles`, `--list-videos`, `--list-videos-in-multiple-collections`
   - `--help` you cannot stop me from telling you to read the help message
+- `--validate-videos` validates all downloaded videos to make sure they actually fully downloaded
+  - Requires the `ffprobe` tool
+    - On linux install it through your package manager, it maybe probably already comes with ffmpeg
+    - On windows either somehow install it system wide or
+      - Go to https://ffbinaries.com/downloads
+      - Download latest `ffprobe`
+      - Extract it and put it in the same folder as this executable
 
 ## Videos in Multiple Collections
 
