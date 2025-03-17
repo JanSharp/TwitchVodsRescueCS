@@ -99,6 +99,7 @@ The program uses the [TwitchDownloaderCLI](https://github.com/lay295/TwitchDownl
     - One or more `--parts`, each specifying a time frame to extract out of the input video
     - Use `--help` for format instructions
     - Use `--dry-run` to see what files it would create
+  - Example: `TwitchVodRescueCS split --file "video.mp4" --parts 0:00-1:34:00`
 
 ## Videos in Multiple Collections
 
