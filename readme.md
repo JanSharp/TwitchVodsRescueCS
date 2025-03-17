@@ -84,6 +84,7 @@ The program uses the [TwitchDownloaderCLI](https://github.com/lay295/TwitchDownl
   - `--list-duplicate-titles`, `--list-videos`, `--list-videos-in-multiple-collections`
   - `--help` you cannot stop me from telling you to read the help message
 - `--validate-videos` validates all downloaded videos to make sure they actually fully downloaded
+  - If some video didn't get downloaded fully and trying to play it back on twitch at the time stamp where it fails to play in the downloaded video and it ends up also failing on twitch, then you'll have to find the video in the video producer list and use the download feature there
   - Requires the `ffprobe` tool
     - On linux install it through your package manager, it maybe probably already comes with ffmpeg
     - On windows either somehow install it system wide or
