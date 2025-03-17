@@ -159,7 +159,7 @@ namespace TwitchVodsRescueCS
         }
     }
 
-    public class Program
+    public partial class Program
     {
         static int exitCode = 0;
 
@@ -278,6 +278,41 @@ namespace TwitchVodsRescueCS
                 tempDirOpt,
                 downloaderCliOpt,
                 dryRunOpt));
+
+            {
+                Command splitCommand = new("split",
+                    "Extract parts of videos without re-encoding them. Output files are "
+                    + "placed next to the input file with the time frame which was specified "
+                    + "for --parts as a postfix. Uses both ffprobe and ffmpeg.");
+
+                var fileOpt = new Option<FileInfo>("--file",
+                    "Path to file to split.");
+                var partsOpt = new Option<string[]>("--parts",
+                    "Format: [hh:]mm:ss[.mmm]-[hh:]mm:ss[.mmm]\n"
+                    + "Example: 0:00-1:32:05.400 to create a video starting at the very beginning "
+                    + "and stopping a bit after one and a half hours in.\n"
+                    + "Leading zeros are optional, even 10:5 would be valid, though 10:05 is "
+                    + "more readable.\n"
+                    + "Can specify multiple --parts in one command.\n"
+                    + "May not actually start at the exact time specified as it has to find "
+                    + "the nearest key frame before the given start time.\n"
+                    + "To specify the end of the video, setting it to past the end works, "
+                    + "though for readability of the output files only adding like 1 second "
+                    + "to the video's length is appropriate.");
+                var splitDryRunOpt = new Option<bool>("--dry-run",
+                    "Tries to give an idea of what the current command would do, without "
+                    + "actually creating any files.");
+
+                splitCommand.AddOption(fileOpt);
+                splitCommand.AddOption(partsOpt);
+                splitCommand.AddOption(splitDryRunOpt);
+
+                splitCommand.SetHandler(SplitMain,
+                    fileOpt,
+                    partsOpt,
+                    splitDryRunOpt);
+                root.AddCommand(splitCommand);
+            }
 
             int libExitCode = await root.InvokeAsync(args);
             return libExitCode != 0 ? libExitCode : exitCode;
@@ -516,6 +551,19 @@ namespace TwitchVodsRescueCS
             try
             {
                 await Run();
+            }
+            catch (UserException e)
+            {
+                WriteLineToStdErr(e.Message);
+                exitCode = 1;
+            }
+        }
+
+        private static void SplitMain(FileInfo fileInfo, string[] parts, bool dryRun)
+        {
+            try
+            {
+                Split(fileInfo, parts, dryRun);
             }
             catch (UserException e)
             {
@@ -781,8 +829,10 @@ namespace TwitchVodsRescueCS
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
+                RedirectStandardInput = true, // You shall not pass (inputs through to my sub processes).
                 StandardOutputEncoding = Encoding.UTF8,
                 StandardErrorEncoding = Encoding.UTF8,
+                StandardInputEncoding = Encoding.UTF8,
             };
             foreach (string arg in args)
                 startInfo.ArgumentList.Add(arg);
@@ -814,7 +864,7 @@ namespace TwitchVodsRescueCS
                 FileInfo videoFile = new(videoPath);
                 long actualLength = videoFile.Length;
                 // Documentation: https://ffmpeg.org/ffprobe.html
-                string bitrateJsonStr = RunProcess("ffprobe", [videoPath, "-output_format", "json", "-show_entries", "format=bit_rate"]);
+                string bitrateJsonStr = RunProcess("ffprobe", ["-output_format", "json", "-show_entries", "format=bit_rate", videoPath]);
                 JObject bitrateJson = JObject.Parse(bitrateJsonStr);
                 long bitrate = bitrateJson["format"]!.Value<long>("bit_rate");
                 long expectedLength = detail.seconds * (bitrate / 8L);
@@ -972,6 +1022,148 @@ namespace TwitchVodsRescueCS
 
             Interlocked.Decrement(ref concurrentFinalizationTasks);
         }
+
+        private partial struct Timestamp
+        {
+            public readonly int Hours => (int)((totalMs - (Minutes * 60L * 1000L) - (Seconds * 1000L) - Milliseconds) / (60L * 60L * 1000L));
+            public readonly int Minutes => (int)((totalMs - (Seconds * 1000L) - Milliseconds) / (60L * 1000L) % 60L);
+            public readonly int Seconds => (int)((totalMs - Milliseconds) / 1000L % 60L);
+            public readonly int Milliseconds => (int)(totalMs % 1000L);
+            public long totalMs;
+
+            public Timestamp(long totalMs)
+            {
+                this.totalMs = totalMs;
+            }
+
+            public static bool TryParse(string input, out Timestamp timestamp)
+            {
+                timestamp = new();
+                Match match = TimestampRegex().Match(input);
+                if (!match.Success)
+                    return false;
+                long hours = match.Groups["hours"].Success ? int.Parse(match.Groups["hours"].Value) : 0;
+                long minutes = int.Parse(match.Groups["minutes"].Value);
+                long seconds = int.Parse(match.Groups["seconds"].Value);
+                long milliseconds = match.Groups["milliseconds"].Success ? int.Parse(match.Groups["milliseconds"].Value) : 0;
+                timestamp.totalMs = hours * 60L * 60L * 1000L
+                    + minutes * 60L * 1000L
+                    + seconds * 1000L
+                    + milliseconds;
+                return true;
+            }
+
+            [GeneratedRegex(@"^
+                (?:
+                    (?<hours>\d{1,2})
+                    :
+                )?
+                (?<minutes>\d{1,2})
+                :
+                (?<seconds>\d{1,2})
+                (?:
+                    \.
+                    (?<milliseconds>\d{1,3})
+                )?
+                $", RegexOptions.IgnorePatternWhitespace)]
+            private static partial Regex TimestampRegex();
+
+            public override readonly string ToString()
+            {
+                int hours = Hours;
+                int ms = Milliseconds;
+                string msStr = ms == 0 ? "" : $".{ms:d03}";
+                return hours != 0
+                    ? $"{hours}:{Minutes:d02}:{Seconds:d02}{msStr}"
+                    : $"{Minutes}:{Seconds:d02}{msStr}";
+            }
+        }
+
+        private struct Timeframe
+        {
+            public Timestamp start;
+            public Timestamp stop;
+
+            public static bool TryParse(string input, out Timeframe timeframe)
+            {
+                timeframe = new();
+                string[] parts = input.Split('-');
+                return parts.Length == 2
+                    && Timestamp.TryParse(parts[0], out timeframe.start)
+                    && Timestamp.TryParse(parts[1], out timeframe.stop);
+            }
+
+            public static Timeframe Parse(string input) => TryParse(input, out Timeframe timeframe)
+                ? timeframe
+                : throw new UserException($"Invalid timeframe '{input}'.");
+
+            public override readonly string ToString() => $"{start}-{stop}";
+        }
+
+        private static void Split(FileInfo fileInfo, string[] parts, bool dryRun)
+        {
+            if (!fileInfo.Exists)
+                throw new UserException($"No such file: {fileInfo}");
+            if (parts.Length == 0)
+                throw new UserException("No --parts specified.");
+            foreach (Timeframe timeframe in parts.Select(Timeframe.Parse))
+                GenerateSplitFile(fileInfo, timeframe, dryRun);
+        }
+
+        private static void GenerateSplitFile(FileInfo fileInfo, Timeframe timeframe, bool dryRun)
+        {
+            string inputFilename = fileInfo.FullName;
+            string outputFilename = Path.Combine(
+                Path.GetDirectoryName(inputFilename)!,
+                $"{Path.GetFileNameWithoutExtension(inputFilename)} {timeframe.ToString().Replace("-", " - ").Replace(':', '-')}{Path.GetExtension(inputFilename)}");
+            if (File.Exists(outputFilename))
+            {
+                Console.WriteLine($"Skipping: {outputFilename}");
+                return;
+            }
+            Console.WriteLine($"Creating: {outputFilename}");
+            if (dryRun)
+                return;
+
+            Timestamp lowerBound = new(Math.Max(0L, timeframe.start.totalMs - 10_000L));
+            string framesStr = RunProcess("ffprobe",
+            [
+                "-output_format", "json",
+                "-select_streams", "v:0",
+                "-show_frames",
+                "-read_intervals", $"{lowerBound}%+0:10",
+                "-show_entries", "frame=key_frame,pkt_dts_time",
+                inputFilename,
+            ]);
+            JArray frames = (JArray)JObject.Parse(framesStr)["frames"]!;
+            var time = frames
+                .Select(f =>
+                {
+                    int keyFrame = f.Value<int>("key_frame");
+                    string? time = f.Value<string>("pkt_dts_time");
+                    return (keyFrame: keyFrame != 0, time);
+                })
+                .Where(f => f.keyFrame && f.time != null)
+                .Select(f => (timeStr: f.time!, time: decimal.Parse(f.time!)))
+                .Where(f => f.time < timeframe.start.totalMs / 1000m)
+                .Append((timeStr: "0:00", time: 0m))
+                .OrderByDescending(f => f.time)
+                .First();
+            long ms = (long)(time.time * 1000m);
+
+            RunProcess("ffmpeg",
+            [
+                // I would have preferred to seek on the output rather than input because this is
+                // resulting in videos with the first frame having negative pkt_dts_time (pts_time
+                // starts at 0 I think, or at least a positive value), but for  some reason even when
+                // using time stamps for key frames it just does not work when putting -ss post -i.
+                "-ss", time.timeStr,
+                "-i", inputFilename,
+                "-t", new Timestamp(timeframe.stop.totalMs - ms).ToString(),
+                "-c", "copy",
+                outputFilename
+            ]);
+        }
     }
 
     // Taken from: https://github.com/lay295/TwitchDownloader/blob/192c8bf46ecd7597f220edc95000d1b3105525e0/TwitchDownloaderCore/TwitchHelper.cs#L31-L43
@@ -990,7 +1182,7 @@ namespace TwitchVodsRescueCS
             };
             // NOTE: This is using the same client id as the TwitchDownloaderCLI. This is probably the wrong thing to do,
             // however I am not interested in figuring out how twitch's api actually works. Besides me copying this
-            // function into the project here is just a shortcut to make myself not have to prase standard output from the
+            // function into the project here is just a shortcut to make myself not have to parse standard output from the
             // TwitchDownloaderCLI. This is just easier and this entire program here is one time use throwaway anyway.
             // cSpell:ignore kimne78kx3ncx6brgo4mv6wki5h1ko
             request.Headers.Add("Client-ID", "kimne78kx3ncx6brgo4mv6wki5h1ko");

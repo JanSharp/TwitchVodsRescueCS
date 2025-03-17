@@ -90,6 +90,14 @@ The program uses the [TwitchDownloaderCLI](https://github.com/lay295/TwitchDownl
       - Go to https://ffbinaries.com/downloads
       - Download latest `ffprobe`
       - Extract it and put it in the same folder as this executable
+- `split` sub command
+  - Requires `ffprobe`, see instructions above
+  - Requires `ffmpeg`, see instructions in [Installation](#installation)
+  - Extracts parts of videos without re-encoding them
+    - `--file` to specify the input video file
+    - One or more `--parts`, each specifying a time frame to extract out of the input video
+    - Use `--help` for format instructions
+    - Use `--dry-run` to see what files it would create
 
 ## Videos in Multiple Collections
 
