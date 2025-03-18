@@ -863,6 +863,11 @@ namespace TwitchVodsRescueCS
                     return;
                 FileInfo videoFile = new(videoPath);
                 long actualLength = videoFile.Length;
+                if (actualLength == 0L)
+                {
+                    Console.WriteLine($"Empty video file, download likely got cancelled: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
                 // Documentation: https://ffmpeg.org/ffprobe.html
                 string bitrateJsonStr = RunProcess("ffprobe", ["-output_format", "json", "-show_entries", "format=bit_rate", videoPath]);
                 JObject bitrateJson = JObject.Parse(bitrateJsonStr);
