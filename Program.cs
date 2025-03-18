@@ -862,6 +862,11 @@ namespace TwitchVodsRescueCS
                 if (!File.Exists(videoPath))
                     return;
                 FileInfo videoFile = new(videoPath);
+                if (videoFile == null)
+                {
+                    Console.WriteLine($"videoFile was null, I guess: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
                 long actualLength = videoFile.Length;
                 if (actualLength == 0L)
                 {
@@ -870,8 +875,33 @@ namespace TwitchVodsRescueCS
                 }
                 // Documentation: https://ffmpeg.org/ffprobe.html
                 string bitrateJsonStr = RunProcess("ffprobe", ["-output_format", "json", "-show_entries", "format=bit_rate", videoPath]);
+                if (bitrateJsonStr == null)
+                {
+                    Console.WriteLine($"bitrateJsonStr was null, I guess: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
                 JObject bitrateJson = JObject.Parse(bitrateJsonStr);
-                long bitrate = bitrateJson["format"]!.Value<long>("bit_rate");
+                if (bitrateJson == null)
+                {
+                    Console.WriteLine($"bitrateJson was null, I guess: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
+                if (bitrateJson["format"] == null)
+                {
+                    Console.WriteLine($"bitrateJson[\"format\"] was null, I guess: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
+                if (bitrateJson["format"]!["bit_rate"] == null)
+                {
+                    Console.WriteLine($"bitrateJson[\"format\"]![\"bit_rate\"] was null, I guess: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
+                if (bitrateJson["format"]!["bit_rate"]!.Type != JTokenType.String)
+                {
+                    Console.WriteLine($"bitrateJson[\"format\"]![\"bit_rate\"]!.Type != JTokenType.String, I guess: {detail.URL}  {GetCollectionPrefixForPrinting(detail, null)}{GetVideoFilename(detail, null)}");
+                    return;
+                }
+                long bitrate = long.Parse(bitrateJson["format"]!.Value<string>("bit_rate")!);
                 long expectedLength = detail.seconds * (bitrate / 8L);
                 long diff = actualLength - expectedLength;
                 if (diff < 0L) // Most tend to be slightly larger, 20 KB on average
