@@ -353,9 +353,9 @@ namespace TwitchVodsRescueCS
                 GetThumbnailURLsFromJson(additionalMetadata);
             }
 
-            public async Task<bool> ReadThumbnailsFromMetadataFile()
+            public async Task<bool> ReadThumbnailsFromMetadataFile(CollectionEntry? entry)
             {
-                string contents = File.ReadAllText(Path.Combine(GetOutputPath(this, null), GetMetadataFilename(this, null)));
+                string contents = File.ReadAllText(Path.Combine(GetOutputPath(this, entry), GetMetadataFilename(this, entry)));
                 JObject obj = JObject.Parse(contents);
                 bool fetchFromTwitch = obj["thumbnailURLs"] == null;
                 if (fetchFromTwitch)
@@ -911,7 +911,7 @@ namespace TwitchVodsRescueCS
 
             if (File.Exists(metadataPath))
             {
-                if (await detail.ReadThumbnailsFromMetadataFile())
+                if (await detail.ReadThumbnailsFromMetadataFile(entry))
                 {
                     Console.WriteLine($"Updating:    {GetCollectionPrefixForPrinting(detail, entry)}{GetMetadataFilename(detail, entry)}");
                     File.WriteAllText(metadataPath, await GetMetadataFileContents(detail, entry));
