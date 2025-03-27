@@ -7,6 +7,7 @@ using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace TwitchVodsRescueCS
 {
@@ -70,6 +71,7 @@ namespace TwitchVodsRescueCS
         bool listDuplicateTitles,
         bool listVideos,
         bool listVideosInMultipleCollections,
+        bool listYoutubeVsTwitch,
         DirectoryInfo? outputDir,
         DirectoryInfo? configDir,
         DirectoryInfo? tempDir,
@@ -89,6 +91,7 @@ namespace TwitchVodsRescueCS
         public bool listDuplicateTitles = listDuplicateTitles;
         public bool listVideos = listVideos;
         public bool listVideosInMultipleCollections = listVideosInMultipleCollections;
+        public bool listYoutubeVsTwitch = listYoutubeVsTwitch;
         public DirectoryInfo outputDir = outputDir ?? new DirectoryInfo("downloads");
         public DirectoryInfo configDir = configDir ?? new DirectoryInfo("configuration");
         public DirectoryInfo? tempDir = tempDir;
@@ -110,6 +113,7 @@ namespace TwitchVodsRescueCS
         Option<bool> listDuplicateTitlesOpt,
         Option<bool> listVideosOpt,
         Option<bool> listVideosInMultipleCollectionsOpt,
+        Option<bool> listYoutubeVsTwitchOpt,
         Option<DirectoryInfo> outputDirOpt,
         Option<DirectoryInfo> configDirOpt,
         Option<DirectoryInfo?> tempDirOpt,
@@ -129,6 +133,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> listDuplicateTitlesOpt = listDuplicateTitlesOpt;
         private readonly Option<bool> listVideosOpt = listVideosOpt;
         private readonly Option<bool> listVideosInMultipleCollectionsOpt = listVideosInMultipleCollectionsOpt;
+        private readonly Option<bool> listYoutubeVsTwitchOpt = listYoutubeVsTwitchOpt;
         private readonly Option<DirectoryInfo> outputDirOpt = outputDirOpt;
         private readonly Option<DirectoryInfo> configDirOpt = configDirOpt;
         private readonly Option<DirectoryInfo?> tempDirOpt = tempDirOpt;
@@ -151,6 +156,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(listDuplicateTitlesOpt),
                 bindingContext.ParseResult.GetValueForOption(listVideosOpt),
                 bindingContext.ParseResult.GetValueForOption(listVideosInMultipleCollectionsOpt),
+                bindingContext.ParseResult.GetValueForOption(listYoutubeVsTwitchOpt),
                 bindingContext.ParseResult.GetValueForOption(outputDirOpt),
                 bindingContext.ParseResult.GetValueForOption(configDirOpt),
                 bindingContext.ParseResult.GetValueForOption(tempDirOpt),
@@ -224,6 +230,11 @@ namespace TwitchVodsRescueCS
                 + "--non-collections as filters.");
             var listVideosInMultipleCollectionsOpt = new Option<bool>("--list-videos-in-multiple-collections",
                 "Lists vods which are part of more than 1 collection.");
+            var listYoutubeVsTwitchOpt = new Option<bool>("--list-youtube-vs-twitch",
+                "Lists the symmetric difference between videos on youtube and twitch. "
+                + "Reads text files from a 'youtube' folder from the configuration folder "
+                + "where each file is a control A C of a page from youtube's video "
+                + "manager.");
             var outputDirOpt = new Option<DirectoryInfo>("--output-dir",
                 "The directory to save downloaded files to. Use forward slashes. "
                 + "Default: 'downloads'.");
@@ -253,6 +264,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(listDuplicateTitlesOpt);
             root.AddOption(listVideosOpt);
             root.AddOption(listVideosInMultipleCollectionsOpt);
+            root.AddOption(listYoutubeVsTwitchOpt);
             root.AddOption(outputDirOpt);
             root.AddOption(configDirOpt);
             root.AddOption(tempDirOpt);
@@ -273,6 +285,7 @@ namespace TwitchVodsRescueCS
                 listDuplicateTitlesOpt,
                 listVideosOpt,
                 listVideosInMultipleCollectionsOpt,
+                listYoutubeVsTwitchOpt,
                 outputDirOpt,
                 configDirOpt,
                 tempDirOpt,
@@ -342,6 +355,7 @@ namespace TwitchVodsRescueCS
             public int seconds;
             public DateTime createdAtDate;
             public List<CollectionEntry> collectionEntries = [];
+            public YoutubeVideoEntry? associatedYoutubeVideo;
             public JObject? additionalMetadata;
             public string[] thumbnailURLs = [];
 
@@ -400,6 +414,15 @@ namespace TwitchVodsRescueCS
             public List<CollectionEntry> entries = [];
         }
 
+        public static int ParseSeconds(string duration)
+        {
+            Match match = Regex.Match(duration, @"(?:(?:(\d+):)?(\d+):)?(\d+)");
+            int h = match.Groups[1].Value == "" ? 0 : int.Parse(match.Groups[1].Value);
+            int m = match.Groups[2].Value == "" ? 0 : int.Parse(match.Groups[2].Value);
+            int s = match.Groups[3].Value == "" ? 0 : int.Parse(match.Groups[3].Value);
+            return h * 60 * 60 + m * 60 + s;
+        }
+
         public class CollectionEntry
         {
             public Collection collection;
@@ -426,26 +449,37 @@ namespace TwitchVodsRescueCS
                 this.date = date;
                 this.length = length;
                 detail = null!;
-                ParseSeconds();
+                seconds = ParseSeconds(length);
             }
+        }
 
-            public void ParseSeconds()
-            {
-                Match match = Regex.Match(length, @"(\d+):(\d+)(?::(\d+))?");
-                if (match.Groups[3].Value != "")
-                {
-                    int h = int.Parse(match.Groups[1].Value);
-                    int m = int.Parse(match.Groups[2].Value);
-                    int s = int.Parse(match.Groups[3].Value);
-                    seconds = h * 60 * 60 + m * 60 + s;
-                }
-                else
-                {
-                    int m = int.Parse(match.Groups[1].Value);
-                    int s = int.Parse(match.Groups[2].Value);
-                    seconds = m * 60 + s;
-                }
-            }
+        public class YoutubeVideoEntry(
+            string duration,
+            string title,
+            string description,
+            string visibility,
+            string restrictions,
+            string uploadDate,
+            string videoType,
+            string views,
+            string commentCount,
+            string likeDislikeRatio,
+            string likes)
+        {
+            public string duration = duration;
+            public string title = title;
+            public string description = description;
+            public string visibility = visibility;
+            public string restrictions = restrictions;
+            public string uploadDate = uploadDate;
+            public string videoType = videoType;
+            public string views = views;
+            public string commentCount = commentCount;
+            public string likeDislikeRatio = likeDislikeRatio;
+            public string likes = likes;
+            public int seconds = ParseSeconds(duration); // This is some C# syntax sugar magic.
+
+            public Detail? associatedDetail;
         }
 
         private static FileInfo? FindCSVFile(DirectoryInfo dir)
@@ -493,6 +527,57 @@ namespace TwitchVodsRescueCS
             collections = collectionsDir.EnumerateFiles().Select(f => ReadCollectionFile(f)).OrderBy(c => c.collectionTitle.ToLower()).ToList();
         }
 
+        private static void ReadYoutubePage(FileInfo pageFile)
+        {
+            int initialCount = youtubeVideos.Count;
+            string content = File.ReadAllText(pageFile.FullName);
+            youtubeVideos.AddRange(YoutubeVideoEntryRegex().Matches(content)
+                .Cast<Match>()
+                .Select(match => new YoutubeVideoEntry(
+                    match.Groups["duration"].Value,
+                    match.Groups["title"].Value,
+                    match.Groups["description"].Value,
+                    match.Groups["visibility"].Value,
+                    match.Groups["restrictions"].Value,
+                    match.Groups["uploadDate"].Value,
+                    match.Groups["videoType"].Value,
+                    match.Groups["views"].Value,
+                    match.Groups["commentCount"].Value,
+                    match.Groups["likeDislikeRatio"].Value,
+                    match.Groups["likes"].Value)));
+            int finalCount = youtubeVideos.Count;
+            if ((finalCount - initialCount) != 50)
+                Console.WriteLine($"Only read {finalCount - initialCount} from {pageFile.Name}");
+        }
+
+        [GeneratedRegex(@"
+            Video\ thumbnail:\ ?[^\r\n]*[\r\n]+
+            (?<duration>[^\r\n]*)[\r\n]+
+            (?<title>[^\r\n]*)[\r\n]+
+            (?<description>[^\r\n]*)[\r\n]+
+            (?<visibility>[^\r\n]*)[\r\n]+
+            (?<restrictions>[^\r\n]*)[\r\n]+
+            (?<uploadDate>[^\r\n]*)[\r\n]+
+            (?<videoType>[^\r\n]*)[\r\n]+
+            (?<views>[^\r\n]*)[\r\n]+
+            (?<commentCount>[^\r\n]*)[\r\n]+
+            (?:
+                (?=\d)
+                (?<likeDislikeRatio>[^\r\n]*)[\r\n]+
+                (?<likes>[^\r\n]*)
+            )?
+            ", RegexOptions.IgnorePatternWhitespace)]
+        private static partial Regex YoutubeVideoEntryRegex();
+
+        private static void ReadYoutubePages()
+        {
+            var youtubeDir = new DirectoryInfo(Path.Combine(options.configDir.FullName, "youtube"));
+            if (!youtubeDir.Exists)
+                return;
+            foreach (FileInfo pageFile in youtubeDir.EnumerateFiles().OrderBy(f => f.Name))
+                ReadYoutubePage(pageFile);
+        }
+
         private static void WriteLineToStdErr(string msg)
         {
             Console.Error.WriteLine(msg);
@@ -536,9 +621,27 @@ namespace TwitchVodsRescueCS
             return success;
         }
 
+        private static void LinkYoutubeVideosToTwitchDetails()
+        {
+            foreach (var group in youtubeVideos.GroupJoin(
+                details,
+                y => Regex.Replace(y.title.ToLower(), @"\s", ""),
+                d => Regex.Replace(d.Title.ToLower(), @"\s", ""),
+                (youtubeVideo, details) => (youtubeVideo, details)))
+            {
+                // if (group.details.Skip(1).Any())
+                //     throw new UserException($"2 Videos with the same title and duration, "
+                //         + $"cannot resolve references: {group.youtubeVideo.duration} {group.youtubeVideo.title}");
+                group.youtubeVideo.associatedDetail = group.details.FirstOrDefault(d => Math.Abs(d.seconds - group.youtubeVideo.seconds) < 300);
+                if (group.youtubeVideo.associatedDetail != null)
+                    group.youtubeVideo.associatedDetail.associatedYoutubeVideo = group.youtubeVideo;
+            }
+        }
+
         private static Options options = null!;
         private static List<Detail> details = null!;
         private static List<Collection> collections = [];
+        private static List<YoutubeVideoEntry> youtubeVideos = [];
         private static readonly Stopwatch mainTimer = new();
         private static readonly EventWaitHandle downloadFinishedHandle = new(false, EventResetMode.AutoReset);
         private static readonly EventWaitHandle clearHandle = new(false, EventResetMode.AutoReset);
@@ -584,6 +687,8 @@ namespace TwitchVodsRescueCS
                 exitCode = 1;
                 return;
             }
+            ReadYoutubePages();
+            LinkYoutubeVideosToTwitchDetails();
 
             if (options.listCollections)
             {
@@ -603,6 +708,11 @@ namespace TwitchVodsRescueCS
             if (options.listVideosInMultipleCollections)
             {
                 ListVideosInMultipleCollections();
+                return;
+            }
+            if (options.listYoutubeVsTwitch)
+            {
+                ListYoutubeVsTwitch();
                 return;
             }
 
@@ -655,6 +765,19 @@ namespace TwitchVodsRescueCS
                 foreach (CollectionEntry entry in detail.collectionEntries)
                     Console.WriteLine($"  (#{entry.index,3})  {entry.collection.collectionTitle}");
             }
+        }
+
+        private static void ListYoutubeVsTwitch()
+        {
+            List<YoutubeVideoEntry> unassociatedYoutubeVideos = youtubeVideos.Where(y => y.associatedDetail == null).ToList();
+            Console.WriteLine($"Unassociated youtube videos: {unassociatedYoutubeVideos.Count}");
+            foreach (var video in unassociatedYoutubeVideos)
+                Console.WriteLine($"  {video.title}");
+            var unassociatedTwitchVideos = details.Where(d => d.associatedYoutubeVideo == null).ToList();
+            Console.WriteLine($"Unassociated twitch videos: {unassociatedTwitchVideos.Count}");
+            foreach (var video in unassociatedTwitchVideos)
+                Console.WriteLine($"  {video.Type,-9}  {video.Title}");
+            Console.WriteLine($"Successful links: {youtubeVideos.Count - unassociatedYoutubeVideos.Count}");
         }
 
         private static string GetOutputPath(Detail detail, CollectionEntry? entry)
