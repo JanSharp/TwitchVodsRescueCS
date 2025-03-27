@@ -65,6 +65,7 @@ namespace TwitchVodsRescueCS
         int timeLimit,
         bool validateVideos,
         int? maxConcurrentFinalization,
+        long[]? ids,
         string[]? collections,
         bool nonCollections,
         bool uploadsOnly,
@@ -87,6 +88,8 @@ namespace TwitchVodsRescueCS
         public int timeLimit = timeLimit;
         public bool validateVideos = validateVideos;
         public int maxConcurrentFinalization = Math.Max(1, maxConcurrentFinalization ?? 4);
+        public long[]? ids = ids!.Length == 0 ? null : ids;
+        public HashSet<long>? idsLut = ids!.Length == 0 ? null : ids.ToHashSet();
         public string[]? collections = collections!.Length == 0 ? null : collections;
         public bool nonCollections = nonCollections;
         public bool uploadsOnly = uploadsOnly;
@@ -111,6 +114,7 @@ namespace TwitchVodsRescueCS
         Option<int> timeLimitOpt,
         Option<bool> validateVideosOpt,
         Option<int?> maxConcurrentFinalizationOpt,
+        Option<long[]> idsOpt,
         Option<string[]> collectionsOpt,
         Option<bool> nonCollectionsOpt,
         Option<bool> uploadsOnlyOpt,
@@ -133,6 +137,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<int> timeLimitOpt = timeLimitOpt;
         private readonly Option<bool> validateVideosOpt = validateVideosOpt;
         private readonly Option<int?> maxConcurrentFinalizationOpt = maxConcurrentFinalizationOpt;
+        private readonly Option<long[]> idsOpt = idsOpt;
         private readonly Option<string[]> collectionsOpt = collectionsOpt;
         private readonly Option<bool> nonCollectionsOpt = nonCollectionsOpt;
         private readonly Option<bool> uploadsOnlyOpt = uploadsOnlyOpt;
@@ -158,6 +163,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(timeLimitOpt),
                 bindingContext.ParseResult.GetValueForOption(validateVideosOpt),
                 bindingContext.ParseResult.GetValueForOption(maxConcurrentFinalizationOpt),
+                bindingContext.ParseResult.GetValueForOption(idsOpt),
                 bindingContext.ParseResult.GetValueForOption(collectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(nonCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(uploadsOnlyOpt),
@@ -227,6 +233,8 @@ namespace TwitchVodsRescueCS
                 + "overall be faster so long as the drive is not the bottle neck and the "
                 + "CPU has free cores."
                 + "Default: 4.");
+            var idsOpt = new Option<long[]>("--ids",
+                "Only process videos with the given twitch video ids.");
             var collectionsOpt = new Option<string[]>("--collections",
                 "Only process videos in the given collections.");
             var nonCollectionsOpt = new Option<bool>("--non-collections",
@@ -272,6 +280,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(timeLimitOpt);
             root.AddOption(validateVideosOpt);
             root.AddOption(maxConcurrentFinalizationOpt);
+            root.AddOption(idsOpt);
             root.AddOption(collectionsOpt);
             root.AddOption(nonCollectionsOpt);
             root.AddOption(uploadsOnlyOpt);
@@ -295,6 +304,7 @@ namespace TwitchVodsRescueCS
                 timeLimitOpt,
                 validateVideosOpt,
                 maxConcurrentFinalizationOpt,
+                idsOpt,
                 collectionsOpt,
                 nonCollectionsOpt,
                 uploadsOnlyOpt,
@@ -744,7 +754,8 @@ namespace TwitchVodsRescueCS
 
         private static bool ShouldProcessDetail(Detail detail)
         {
-            return !options.uploadsOnly || detail.Type == "upload";
+            return (!options.uploadsOnly || detail.Type == "upload")
+                && (options.idsLut?.Contains(detail.GetId()) ?? true);
         }
 
         private static void ListCollections()
