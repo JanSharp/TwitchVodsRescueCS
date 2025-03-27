@@ -73,6 +73,7 @@ namespace TwitchVodsRescueCS
         bool listVideos,
         bool listVideosInMultipleCollections,
         bool listYoutubeVsTwitch,
+        bool listDuplicatedYoutubeVideos,
         DirectoryInfo? outputDir,
         DirectoryInfo? configDir,
         DirectoryInfo? tempDir,
@@ -94,6 +95,7 @@ namespace TwitchVodsRescueCS
         public bool listVideos = listVideos;
         public bool listVideosInMultipleCollections = listVideosInMultipleCollections;
         public bool listYoutubeVsTwitch = listYoutubeVsTwitch;
+        public bool listDuplicatedYoutubeVideos = listDuplicatedYoutubeVideos;
         public DirectoryInfo outputDir = outputDir ?? new DirectoryInfo("downloads");
         public DirectoryInfo configDir = configDir ?? new DirectoryInfo("configuration");
         public DirectoryInfo? tempDir = tempDir;
@@ -117,6 +119,7 @@ namespace TwitchVodsRescueCS
         Option<bool> listVideosOpt,
         Option<bool> listVideosInMultipleCollectionsOpt,
         Option<bool> listYoutubeVsTwitchOpt,
+        Option<bool> listDuplicatedYoutubeVideosOpt,
         Option<DirectoryInfo> outputDirOpt,
         Option<DirectoryInfo> configDirOpt,
         Option<DirectoryInfo?> tempDirOpt,
@@ -138,6 +141,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<bool> listVideosOpt = listVideosOpt;
         private readonly Option<bool> listVideosInMultipleCollectionsOpt = listVideosInMultipleCollectionsOpt;
         private readonly Option<bool> listYoutubeVsTwitchOpt = listYoutubeVsTwitchOpt;
+        private readonly Option<bool> listDuplicatedYoutubeVideosOpt = listDuplicatedYoutubeVideosOpt;
         private readonly Option<DirectoryInfo> outputDirOpt = outputDirOpt;
         private readonly Option<DirectoryInfo> configDirOpt = configDirOpt;
         private readonly Option<DirectoryInfo?> tempDirOpt = tempDirOpt;
@@ -162,6 +166,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(listVideosOpt),
                 bindingContext.ParseResult.GetValueForOption(listVideosInMultipleCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(listYoutubeVsTwitchOpt),
+                bindingContext.ParseResult.GetValueForOption(listDuplicatedYoutubeVideosOpt),
                 bindingContext.ParseResult.GetValueForOption(outputDirOpt),
                 bindingContext.ParseResult.GetValueForOption(configDirOpt),
                 bindingContext.ParseResult.GetValueForOption(tempDirOpt),
@@ -242,6 +247,8 @@ namespace TwitchVodsRescueCS
                 + "Reads text files from a 'youtube' folder from the configuration folder "
                 + "where each file is a control A C of a page from youtube's video "
                 + "manager.");
+            var listDuplicatedYoutubeVideosOpt = new Option<bool>("--list-duplicated-youtube-videos",
+                "Lists youtube videos which got exported twice.");
             var outputDirOpt = new Option<DirectoryInfo>("--output-dir",
                 "The directory to save downloaded files to. Use forward slashes. "
                 + "Default: 'downloads'.");
@@ -273,6 +280,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(listVideosOpt);
             root.AddOption(listVideosInMultipleCollectionsOpt);
             root.AddOption(listYoutubeVsTwitchOpt);
+            root.AddOption(listDuplicatedYoutubeVideosOpt);
             root.AddOption(outputDirOpt);
             root.AddOption(configDirOpt);
             root.AddOption(tempDirOpt);
@@ -295,6 +303,7 @@ namespace TwitchVodsRescueCS
                 listVideosOpt,
                 listVideosInMultipleCollectionsOpt,
                 listYoutubeVsTwitchOpt,
+                listDuplicatedYoutubeVideosOpt,
                 outputDirOpt,
                 configDirOpt,
                 tempDirOpt,
@@ -724,6 +733,11 @@ namespace TwitchVodsRescueCS
                 ListYoutubeVsTwitch();
                 return;
             }
+            if (options.listDuplicatedYoutubeVideos)
+            {
+                ListDuplicatedYoutubeVideos();
+                return;
+            }
 
             await ProcessAllDownloadsMain();
         }
@@ -793,6 +807,16 @@ namespace TwitchVodsRescueCS
             foreach (var video in unassociatedTwitchVideos)
                 Console.WriteLine($"  {video.Type,-9}  {video.Title}");
             Console.WriteLine($"Successful links: {youtubeVideos.Count - unassociatedYoutubeVideos.Count}");
+        }
+
+        private static void ListDuplicatedYoutubeVideos()
+        {
+            foreach (var videoGroup in youtubeVideos
+                .GroupBy(y => y.title)
+                .Where(g => g.Count() > 1 && g.Any(video => g.Any(other => video != other && Math.Abs(video.seconds - other.seconds) < 5))))
+            {
+                Console.WriteLine(videoGroup.First().title);
+            }
         }
 
         private static string GetOutputPath(Detail detail, CollectionEntry? entry)
