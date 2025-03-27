@@ -67,6 +67,7 @@ namespace TwitchVodsRescueCS
         int? maxConcurrentFinalization,
         string[]? collections,
         bool nonCollections,
+        bool uploadsOnly,
         bool listCollections,
         bool listDuplicateTitles,
         bool listVideos,
@@ -87,6 +88,7 @@ namespace TwitchVodsRescueCS
         public int maxConcurrentFinalization = Math.Max(1, maxConcurrentFinalization ?? 4);
         public string[]? collections = collections!.Length == 0 ? null : collections;
         public bool nonCollections = nonCollections;
+        public bool uploadsOnly = uploadsOnly;
         public bool listCollections = listCollections;
         public bool listDuplicateTitles = listDuplicateTitles;
         public bool listVideos = listVideos;
@@ -109,6 +111,7 @@ namespace TwitchVodsRescueCS
         Option<int?> maxConcurrentFinalizationOpt,
         Option<string[]> collectionsOpt,
         Option<bool> nonCollectionsOpt,
+        Option<bool> uploadsOnlyOpt,
         Option<bool> listCollectionsOpt,
         Option<bool> listDuplicateTitlesOpt,
         Option<bool> listVideosOpt,
@@ -129,6 +132,7 @@ namespace TwitchVodsRescueCS
         private readonly Option<int?> maxConcurrentFinalizationOpt = maxConcurrentFinalizationOpt;
         private readonly Option<string[]> collectionsOpt = collectionsOpt;
         private readonly Option<bool> nonCollectionsOpt = nonCollectionsOpt;
+        private readonly Option<bool> uploadsOnlyOpt = uploadsOnlyOpt;
         private readonly Option<bool> listCollectionsOpt = listCollectionsOpt;
         private readonly Option<bool> listDuplicateTitlesOpt = listDuplicateTitlesOpt;
         private readonly Option<bool> listVideosOpt = listVideosOpt;
@@ -152,6 +156,7 @@ namespace TwitchVodsRescueCS
                 bindingContext.ParseResult.GetValueForOption(maxConcurrentFinalizationOpt),
                 bindingContext.ParseResult.GetValueForOption(collectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(nonCollectionsOpt),
+                bindingContext.ParseResult.GetValueForOption(uploadsOnlyOpt),
                 bindingContext.ParseResult.GetValueForOption(listCollectionsOpt),
                 bindingContext.ParseResult.GetValueForOption(listDuplicateTitlesOpt),
                 bindingContext.ParseResult.GetValueForOption(listVideosOpt),
@@ -221,6 +226,8 @@ namespace TwitchVodsRescueCS
                 "Only process videos in the given collections.");
             var nonCollectionsOpt = new Option<bool>("--non-collections",
                 "Only process videos which are not part of a collection.");
+            var uploadsOnlyOpt = new Option<bool>("--uploads-only",
+                "Only process videos which are uploads, not highlights.");
             var listCollectionsOpt = new Option<bool>("--list-collections",
                 "List all names of collections.");
             var listDuplicateTitlesOpt = new Option<bool>("--list-duplicate-titles",
@@ -260,6 +267,7 @@ namespace TwitchVodsRescueCS
             root.AddOption(maxConcurrentFinalizationOpt);
             root.AddOption(collectionsOpt);
             root.AddOption(nonCollectionsOpt);
+            root.AddOption(uploadsOnlyOpt);
             root.AddOption(listCollectionsOpt);
             root.AddOption(listDuplicateTitlesOpt);
             root.AddOption(listVideosOpt);
@@ -281,6 +289,7 @@ namespace TwitchVodsRescueCS
                 maxConcurrentFinalizationOpt,
                 collectionsOpt,
                 nonCollectionsOpt,
+                uploadsOnlyOpt,
                 listCollectionsOpt,
                 listDuplicateTitlesOpt,
                 listVideosOpt,
@@ -719,6 +728,11 @@ namespace TwitchVodsRescueCS
             await ProcessAllDownloadsMain();
         }
 
+        private static bool ShouldProcessDetail(Detail detail)
+        {
+            return !options.uploadsOnly || detail.Type == "upload";
+        }
+
         private static void ListCollections()
         {
             foreach (Collection collection in collections)
@@ -739,7 +753,7 @@ namespace TwitchVodsRescueCS
             if (options.nonCollections || options.collections == null)
             {
                 Console.WriteLine("Videos not in any collections:");
-                var list = details.Where(d => d.collectionEntries.Count == 0);
+                var list = details.Where(d => d.collectionEntries.Count == 0 && ShouldProcessDetail(d));
                 foreach (Detail detail in options.newestFirst ? list : list.Reverse())
                     Console.WriteLine($"  {detail.CreatedAt}  {detail.GetId(),10}  {detail.Title}");
             }
@@ -752,7 +766,8 @@ namespace TwitchVodsRescueCS
                     continue;
                 Console.WriteLine($"{collection.collectionTitle}:");
                 foreach (CollectionEntry entry in options.newestFirst ? collection.entries.AsEnumerable().Reverse() : collection.entries)
-                    Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.detail.GetId(),10}  {entry.title}");
+                    if (ShouldProcessDetail(entry.detail))
+                        Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.detail.GetId(),10}  {entry.title}");
             }
         }
 
@@ -910,7 +925,8 @@ namespace TwitchVodsRescueCS
                     .SelectMany(ct => {
                         var list = collectionsByTitle[ct].entries.Select(e => e.detail);
                         return options.newestFirst ? list.Reverse() : list;
-                    }))
+                    })
+                    .Where(ShouldProcessDetail))
                 {
                     if (visited.Contains(detail))
                         continue;
@@ -924,7 +940,8 @@ namespace TwitchVodsRescueCS
 
             foreach (Detail detail in options.newestFirst ? details : details.AsEnumerable().Reverse())
             {
-                if (options.validateVideos || !options.nonCollections || detail.collectionEntries.Count == 0)
+                if (ShouldProcessDetail(detail)
+                    && (options.validateVideos || !options.nonCollections || detail.collectionEntries.Count == 0))
                 {
                     await ProcessDownloads(detail);
                     if (ShouldStop())
