@@ -780,7 +780,7 @@ namespace TwitchVodsRescueCS
                 Console.WriteLine("Videos not in any collections:");
                 var list = details.Where(d => d.collectionEntries.Count == 0 && ShouldProcessDetail(d));
                 foreach (Detail detail in options.newestFirst ? list : list.Reverse())
-                    Console.WriteLine($"  {detail.CreatedAt}  {detail.GetId(),10}  {detail.Title}");
+                    Console.WriteLine($"  {detail.CreatedAt}  {detail.GetId(),10}  {detail.associatedYoutubeVideo?.visibility ?? "-",-17}  {detail.Title}");
             }
             if (options.nonCollections)
                 return;
@@ -792,7 +792,7 @@ namespace TwitchVodsRescueCS
                 Console.WriteLine($"{collection.collectionTitle}:");
                 foreach (CollectionEntry entry in options.newestFirst ? collection.entries.AsEnumerable().Reverse() : collection.entries)
                     if (ShouldProcessDetail(entry.detail))
-                        Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.detail.GetId(),10}  {entry.title}");
+                        Console.WriteLine($"  {entry.index,3}  {entry.detail.CreatedAt}  {entry.detail.GetId(),10}  {entry.detail.associatedYoutubeVideo?.visibility ?? "-",-17}  {entry.title}");
             }
         }
 
