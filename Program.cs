@@ -7,7 +7,6 @@ using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace TwitchVodsRescueCS
 {
@@ -387,11 +386,27 @@ namespace TwitchVodsRescueCS
             public JObject? additionalMetadata;
             public string[] thumbnailURLs = [];
 
+            public Detail CreateFromIdAndJson(long id, string infoJson)
+            {
+                JObject obj = (JObject)JObject.Parse(infoJson)["data"]!["video"]!;
+                URL = $"https://www.twitch.tv/videos/{id}";
+                Title = (string)obj["title"]!;
+                Type = "archive";
+                ViewCount = (int)obj["viewCount"]!;
+                Timestamp duration = new((long)obj["lengthSeconds"]! * 1000L);
+                Duration = $"{duration.Hours}h{duration.Minutes}m{duration.Seconds}s";
+                CreatedAt = (string)obj["createdAt"]!;
+                Initialize();
+                additionalMetadata = obj;
+                GetThumbnailURLsFromJson(obj);
+                return this;
+            }
+
             public async Task GetAdditionalMetadataFromTwitch()
             {
                 if (additionalMetadata != null)
                     return;
-                additionalMetadata = (JObject)JObject.Parse(await TwitchHelper.GetVideoInfo(GetId()))["data"]!["video"]!;
+                additionalMetadata = (JObject)JObject.Parse(await TwitchHelper.GetVideoThumbnails(GetId()))["data"]!["video"]!;
                 GetThumbnailURLsFromJson(additionalMetadata);
             }
 
@@ -983,6 +998,21 @@ namespace TwitchVodsRescueCS
                         break;
                 }
             }
+
+            foreach (long id in options.ids?.Except(details.Select(d => d.GetId())) ?? [])
+            {
+                Detail? detail = await GenerateDetailForId(id);
+                if (detail != null)
+                    await ProcessDownloads(detail);
+                if (ShouldStop())
+                    break;
+            }
+        }
+
+        private static async Task<Detail?> GenerateDetailForId(long id)
+        {
+            string? infoJson = await TwitchHelper.GetVideoInfo(id);
+            return infoJson == null ? null : new Detail().CreateFromIdAndJson(id, infoJson);
         }
 
         private static async Task ProcessDownloads(Detail detail)
@@ -1381,7 +1411,7 @@ namespace TwitchVodsRescueCS
     {
         private static readonly HttpClient httpClient = new();
 
-        public static async Task<string> GetVideoInfo(long videoId)
+        public static async Task<string> GetVideoThumbnails(long videoId)
         {
             await Task.Delay(50); // A little bit of rate limiting.
             var request = new HttpRequestMessage()
@@ -1400,6 +1430,26 @@ namespace TwitchVodsRescueCS
             response.EnsureSuccessStatusCode();
             await Task.Delay(50); // A little bit of rate limiting.
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public static async Task<string?> GetVideoInfo(long videoId)
+        {
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri("https://gql.twitch.tv/gql"),
+                Method = HttpMethod.Post,
+                Content = new StringContent("{\"query\":\"query{video(id:\\\"" + videoId + "\\\"){title,thumbnailURLs(height:1080,width:1920),createdAt,lengthSeconds,owner{id,displayName,login},viewCount,game{id,displayName,boxArtURL},description}}\",\"variables\":{}}", Encoding.UTF8, "application/json")
+            };
+            // NOTE: This is using the same client id as the TwitchDownloaderCLI. This is probably the wrong thing to do,
+            // however I am not interested in figuring out how twitch's api actually works. Besides me copying this
+            // function into the project here is just a shortcut to make myself not have to parse standard output from the
+            // TwitchDownloaderCLI. This is just easier and this entire program here is one time use throwaway anyway.
+            // cSpell:ignore kimne78kx3ncx6brgo4mv6wki5h1ko
+            request.Headers.Add("Client-ID", "kimne78kx3ncx6brgo4mv6wki5h1ko");
+            using var response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            return response.IsSuccessStatusCode
+                ? await response.Content.ReadAsStringAsync()
+                : null;
         }
     }
 }
